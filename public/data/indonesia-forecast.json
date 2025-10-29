@@ -1,0 +1,29 @@
+[
+  {
+    "year": 2023,
+    "food_supply": 2941.3,
+    "import_ratio": 8,
+    "malnutrition_rate": 6.8,
+    "protein_supply": 77.8,
+    "stability_index": -0.5,
+    "is_forecast": true
+  },
+  {
+    "year": 2024,
+    "food_supply": 2975.7,
+    "import_ratio": 8,
+    "malnutrition_rate": 7,
+    "protein_supply": 79.3,
+    "stability_index": -0.5,
+    "is_forecast": true
+  },
+  {
+    "year": 2025,
+    "food_supply": 3010,
+    "import_ratio": 8,
+    "malnutrition_rate": 7.2,
+    "protein_supply": 80.8,
+    "stability_index": -0.5,
+    "is_forecast": true
+  }
+]

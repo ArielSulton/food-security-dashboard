@@ -1,0 +1,2674 @@
+[
+  {
+    "name": "Afghanistan",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2243,
+    "import_ratio": 165,
+    "malnutrition_rate": 30.1,
+    "protein_supply": 61.03,
+    "stability_index": -2.54
+  },
+  {
+    "name": "Albania",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3390,
+    "import_ratio": 23,
+    "malnutrition_rate": 4.1,
+    "protein_supply": 119.5,
+    "stability_index": 0.11
+  },
+  {
+    "name": "Algeria",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3468,
+    "import_ratio": 21,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 95.7,
+    "stability_index": -0.65
+  },
+  {
+    "name": "Angola",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2435,
+    "import_ratio": 6,
+    "malnutrition_rate": 21.6,
+    "protein_supply": 49.15,
+    "stability_index": -0.63
+  },
+  {
+    "name": "Argentina",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3347,
+    "import_ratio": 7,
+    "malnutrition_rate": 3.2,
+    "protein_supply": 120.62,
+    "stability_index": -0.1
+  },
+  {
+    "name": "Armenia",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3277,
+    "import_ratio": 17,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 109.64,
+    "stability_index": -0.74
+  },
+  {
+    "name": "Australia",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3471,
+    "import_ratio": 4,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 116.5,
+    "stability_index": 0.98
+  },
+  {
+    "name": "Austria",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3812,
+    "import_ratio": 7,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 111.85,
+    "stability_index": 0.65
+  },
+  {
+    "name": "Azerbaijan",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3328,
+    "import_ratio": 7,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 97.57,
+    "stability_index": -0.92
+  },
+  {
+    "name": "Bangladesh",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2581,
+    "import_ratio": 22,
+    "malnutrition_rate": 11.2,
+    "protein_supply": 66.55,
+    "stability_index": -1.05
+  },
+  {
+    "name": "Barbados",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3198,
+    "import_ratio": 87,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 110.66,
+    "stability_index": 1.14
+  },
+  {
+    "name": "Belarus",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3330,
+    "import_ratio": 7,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 112.53,
+    "stability_index": -0.8
+  },
+  {
+    "name": "Belgium",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3909,
+    "import_ratio": 7,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 116.33,
+    "stability_index": 0.58
+  },
+  {
+    "name": "Belize",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2815,
+    "import_ratio": 41,
+    "malnutrition_rate": 4.9,
+    "protein_supply": 84.88,
+    "stability_index": 0.56
+  },
+  {
+    "name": "Benin",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2786,
+    "import_ratio": 29,
+    "malnutrition_rate": 9.9,
+    "protein_supply": 72.48,
+    "stability_index": -0.34
+  },
+  {
+    "name": "Bolivia (Plurinational State of)",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2331,
+    "import_ratio": 6,
+    "malnutrition_rate": 19.4,
+    "protein_supply": 79.1,
+    "stability_index": -0.19
+  },
+  {
+    "name": "Bosnia and Herzegovina",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3368,
+    "import_ratio": 22,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 109.16,
+    "stability_index": -0.48
+  },
+  {
+    "name": "Botswana",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2622,
+    "import_ratio": 13,
+    "malnutrition_rate": 22.9,
+    "protein_supply": 68.62,
+    "stability_index": 1.07
+  },
+  {
+    "name": "Brazil",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3305,
+    "import_ratio": 4,
+    "malnutrition_rate": 4.7,
+    "protein_supply": 101.33,
+    "stability_index": -0.4
+  },
+  {
+    "name": "Bulgaria",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3055,
+    "import_ratio": 11,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 90.5,
+    "stability_index": 0.31
+  },
+  {
+    "name": "Burkina Faso",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2675,
+    "import_ratio": 12,
+    "malnutrition_rate": 16.2,
+    "protein_supply": 93.33,
+    "stability_index": -1.82
+  },
+  {
+    "name": "Cabo Verde",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2642,
+    "import_ratio": 515,
+    "malnutrition_rate": 18.2,
+    "protein_supply": 77.62,
+    "stability_index": 0.93
+  },
+  {
+    "name": "Cambodia",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2724,
+    "import_ratio": 7,
+    "malnutrition_rate": 4.8,
+    "protein_supply": 61.6,
+    "stability_index": -0.1
+  },
+  {
+    "name": "Cameroon",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2840,
+    "import_ratio": 29,
+    "malnutrition_rate": 6.4,
+    "protein_supply": 71.13,
+    "stability_index": -1.38
+  },
+  {
+    "name": "Canada",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3606,
+    "import_ratio": 7,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 115.81,
+    "stability_index": 0.78
+  },
+  {
+    "name": "Central African Republic",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2210,
+    "import_ratio": 89,
+    "malnutrition_rate": 48.7,
+    "protein_supply": 61.85,
+    "stability_index": -2.21
+  },
+  {
+    "name": "Chad",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2184,
+    "import_ratio": 7,
+    "malnutrition_rate": 31.4,
+    "protein_supply": 77.34,
+    "stability_index": -1.47
+  },
+  {
+    "name": "Chile",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3106,
+    "import_ratio": 9,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 101.6,
+    "stability_index": 0.13
+  },
+  {
+    "name": "China, Hong Kong SAR",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2996,
+    "import_ratio": 3,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 126.78,
+    "stability_index": 0.57
+  },
+  {
+    "name": "China, Macao SAR",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2937,
+    "import_ratio": 131,
+    "malnutrition_rate": 8,
+    "protein_supply": 114.58,
+    "stability_index": 1.12
+  },
+  {
+    "name": "Colombia",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3112,
+    "import_ratio": 15,
+    "malnutrition_rate": 6.6,
+    "protein_supply": 81.05,
+    "stability_index": -0.63
+  },
+  {
+    "name": "Comoros",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2416,
+    "import_ratio": 236,
+    "malnutrition_rate": 13.5,
+    "protein_supply": 65.65,
+    "stability_index": -0.23
+  },
+  {
+    "name": "Congo",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2191,
+    "import_ratio": 10,
+    "malnutrition_rate": 33.3,
+    "protein_supply": 56.84,
+    "stability_index": 0.04
+  },
+  {
+    "name": "Costa Rica",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2942,
+    "import_ratio": 13,
+    "malnutrition_rate": 3,
+    "protein_supply": 87.11,
+    "stability_index": 0.96
+  },
+  {
+    "name": "Croatia",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3317,
+    "import_ratio": 17,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 108.3,
+    "stability_index": 0.67
+  },
+  {
+    "name": "Cuba",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3270,
+    "import_ratio": 113,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 87.57,
+    "stability_index": 0.49
+  },
+  {
+    "name": "Cyprus",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3037,
+    "import_ratio": 31,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 101.44,
+    "stability_index": 0.42
+  },
+  {
+    "name": "Czechia",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3426,
+    "import_ratio": 4,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 97.74,
+    "stability_index": 0.81
+  },
+  {
+    "name": "Côte d'Ivoire",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2953,
+    "import_ratio": 12,
+    "malnutrition_rate": 7.7,
+    "protein_supply": 66.66,
+    "stability_index": -0.59
+  },
+  {
+    "name": "Democratic Republic of the Congo",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2150,
+    "import_ratio": 6,
+    "malnutrition_rate": 35.3,
+    "protein_supply": 29.86,
+    "stability_index": -1.98
+  },
+  {
+    "name": "Denmark",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3592,
+    "import_ratio": 8,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 112.79,
+    "stability_index": 0.87
+  },
+  {
+    "name": "Djibouti",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2766,
+    "import_ratio": 43,
+    "malnutrition_rate": 16.8,
+    "protein_supply": 72.24,
+    "stability_index": -0.51
+  },
+  {
+    "name": "Dominica",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3013,
+    "import_ratio": 313,
+    "malnutrition_rate": 6.7,
+    "protein_supply": 100.07,
+    "stability_index": 1.31
+  },
+  {
+    "name": "Dominican Republic",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3228,
+    "import_ratio": 30,
+    "malnutrition_rate": 6.3,
+    "protein_supply": 83.38,
+    "stability_index": 0.25
+  },
+  {
+    "name": "Ecuador",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2549,
+    "import_ratio": 7,
+    "malnutrition_rate": 13.9,
+    "protein_supply": 67.81,
+    "stability_index": -0.37
+  },
+  {
+    "name": "Egypt",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3116,
+    "import_ratio": 37,
+    "malnutrition_rate": 7.2,
+    "protein_supply": 92.16,
+    "stability_index": -0.98
+  },
+  {
+    "name": "El Salvador",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2836,
+    "import_ratio": 39,
+    "malnutrition_rate": 7.7,
+    "protein_supply": 85.01,
+    "stability_index": -0.35
+  },
+  {
+    "name": "Estonia",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3298,
+    "import_ratio": 8,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 110.61,
+    "stability_index": 0.73
+  },
+  {
+    "name": "Eswatini",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2553,
+    "import_ratio": 18,
+    "malnutrition_rate": 11.6,
+    "protein_supply": 59.63,
+    "stability_index": -0.21
+  },
+  {
+    "name": "Ethiopia",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2481,
+    "import_ratio": 90,
+    "malnutrition_rate": 21.9,
+    "protein_supply": 77.94,
+    "stability_index": -2.07
+  },
+  {
+    "name": "Fiji",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2949,
+    "import_ratio": 47,
+    "malnutrition_rate": 6.6,
+    "protein_supply": 82.88,
+    "stability_index": 0.75
+  },
+  {
+    "name": "Finland",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3378,
+    "import_ratio": 6,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 125.37,
+    "stability_index": 0.89
+  },
+  {
+    "name": "France",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3595,
+    "import_ratio": 9,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 119.42,
+    "stability_index": 0.39
+  },
+  {
+    "name": "Gabon",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2552,
+    "import_ratio": 7,
+    "malnutrition_rate": 23,
+    "protein_supply": 86.7,
+    "stability_index": 0.06
+  },
+  {
+    "name": "Gambia",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2452,
+    "import_ratio": 443,
+    "malnutrition_rate": 19.6,
+    "protein_supply": 58.89,
+    "stability_index": 0.04
+  },
+  {
+    "name": "Georgia",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3106,
+    "import_ratio": 26,
+    "malnutrition_rate": 2.9,
+    "protein_supply": 92.53,
+    "stability_index": -0.44
+  },
+  {
+    "name": "Germany",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3604,
+    "import_ratio": 6,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 108.32,
+    "stability_index": 0.63
+  },
+  {
+    "name": "Ghana",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3102,
+    "import_ratio": 17,
+    "malnutrition_rate": 4.9,
+    "protein_supply": 67.92,
+    "stability_index": -0.2
+  },
+  {
+    "name": "Greece",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3398,
+    "import_ratio": 15,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 108.05,
+    "stability_index": 0.11
+  },
+  {
+    "name": "Guatemala",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2791,
+    "import_ratio": 28,
+    "malnutrition_rate": 13.3,
+    "protein_supply": 72.19,
+    "stability_index": -0.26
+  },
+  {
+    "name": "Guinea",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2913,
+    "import_ratio": 13,
+    "malnutrition_rate": 12.9,
+    "protein_supply": 56.69,
+    "stability_index": -0.84
+  },
+  {
+    "name": "Guinea-Bissau",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2291,
+    "import_ratio": 63,
+    "malnutrition_rate": 37.9,
+    "protein_supply": 48.55,
+    "stability_index": -0.39
+  },
+  {
+    "name": "Guyana",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3253,
+    "import_ratio": 4,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 108.61,
+    "stability_index": 0.02
+  },
+  {
+    "name": "Haiti",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 1978,
+    "import_ratio": 159,
+    "malnutrition_rate": 45,
+    "protein_supply": 44.73,
+    "stability_index": -1.42
+  },
+  {
+    "name": "Honduras",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2654,
+    "import_ratio": 20,
+    "malnutrition_rate": 18.7,
+    "protein_supply": 63.6,
+    "stability_index": -0.57
+  },
+  {
+    "name": "Hungary",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3430,
+    "import_ratio": 5,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 88.42,
+    "stability_index": 0.68
+  },
+  {
+    "name": "Iceland",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3677,
+    "import_ratio": 10,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 150.18,
+    "stability_index": 1.25
+  },
+  {
+    "name": "India",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2589,
+    "import_ratio": 7,
+    "malnutrition_rate": 16.6,
+    "protein_supply": 72.39,
+    "stability_index": -0.62
+  },
+  {
+    "name": "Indonesia",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2830,
+    "import_ratio": 7,
+    "malnutrition_rate": 5.9,
+    "protein_supply": 76.47,
+    "stability_index": -0.55
+  },
+  {
+    "name": "Iran (Islamic Republic of)",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2879,
+    "import_ratio": 15,
+    "malnutrition_rate": 6.1,
+    "protein_supply": 82.46,
+    "stability_index": -1.63
+  },
+  {
+    "name": "Iraq",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2685,
+    "import_ratio": 12,
+    "malnutrition_rate": 16.3,
+    "protein_supply": 73.13,
+    "stability_index": -2.41
+  },
+  {
+    "name": "Ireland",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3911,
+    "import_ratio": 5,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 138.59,
+    "stability_index": 0.88
+  },
+  {
+    "name": "Israel",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3923,
+    "import_ratio": 11,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 138.65,
+    "stability_index": -1.23
+  },
+  {
+    "name": "Italy",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3703,
+    "import_ratio": 7,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 115.91,
+    "stability_index": 0.47
+  },
+  {
+    "name": "Jamaica",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2928,
+    "import_ratio": 68,
+    "malnutrition_rate": 8.3,
+    "protein_supply": 93.14,
+    "stability_index": 0.36
+  },
+  {
+    "name": "Japan",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2693,
+    "import_ratio": 7,
+    "malnutrition_rate": 3.2,
+    "protein_supply": 94.55,
+    "stability_index": 1.03
+  },
+  {
+    "name": "Kazakhstan",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3440,
+    "import_ratio": 7,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 112.76,
+    "stability_index": -0.47
+  },
+  {
+    "name": "Kenya",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2100,
+    "import_ratio": 44,
+    "malnutrition_rate": 27.8,
+    "protein_supply": 54.79,
+    "stability_index": -0.95
+  },
+  {
+    "name": "Kiribati",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3096,
+    "import_ratio": 562,
+    "malnutrition_rate": 12.1,
+    "protein_supply": 84.11,
+    "stability_index": 1.1
+  },
+  {
+    "name": "Kuwait",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3508,
+    "import_ratio": 6,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 114.74,
+    "stability_index": 0.29
+  },
+  {
+    "name": "Kyrgyzstan",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2761,
+    "import_ratio": 38,
+    "malnutrition_rate": 4.8,
+    "protein_supply": 93.71,
+    "stability_index": -0.47
+  },
+  {
+    "name": "Lao People's Democratic Republic",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3169,
+    "import_ratio": 13,
+    "malnutrition_rate": 4.7,
+    "protein_supply": 80.13,
+    "stability_index": 0.79
+  },
+  {
+    "name": "Latvia",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3313,
+    "import_ratio": 16,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 108.71,
+    "stability_index": 0.49
+  },
+  {
+    "name": "Lesotho",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 1806,
+    "import_ratio": 40,
+    "malnutrition_rate": 46,
+    "protein_supply": 47.79,
+    "stability_index": -0.29
+  },
+  {
+    "name": "Liberia",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2103,
+    "import_ratio": 45,
+    "malnutrition_rate": 38.4,
+    "protein_supply": 46,
+    "stability_index": -0.27
+  },
+  {
+    "name": "Libya",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3195,
+    "import_ratio": 11,
+    "malnutrition_rate": 8.4,
+    "protein_supply": 97.36,
+    "stability_index": -2.19
+  },
+  {
+    "name": "Lithuania",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3407,
+    "import_ratio": 10,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 128.12,
+    "stability_index": 0.65
+  },
+  {
+    "name": "Luxembourg",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3483,
+    "import_ratio": 15,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 117.9,
+    "stability_index": 1.06
+  },
+  {
+    "name": "Madagascar",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 1979,
+    "import_ratio": 26,
+    "malnutrition_rate": 51,
+    "protein_supply": 39.79,
+    "stability_index": -0.48
+  },
+  {
+    "name": "Malawi",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2643,
+    "import_ratio": 22,
+    "malnutrition_rate": 17.8,
+    "protein_supply": 65.92,
+    "stability_index": -0.16
+  },
+  {
+    "name": "Malaysia",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3003,
+    "import_ratio": 6,
+    "malnutrition_rate": 2.7,
+    "protein_supply": 95.42,
+    "stability_index": 0.16
+  },
+  {
+    "name": "Mali",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2792,
+    "import_ratio": 18,
+    "malnutrition_rate": 12.8,
+    "protein_supply": 74.3,
+    "stability_index": -2.56
+  },
+  {
+    "name": "Malta",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3298,
+    "import_ratio": 21,
+    "malnutrition_rate": 4.6,
+    "protein_supply": 100.45,
+    "stability_index": 0.91
+  },
+  {
+    "name": "Mauritania",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3000,
+    "import_ratio": 30,
+    "malnutrition_rate": 8.7,
+    "protein_supply": 86.94,
+    "stability_index": -0.52
+  },
+  {
+    "name": "Mauritius",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3111,
+    "import_ratio": 42,
+    "malnutrition_rate": 6.8,
+    "protein_supply": 99.86,
+    "stability_index": 0.83
+  },
+  {
+    "name": "Mexico",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3326,
+    "import_ratio": 6,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 101.05,
+    "stability_index": -0.69
+  },
+  {
+    "name": "Mongolia",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3088,
+    "import_ratio": 7,
+    "malnutrition_rate": 8,
+    "protein_supply": 135.38,
+    "stability_index": 0.53
+  },
+  {
+    "name": "Montenegro",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3574,
+    "import_ratio": 115,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 128.61,
+    "stability_index": -0.14
+  },
+  {
+    "name": "Morocco",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3328,
+    "import_ratio": 19,
+    "malnutrition_rate": 6.3,
+    "protein_supply": 97.96,
+    "stability_index": -0.36
+  },
+  {
+    "name": "Mozambique",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2155,
+    "import_ratio": 22,
+    "malnutrition_rate": 30.5,
+    "protein_supply": 43.92,
+    "stability_index": -1.27
+  },
+  {
+    "name": "Myanmar",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2807,
+    "import_ratio": 10,
+    "malnutrition_rate": 3.8,
+    "protein_supply": 78.86,
+    "stability_index": -2.2
+  },
+  {
+    "name": "Namibia",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2586,
+    "import_ratio": 13,
+    "malnutrition_rate": 17.1,
+    "protein_supply": 67.89,
+    "stability_index": 0.56
+  },
+  {
+    "name": "Nepal",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2931,
+    "import_ratio": 164,
+    "malnutrition_rate": 5.4,
+    "protein_supply": 81.76,
+    "stability_index": -0.24
+  },
+  {
+    "name": "Netherlands (Kingdom of the)",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3536,
+    "import_ratio": 8,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 117.5,
+    "stability_index": 0.73
+  },
+  {
+    "name": "New Zealand",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3147,
+    "import_ratio": 10,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 105.44,
+    "stability_index": 1.32
+  },
+  {
+    "name": "Nicaragua",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2694,
+    "import_ratio": 18,
+    "malnutrition_rate": 17.8,
+    "protein_supply": 73.44,
+    "stability_index": -0.36
+  },
+  {
+    "name": "Niger",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2631,
+    "import_ratio": 60,
+    "malnutrition_rate": 16.1,
+    "protein_supply": 88.46,
+    "stability_index": -1.46
+  },
+  {
+    "name": "Nigeria",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2503,
+    "import_ratio": 12,
+    "malnutrition_rate": 15.9,
+    "protein_supply": 58.73,
+    "stability_index": -1.78
+  },
+  {
+    "name": "North Macedonia",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3148,
+    "import_ratio": 12,
+    "malnutrition_rate": 3.6,
+    "protein_supply": 92.71,
+    "stability_index": 0.18
+  },
+  {
+    "name": "Norway",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3505,
+    "import_ratio": 3,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 127.45,
+    "stability_index": 0.86
+  },
+  {
+    "name": "Oman",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3064,
+    "import_ratio": 7,
+    "malnutrition_rate": 2.8,
+    "protein_supply": 88.57,
+    "stability_index": 0.53
+  },
+  {
+    "name": "Pakistan",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2443,
+    "import_ratio": 30,
+    "malnutrition_rate": 18.5,
+    "protein_supply": 70.11,
+    "stability_index": -1.84
+  },
+  {
+    "name": "Panama",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3061,
+    "import_ratio": 14,
+    "malnutrition_rate": 5.3,
+    "protein_supply": 94.65,
+    "stability_index": 0.29
+  },
+  {
+    "name": "Papua New Guinea",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2223,
+    "import_ratio": 7,
+    "malnutrition_rate": 23.4,
+    "protein_supply": 63.25,
+    "stability_index": -0.66
+  },
+  {
+    "name": "Paraguay",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3056,
+    "import_ratio": 9,
+    "malnutrition_rate": 4.2,
+    "protein_supply": 73.73,
+    "stability_index": 0.04
+  },
+  {
+    "name": "Peru",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2805,
+    "import_ratio": 9,
+    "malnutrition_rate": 7,
+    "protein_supply": 88.03,
+    "stability_index": -0.49
+  },
+  {
+    "name": "Philippines",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2849,
+    "import_ratio": 19,
+    "malnutrition_rate": 5.2,
+    "protein_supply": 76.8,
+    "stability_index": -0.66
+  },
+  {
+    "name": "Poland",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3616,
+    "import_ratio": 6,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 115.61,
+    "stability_index": 0.51
+  },
+  {
+    "name": "Portugal",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3510,
+    "import_ratio": 14,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 121.66,
+    "stability_index": 0.8
+  },
+  {
+    "name": "Republic of Korea",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3442,
+    "import_ratio": 5,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 109.97,
+    "stability_index": 0.58
+  },
+  {
+    "name": "Republic of Moldova",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2889,
+    "import_ratio": 24,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 84.54,
+    "stability_index": -0.66
+  },
+  {
+    "name": "Romania",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3623,
+    "import_ratio": 12,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 108.59,
+    "stability_index": 0.43
+  },
+  {
+    "name": "Russian Federation",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3454,
+    "import_ratio": 5,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 117.55,
+    "stability_index": -1.01
+  },
+  {
+    "name": "Rwanda",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2315,
+    "import_ratio": 38,
+    "malnutrition_rate": 31.6,
+    "protein_supply": 55.56,
+    "stability_index": 0.08
+  },
+  {
+    "name": "Saint Vincent and the Grenadines",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2963,
+    "import_ratio": 236,
+    "malnutrition_rate": 3.1,
+    "protein_supply": 114.55,
+    "stability_index": 1.03
+  },
+  {
+    "name": "Samoa",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3063,
+    "import_ratio": 255,
+    "malnutrition_rate": 4.6,
+    "protein_supply": 101.71,
+    "stability_index": 1.1
+  },
+  {
+    "name": "Sao Tome and Principe",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2377,
+    "import_ratio": 254,
+    "malnutrition_rate": 13.1,
+    "protein_supply": 56.51,
+    "stability_index": 0.46
+  },
+  {
+    "name": "Saudi Arabia",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3276,
+    "import_ratio": 7,
+    "malnutrition_rate": 3.8,
+    "protein_supply": 93.44,
+    "stability_index": -0.36
+  },
+  {
+    "name": "Senegal",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2826,
+    "import_ratio": 46,
+    "malnutrition_rate": 5.7,
+    "protein_supply": 71.01,
+    "stability_index": -0.16
+  },
+  {
+    "name": "Serbia",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3612,
+    "import_ratio": 9,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 126.14,
+    "stability_index": -0.17
+  },
+  {
+    "name": "Seychelles",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3222,
+    "import_ratio": 33,
+    "malnutrition_rate": 4.3,
+    "protein_supply": 115.88,
+    "stability_index": 0.76
+  },
+  {
+    "name": "Sierra Leone",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2317,
+    "import_ratio": 46,
+    "malnutrition_rate": 27.8,
+    "protein_supply": 53.65,
+    "stability_index": -0.09
+  },
+  {
+    "name": "Slovakia",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2983,
+    "import_ratio": 6,
+    "malnutrition_rate": 2.8,
+    "protein_supply": 79.16,
+    "stability_index": 0.45
+  },
+  {
+    "name": "Slovenia",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3094,
+    "import_ratio": 5,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 98.95,
+    "stability_index": 0.71
+  },
+  {
+    "name": "Solomon Islands",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2306,
+    "import_ratio": 25,
+    "malnutrition_rate": 19,
+    "protein_supply": 58.13,
+    "stability_index": 0.41
+  },
+  {
+    "name": "Somalia",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 1833,
+    "import_ratio": 368,
+    "malnutrition_rate": 48.7,
+    "protein_supply": 40.31,
+    "stability_index": -2.43
+  },
+  {
+    "name": "South Africa",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2761,
+    "import_ratio": 5,
+    "malnutrition_rate": 7.9,
+    "protein_supply": 81.21,
+    "stability_index": -0.68
+  },
+  {
+    "name": "South Sudan",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2415,
+    "import_ratio": 62,
+    "malnutrition_rate": 21.4,
+    "protein_supply": 74.75,
+    "stability_index": -2.21
+  },
+  {
+    "name": "Spain",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3375,
+    "import_ratio": 9,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 117.06,
+    "stability_index": 0.32
+  },
+  {
+    "name": "Sri Lanka",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2802,
+    "import_ratio": 18,
+    "malnutrition_rate": 5.3,
+    "protein_supply": 70.78,
+    "stability_index": -0.8
+  },
+  {
+    "name": "Sudan",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2648,
+    "import_ratio": 60,
+    "malnutrition_rate": 11.9,
+    "protein_supply": 74.26,
+    "stability_index": -2.08
+  },
+  {
+    "name": "Suriname",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2652,
+    "import_ratio": 9,
+    "malnutrition_rate": 9,
+    "protein_supply": 72.95,
+    "stability_index": 0.4
+  },
+  {
+    "name": "Sweden",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3328,
+    "import_ratio": 7,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 113.17,
+    "stability_index": 0.91
+  },
+  {
+    "name": "Switzerland",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3453,
+    "import_ratio": 3,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 104.38,
+    "stability_index": 1.16
+  },
+  {
+    "name": "Syrian Arab Republic",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2387,
+    "import_ratio": 38,
+    "malnutrition_rate": 27.8,
+    "protein_supply": 69.93,
+    "stability_index": -2.78
+  },
+  {
+    "name": "Tajikistan",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2768,
+    "import_ratio": 51,
+    "malnutrition_rate": 9.3,
+    "protein_supply": 84.06,
+    "stability_index": -0.74
+  },
+  {
+    "name": "Thailand",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2878,
+    "import_ratio": 4,
+    "malnutrition_rate": 5.2,
+    "protein_supply": 67.94,
+    "stability_index": -0.39
+  },
+  {
+    "name": "Timor-Leste",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2269,
+    "import_ratio": 51,
+    "malnutrition_rate": 22.3,
+    "protein_supply": 63.72,
+    "stability_index": 0.26
+  },
+  {
+    "name": "Togo",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2596,
+    "import_ratio": 32,
+    "malnutrition_rate": 17.4,
+    "protein_supply": 56.89,
+    "stability_index": -0.79
+  },
+  {
+    "name": "Trinidad and Tobago",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2916,
+    "import_ratio": 10,
+    "malnutrition_rate": 12.2,
+    "protein_supply": 86.77,
+    "stability_index": 0.35
+  },
+  {
+    "name": "Tunisia",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3472,
+    "import_ratio": 14,
+    "malnutrition_rate": 3,
+    "protein_supply": 102.4,
+    "stability_index": -0.59
+  },
+  {
+    "name": "Turkmenistan",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2835,
+    "import_ratio": 5,
+    "malnutrition_rate": 5.7,
+    "protein_supply": 100.16,
+    "stability_index": -0.11
+  },
+  {
+    "name": "Türkiye",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3861,
+    "import_ratio": 7,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 115.87,
+    "stability_index": -1.03
+  },
+  {
+    "name": "Uganda",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2166,
+    "import_ratio": 24,
+    "malnutrition_rate": 31.6,
+    "protein_supply": 52.65,
+    "stability_index": -0.71
+  },
+  {
+    "name": "Ukraine",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2851,
+    "import_ratio": 10,
+    "malnutrition_rate": 4.8,
+    "protein_supply": 90.31,
+    "stability_index": -1.95
+  },
+  {
+    "name": "United Arab Emirates",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3321,
+    "import_ratio": 4,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 115.08,
+    "stability_index": 0.74
+  },
+  {
+    "name": "United Kingdom of Great Britain and Northern Ireland",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3355,
+    "import_ratio": 12,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 109.01,
+    "stability_index": 0.53
+  },
+  {
+    "name": "United Republic of Tanzania",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2358,
+    "import_ratio": 15,
+    "malnutrition_rate": 23.5,
+    "protein_supply": 58.31,
+    "stability_index": -0.26
+  },
+  {
+    "name": "United States of America",
+    "cluster": 1,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3912,
+    "import_ratio": 9,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 122.81,
+    "stability_index": 0.01
+  },
+  {
+    "name": "Uruguay",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3307,
+    "import_ratio": 14,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 102.18,
+    "stability_index": 1.09
+  },
+  {
+    "name": "Uzbekistan",
+    "cluster": 2,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3272,
+    "import_ratio": 21,
+    "malnutrition_rate": 2.5,
+    "protein_supply": 105.8,
+    "stability_index": -0.2
+  },
+  {
+    "name": "Vanuatu",
+    "cluster": 4,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2786,
+    "import_ratio": 148,
+    "malnutrition_rate": 9.5,
+    "protein_supply": 71.84,
+    "stability_index": 0.96
+  },
+  {
+    "name": "Venezuela (Bolivarian Republic of)",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2318,
+    "import_ratio": 49,
+    "malnutrition_rate": 17.9,
+    "protein_supply": 63.8,
+    "stability_index": -1.25
+  },
+  {
+    "name": "Viet Nam",
+    "cluster": 3,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 3072,
+    "import_ratio": 6,
+    "malnutrition_rate": 5,
+    "protein_supply": 98.39,
+    "stability_index": -0.05
+  },
+  {
+    "name": "Yemen",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2083,
+    "import_ratio": 439,
+    "malnutrition_rate": 34.5,
+    "protein_supply": 57.78,
+    "stability_index": -2.46
+  },
+  {
+    "name": "Zambia",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2158,
+    "import_ratio": 5,
+    "malnutrition_rate": 29.8,
+    "protein_supply": 48.58,
+    "stability_index": 0.16
+  },
+  {
+    "name": "Zimbabwe",
+    "cluster": 5,
+    "membership": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "food_supply": 2041,
+    "import_ratio": 16,
+    "malnutrition_rate": 38.4,
+    "protein_supply": 56.94,
+    "stability_index": -0.89
+  }
+]

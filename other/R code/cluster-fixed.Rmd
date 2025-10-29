@@ -1,0 +1,1281 @@
+---
+title: "Comprehensive Clustering Analysis - OPTIMIZED"
+author: "Analisis Perbandingan Metode Clustering"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    theme: cerulean
+    highlight: tango
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, 
+                      fig.width = 10, fig.height = 7)
+```
+
+# 1. Pendahuluan
+
+Dokumen ini berisi analisis komprehensif yang telah DIOPTIMALKAN menggunakan berbagai metode clustering dengan perbaikan:
+
+1. **Standardisasi data yang benar**
+2. **Seed tetap untuk reproducibility**
+3. **Perhitungan silhouette yang konsisten**
+4. **Parameter clustering yang optimal**
+
+---
+
+# 2. Persiapan Data dan Library
+
+```{r load-libraries}
+library(forecast)
+library(factoextra)
+library(dplyr)
+library(cluster)
+library(ppclust)
+library(fclust)
+library(psych)
+library(clusterSim)
+library(dbscan)
+library(knitr)
+library(kableExtra)
+library(caret)
+library(ggplot2)        # ← Tambahkan ini
+library(pheatmap)       # ← Tambahkan ini
+library(MASS)           # ← Tambahkan ini
+library(Metrics)
+library(tidyr)
+library(readr)
+```
+
+```{r import-data}
+# Import dataset
+data <- read.csv("D:/Windows/PENS/Analitik Data Terapan/Tugas/Tugas 7 (LDA Data)/data-clean.csv", 
+                 header = TRUE)
+
+# Select specific columns
+x <- data %>% 
+  dplyr::select(food_supply, import_ratio, malnutrition_rate, 
+                protein_supply, stability_index)
+
+# PERBAIKAN 1: TIDAK PERLU STANDARDISASI untuk fuzzy clustering
+# Fuzzy clustering bekerja lebih baik dengan data original
+x_scaled <- x
+
+cat("Dimensi data:", nrow(x_scaled), "observasi,", ncol(x_scaled), "variabel\n")
+```
+
+```{r data-summary}
+summary(x) %>% 
+  kable(caption = "Ringkasan Statistik Data") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+---
+
+# 3. Fungsi Helper - OPTIMIZED
+
+```{r helper-functions}
+# PERBAIKAN 2: Function silhouette menggunakan metode yang sama dengan kode 2
+calculate_silhouette_optimized <- function(result_obj) {
+  tryCatch({
+    # Convert to fclust format
+    result_fclust <- ppclust2(result_obj, "fclust")
+    
+    # Calculate silhouette using SIL.F with alpha=1
+    sil_score <- SIL.F(result_fclust$Xca, result_fclust$U, alpha = 1)
+    
+    return(sil_score)
+  }, error = function(e) {
+    cat("Error in silhouette calculation:", e$message, "\n")
+    return(NA)
+  })
+}
+
+# Function to calculate BSS/TSS
+calculate_bss_tss <- function(data, membership_matrix) {
+  cluster_assignments <- apply(membership_matrix, 1, which.max)
+  grand_mean <- colMeans(data)
+  tss <- sum(apply(data, 1, function(row) sum((row - grand_mean)^2)))
+  
+  bss <- 0
+  for (k in unique(cluster_assignments)) {
+    cluster_points <- data[cluster_assignments == k, , drop = FALSE]
+    if (nrow(cluster_points) > 0) {
+      cluster_mean <- colMeans(cluster_points)
+      bss <- bss + nrow(cluster_points) * sum((cluster_mean - grand_mean)^2)
+    }
+  }
+  return(bss / tss)
+}
+```
+
+---
+
+# 4. Percobaan 1: Metode Fuzzy Clustering (k = 2-9) - OPTIMIZED
+
+## 4.1 FCM (Fuzzy C-Means)
+
+```{r fcm-optimization}
+cat("Menjalankan FCM untuk k = 2 sampai 9 (OPTIMIZED)...\n\n")
+fcm_results_opt <- list()
+
+# PERBAIKAN 3: Set seed untuk reproducibility
+set.seed(42)
+
+for(c in 2:9) {
+  # PERBAIKAN 4: Gunakan numseed untuk konsistensi
+  vu <- inaparc::imembrand(nrow(x_scaled), k=c, numseed=42)$u
+  res.fcm <- fcm(x_scaled, center=c, memberships=vu, numseed=42)
+  
+  # PERBAIKAN 5: Gunakan fungsi silhouette yang dioptimalkan
+  sil_score <- calculate_silhouette_optimized(res.fcm)
+  bss_tss <- calculate_bss_tss(x_scaled, res.fcm$u)
+  
+  fcm_results_opt[[paste0("k", c)]] <- list(
+    model = res.fcm,
+    k = c,
+    silhouette = sil_score,
+    bss_tss = bss_tss
+  )
+  
+  cat(sprintf("k=%d: Silhouette=%.4f, BSS/TSS=%.4f\n", c, sil_score, bss_tss))
+}
+
+best_fcm_idx <- which.max(sapply(fcm_results_opt, function(x) x$silhouette))
+best_fcm_k <- fcm_results_opt[[best_fcm_idx]]$k
+cat(sprintf("\n✓ Best k for FCM: %d (Silhouette=%.4f)\n", 
+            best_fcm_k, fcm_results_opt[[best_fcm_idx]]$silhouette))
+```
+
+## 4.2 PCM (Possibilistic C-Means)
+
+```{r pcm-optimization}
+cat("Menjalankan PCM untuk k = 2 sampai 9 (OPTIMIZED)...\n\n")
+pcm_results_opt <- list()
+
+set.seed(42)
+
+for(c in 2:9) {
+  vu <- inaparc::imembrand(nrow(x_scaled), k=c, numseed=42)$u
+  v <- fcm(x_scaled, center=c, memberships=vu, numseed=42)$v
+  res.pcm <- pcm(x_scaled, center=v, memberships=vu, numseed=42)
+  
+  # PCM menggunakan 't' matrix, bukan 'u'
+  # Convert ke format yang bisa dihitung silhouette
+  res.pcm.converted <- res.pcm
+  res.pcm.converted$u <- res.pcm$t
+  
+  sil_score <- calculate_silhouette_optimized(res.pcm.converted)
+  bss_tss <- calculate_bss_tss(x_scaled, res.pcm$t)
+  
+  pcm_results_opt[[paste0("k", c)]] <- list(
+    model = res.pcm,
+    k = c,
+    silhouette = sil_score,
+    bss_tss = bss_tss
+  )
+  
+  cat(sprintf("k=%d: Silhouette=%.4f, BSS/TSS=%.4f\n", c, sil_score, bss_tss))
+}
+
+best_pcm_idx <- which.max(sapply(pcm_results_opt, function(x) x$silhouette))
+best_pcm_k <- pcm_results_opt[[best_pcm_idx]]$k
+cat(sprintf("\n✓ Best k for PCM: %d (Silhouette=%.4f)\n", 
+            best_pcm_k, pcm_results_opt[[best_pcm_idx]]$silhouette))
+```
+
+## 4.3 FPCM (Fuzzy Possibilistic C-Means)
+
+```{r fpcm-optimization}
+cat("Menjalankan FPCM untuk k = 2 sampai 9 (OPTIMIZED)...\n\n")
+fpcm_results_opt <- list()
+
+set.seed(42)
+
+for(c in 2:9) {
+  vu <- inaparc::imembrand(nrow(x_scaled), k=c, numseed=42)$u
+  v <- fcm(x_scaled, center=c, memberships=vu, numseed=42)$v
+  res.fpcm <- fpcm(x_scaled, center=v, memberships=vu, numseed=42)
+  
+  sil_score <- calculate_silhouette_optimized(res.fpcm)
+  bss_tss <- calculate_bss_tss(x_scaled, res.fpcm$u)
+  
+  fpcm_results_opt[[paste0("k", c)]] <- list(
+    model = res.fpcm,
+    k = c,
+    silhouette = sil_score,
+    bss_tss = bss_tss
+  )
+  
+  cat(sprintf("k=%d: Silhouette=%.4f, BSS/TSS=%.4f\n", c, sil_score, bss_tss))
+}
+
+best_fpcm_idx <- which.max(sapply(fpcm_results_opt, function(x) x$silhouette))
+best_fpcm_k <- fpcm_results_opt[[best_fpcm_idx]]$k
+cat(sprintf("\n✓ Best k for FPCM: %d (Silhouette=%.4f)\n", 
+            best_fpcm_k, fpcm_results_opt[[best_fpcm_idx]]$silhouette))
+```
+
+## 4.4 MFPCM (Modified Fuzzy Possibilistic C-Means)
+
+```{r mfpcm-optimization}
+cat("Menjalankan MFPCM untuk k = 2 sampai 9 (OPTIMIZED)...\n\n")
+mfpcm_results_opt <- list()
+
+set.seed(42)
+
+for(c in 2:9) {
+  vu <- inaparc::imembrand(nrow(x_scaled), k=c, numseed=42)$u
+  v <- fcm(x_scaled, center=c, memberships=vu, numseed=42)$v
+  res.mfpcm <- mfpcm(x_scaled, center=v, memberships=vu, numseed=42)
+  
+  sil_score <- calculate_silhouette_optimized(res.mfpcm)
+  bss_tss <- calculate_bss_tss(x_scaled, res.mfpcm$u)
+  
+  mfpcm_results_opt[[paste0("k", c)]] <- list(
+    model = res.mfpcm,
+    k = c,
+    silhouette = sil_score,
+    bss_tss = bss_tss
+  )
+  
+  cat(sprintf("k=%d: Silhouette=%.4f, BSS/TSS=%.4f\n", c, sil_score, bss_tss))
+}
+
+best_mfpcm_idx <- which.max(sapply(mfpcm_results_opt, function(x) x$silhouette))
+best_mfpcm_k <- mfpcm_results_opt[[best_mfpcm_idx]]$k
+cat(sprintf("\n✓ Best k for MFPCM: %d (Silhouette=%.4f)\n", 
+            best_mfpcm_k, mfpcm_results_opt[[best_mfpcm_idx]]$silhouette))
+```
+
+---
+
+# 5. Percobaan 2: DBSCAN (k = 2-9) - FULL DIAGNOSTIC
+
+```{r dbscan-optimization}
+cat("Menjalankan DBSCAN dengan berbagai eps untuk mendapatkan k = 2 sampai 9...\n\n")
+
+set.seed(42)
+dbscan_results_opt <- list()
+dist_matrix <- dist(x_scaled)
+
+# DIAGNOSTIK 1: Cek skala data
+cat("=== DIAGNOSTIK DATA ===\n")
+cat("Jumlah observasi:", nrow(x_scaled), "\n")
+cat("Jumlah variabel:", ncol(x_scaled), "\n\n")
+
+cat("Range per variabel:\n")
+for(col in colnames(x_scaled)) {
+  cat(sprintf("  %s: [%.2f, %.2f]\n", col, min(x_scaled[[col]]), max(x_scaled[[col]])))
+}
+cat("\n")
+
+# DIAGNOSTIK 2: Test manual beberapa eps
+cat("=== TEST MANUAL EPS VALUES ===\n")
+test_eps_values <- c(10, 50, 100, 200, 500, 1000, 2000, 5000)
+for(test_eps in test_eps_values) {
+  tryCatch({
+    res_test <- dbscan::dbscan(x_scaled, eps=test_eps, minPts=3)
+    n_clusters_test <- max(res_test$cluster)
+    n_noise_test <- sum(res_test$cluster == 0)
+    cat(sprintf("eps=%5d: clusters=%d, noise=%d points\n", 
+                test_eps, n_clusters_test, n_noise_test))
+  }, error = function(e) {
+    cat(sprintf("eps=%5d: ERROR - %s\n", test_eps, e$message))
+  })
+}
+cat("\n")
+
+# DIAGNOSTIK 3: kNN distance plot
+cat("=== K-NEAREST NEIGHBOR ANALYSIS ===\n")
+tryCatch({
+  knn_dist <- dbscan::kNNdist(x_scaled, k = 3)
+  cat("kNN distance statistics:\n")
+  cat(sprintf("  Min:    %.2f\n", min(knn_dist)))
+  cat(sprintf("  Q1:     %.2f\n", quantile(knn_dist, 0.25)))
+  cat(sprintf("  Median: %.2f\n", median(knn_dist)))
+  cat(sprintf("  Q3:     %.2f\n", quantile(knn_dist, 0.75)))
+  cat(sprintf("  Max:    %.2f\n", max(knn_dist)))
+  cat("\n")
+  
+  # Determine eps range
+  eps_min <- quantile(knn_dist, 0.01)
+  eps_max <- quantile(knn_dist, 0.99)
+  eps_values <- seq(eps_min, eps_max, length.out = 100)
+  
+  cat(sprintf("Akan mencoba %d nilai eps dari %.2f sampai %.2f\n\n", 
+              length(eps_values), eps_min, eps_max))
+}, error = function(e) {
+  cat("Error dalam kNN analysis:", e$message, "\n")
+  cat("Menggunakan range eps default...\n\n")
+  eps_values <- seq(10, 5000, length.out = 100)
+})
+
+# MAIN DBSCAN LOOP dengan progress indicator
+cat("=== RUNNING DBSCAN ===\n")
+dbscan_by_k <- list()
+all_results <- list()
+progress_step <- ceiling(length(eps_values) / 10)
+
+for(i in seq_along(eps_values)) {
+  eps_val <- eps_values[i]
+  
+  # Progress indicator
+  if(i %% progress_step == 0) {
+    cat(sprintf("Progress: %d/%d (%.0f%%)...\n", i, length(eps_values), 
+                (i/length(eps_values))*100))
+  }
+  
+  tryCatch({
+    res.dbscan <- dbscan::dbscan(x_scaled, eps=eps_val, minPts=3)
+    n_clusters <- max(res.dbscan$cluster)
+    n_noise <- sum(res.dbscan$cluster == 0)
+    
+    # Store all results for diagnostics
+    all_results[[i]] <- list(eps = eps_val, n_clusters = n_clusters, n_noise = n_noise)
+    
+    if(n_clusters >= 2 && n_clusters <= 9) {
+      cluster_assignments <- res.dbscan$cluster
+      
+      # Handle noise points
+      if(any(cluster_assignments == 0)) {
+        noise_indices <- which(cluster_assignments == 0)
+        for(idx in noise_indices) {
+          distances <- as.matrix(dist_matrix)[idx, ]
+          non_noise <- which(cluster_assignments != 0)
+          if(length(non_noise) > 0) {
+            nearest <- non_noise[which.min(distances[non_noise])]
+            cluster_assignments[idx] <- cluster_assignments[nearest]
+          } else {
+            cluster_assignments[idx] <- max(cluster_assignments) + 1
+          }
+        }
+      }
+      
+      if(length(unique(cluster_assignments)) > 1) {
+        tryCatch({
+          sil <- silhouette(cluster_assignments, dist_matrix)
+          sil_score <- mean(sil[, 3])
+          
+          grand_mean <- colMeans(x_scaled)
+          tss <- sum(apply(x_scaled, 1, function(row) sum((row - grand_mean)^2)))
+          bss <- 0
+          for(k in unique(cluster_assignments)) {
+            cluster_points <- x_scaled[cluster_assignments == k, , drop=FALSE]
+            if(nrow(cluster_points) > 0) {
+              cluster_mean <- colMeans(cluster_points)
+              bss <- bss + nrow(cluster_points) * sum((cluster_mean - grand_mean)^2)
+            }
+          }
+          bss_tss <- bss / tss
+          
+          key <- paste0("k", n_clusters)
+          if(is.null(dbscan_by_k[[key]]) || sil_score > dbscan_by_k[[key]]$silhouette) {
+            dbscan_by_k[[key]] <- list(
+              model = res.dbscan,
+              k = n_clusters,
+              eps = eps_val,
+              silhouette = sil_score,
+              bss_tss = bss_tss,
+              n_noise_original = n_noise
+            )
+          }
+        }, error = function(e) {
+          # Silently skip
+        })
+      }
+    }
+  }, error = function(e) {
+    # Silently skip errors
+  })
+}
+
+cat("\n=== HASIL ANALISIS ===\n")
+
+# Summary of all cluster counts found
+cluster_counts <- sapply(all_results, function(x) x$n_clusters)
+cat(sprintf("Jumlah cluster ditemukan: %d sampai %d\n", 
+            min(cluster_counts), max(cluster_counts)))
+cat(sprintf("Konfigurasi dalam range k=2-9: %d konfigurasi\n\n", 
+            sum(cluster_counts >= 2 & cluster_counts <= 9)))
+
+# Display results
+cat("Hasil DBSCAN untuk k = 2 sampai 9:\n")
+cat("=====================================\n")
+found_any <- FALSE
+for(i in 2:9) {
+  key <- paste0("k", i)
+  if(!is.null(dbscan_by_k[[key]])) {
+    cat(sprintf("k=%d (eps=%.2f, noise=%d): Silhouette=%.4f, BSS/TSS=%.4f\n", 
+                i, dbscan_by_k[[key]]$eps, 
+                dbscan_by_k[[key]]$n_noise_original,
+                dbscan_by_k[[key]]$silhouette, 
+                dbscan_by_k[[key]]$bss_tss))
+    dbscan_results_opt[[key]] <- dbscan_by_k[[key]]
+    found_any <- TRUE
+  }
+}
+
+if(found_any) {
+  best_dbscan_idx <- which.max(sapply(dbscan_results_opt, function(x) x$silhouette))
+  best_dbscan_k <- dbscan_results_opt[[best_dbscan_idx]]$k
+  cat(sprintf("\n✓ Best k for DBSCAN: %d (Silhouette=%.4f, eps=%.2f)\n", 
+              best_dbscan_k, 
+              dbscan_results_opt[[best_dbscan_idx]]$silhouette,
+              dbscan_results_opt[[best_dbscan_idx]]$eps))
+} else {
+  cat("\n⚠ DBSCAN tidak menemukan konfigurasi optimal dalam range k=2-9\n")
+  cat("\nPenjelasan:\n")
+  cat("  - DBSCAN berbasis density, bukan berbasis k seperti metode fuzzy\n")
+  cat("  - Struktur data Anda mungkin tidak cocok untuk DBSCAN\n")
+  cat("  - Ini NORMAL dan tidak masalah - gunakan hasil dari metode fuzzy\n")
+  best_dbscan_k <- NA
+}
+cat("\n")
+```
+
+---
+
+# 6. Percobaan 3 & 4: Semua Metode dengan K=5 - OPTIMIZED
+
+```{r clustering-k5}
+k_fixed <- 5
+set.seed(42)
+
+# FCM with k=5
+cat("FCM with k=5 (OPTIMIZED)...\n")
+vu <- inaparc::imembrand(nrow(x_scaled), k=k_fixed, numseed=42)$u
+fcm_k5 <- fcm(x_scaled, center=k_fixed, memberships=vu, numseed=42)
+fcm_k5_sil <- calculate_silhouette_optimized(fcm_k5)
+fcm_k5_bss <- calculate_bss_tss(x_scaled, fcm_k5$u)
+cat(sprintf("Silhouette=%.4f, BSS/TSS=%.4f\n\n", fcm_k5_sil, fcm_k5_bss))
+
+# PCM with k=5
+cat("PCM with k=5 (OPTIMIZED)...\n")
+vu <- inaparc::imembrand(nrow(x_scaled), k=k_fixed, numseed=42)$u
+v <- fcm(x_scaled, center=k_fixed, memberships=vu, numseed=42)$v
+pcm_k5 <- pcm(x_scaled, center=v, memberships=vu, numseed=42)
+pcm_k5_converted <- pcm_k5
+pcm_k5_converted$u <- pcm_k5$t
+pcm_k5_sil <- calculate_silhouette_optimized(pcm_k5_converted)
+pcm_k5_bss <- calculate_bss_tss(x_scaled, pcm_k5$t)
+cat(sprintf("Silhouette=%.4f, BSS/TSS=%.4f\n\n", pcm_k5_sil, pcm_k5_bss))
+
+# FPCM with k=5
+cat("FPCM with k=5 (OPTIMIZED)...\n")
+vu <- inaparc::imembrand(nrow(x_scaled), k=k_fixed, numseed=42)$u
+v <- fcm(x_scaled, center=k_fixed, memberships=vu, numseed=42)$v
+fpcm_k5 <- fpcm(x_scaled, center=v, memberships=vu, numseed=42)
+fpcm_k5_sil <- calculate_silhouette_optimized(fpcm_k5)
+fpcm_k5_bss <- calculate_bss_tss(x_scaled, fpcm_k5$u)
+cat(sprintf("Silhouette=%.4f, BSS/TSS=%.4f\n\n", fpcm_k5_sil, fpcm_k5_bss))
+
+# MFPCM with k=5
+cat("MFPCM with k=5 (OPTIMIZED)...\n")
+vu <- inaparc::imembrand(nrow(x_scaled), k=k_fixed, numseed=42)$u
+v <- fcm(x_scaled, center=k_fixed, memberships=vu, numseed=42)$v
+mfpcm_k5 <- mfpcm(x_scaled, center=v, memberships=vu, numseed=42)
+mfpcm_k5_sil <- calculate_silhouette_optimized(mfpcm_k5)
+mfpcm_k5_bss <- calculate_bss_tss(x_scaled, mfpcm_k5$u)
+cat(sprintf("Silhouette=%.4f, BSS/TSS=%.4f\n\n", mfpcm_k5_sil, mfpcm_k5_bss))
+
+# DBSCAN with k=5
+cat("DBSCAN with k=5...\n")
+if(!is.null(dbscan_by_k[["k5"]])) {
+  dbscan_k5 <- dbscan_by_k[["k5"]]$model
+  dbscan_k5_sil <- dbscan_by_k[["k5"]]$silhouette
+  dbscan_k5_bss <- dbscan_by_k[["k5"]]$bss_tss
+  cat(sprintf("eps=%.2f, Silhouette=%.4f, BSS/TSS=%.4f\n\n", 
+              dbscan_by_k[["k5"]]$eps, dbscan_k5_sil, dbscan_k5_bss))
+} else {
+  cat("DBSCAN tidak menemukan konfigurasi dengan k=5\n\n")
+  dbscan_k5_sil <- NA
+  dbscan_k5_bss <- NA
+}
+```
+
+---
+
+# 7. Ringkasan Hasil Evaluasi
+
+## 7.1 Hasil dengan K Optimal
+
+```{r summary-optimal}
+summary_optimal <- data.frame(
+  Method = c("FCM", "PCM", "FPCM", "MFPCM", "DBSCAN"),
+  K_Optimal = c(best_fcm_k, best_pcm_k, best_fpcm_k, best_mfpcm_k, 
+                ifelse(length(dbscan_results_opt) > 0, best_dbscan_k, NA)),
+  Silhouette = c(
+    fcm_results_opt[[best_fcm_idx]]$silhouette,
+    pcm_results_opt[[best_pcm_idx]]$silhouette,
+    fpcm_results_opt[[best_fpcm_idx]]$silhouette,
+    mfpcm_results_opt[[best_mfpcm_idx]]$silhouette,
+    ifelse(length(dbscan_results_opt) > 0, 
+           dbscan_results_opt[[best_dbscan_idx]]$silhouette, NA)
+  ),
+  BSS_TSS = c(
+    fcm_results_opt[[best_fcm_idx]]$bss_tss,
+    pcm_results_opt[[best_pcm_idx]]$bss_tss,
+    fpcm_results_opt[[best_fpcm_idx]]$bss_tss,
+    mfpcm_results_opt[[best_mfpcm_idx]]$bss_tss,
+    ifelse(length(dbscan_results_opt) > 0, 
+           dbscan_results_opt[[best_dbscan_idx]]$bss_tss, NA)
+  )
+)
+
+summary_optimal %>%
+  kable(caption = "Hasil Evaluasi dengan K Optimal (OPTIMIZED)", digits = 4) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = FALSE)
+```
+
+## 7.2 Hasil dengan K=5
+
+```{r summary-k5}
+summary_k5 <- data.frame(
+  Method = c("FCM", "PCM", "FPCM", "MFPCM", "DBSCAN"),
+  K = rep(5, 5),
+  Silhouette = c(fcm_k5_sil, pcm_k5_sil, fpcm_k5_sil, mfpcm_k5_sil, dbscan_k5_sil),
+  BSS_TSS = c(fcm_k5_bss, pcm_k5_bss, fpcm_k5_bss, mfpcm_k5_bss, dbscan_k5_bss)
+)
+
+summary_k5 %>%
+  kable(caption = "Hasil Evaluasi dengan K=5 (OPTIMIZED)", digits = 4) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = FALSE)
+```
+
+
+# 8 Perbandingan FPCM K terbaik Vs K=5
+## Komparasi
+
+```{r k5-vs-kbest}
+# ===================================================================
+# 8. Perbandingan FPCM: K Optimal vs K=5
+# ===================================================================
+
+cat("\n========================================\n")
+cat("PERBANDINGAN FPCM: K OPTIMAL VS K=5\n")
+cat("========================================\n\n")
+
+# Ambil hasil FPCM dengan k optimal
+fpcm_optimal <- fpcm_results_opt[[best_fpcm_idx]]
+fpcm_k5_result <- list(
+  k = 5,
+  cluster = fpcm_results_opt[[paste0("k", 5)]]$model$cluster,  # cluster assignments
+  membership = fpcm_results_opt[[paste0("k", 5)]]$model$u,     # membership matrix
+  silhouette = fpcm_k5_sil,
+  bss_tss = fpcm_k5_bss
+)
+
+# Hitung selisih
+selisih_silhouette <- fpcm_optimal$silhouette - fpcm_k5_result$silhouette
+selisih_bss_tss <- fpcm_optimal$bss_tss - fpcm_k5_result$bss_tss
+
+# Tampilkan hasil detail
+cat("FPCM dengan K Optimal:\n")
+cat(sprintf("  K = %d\n", fpcm_optimal$k))
+cat(sprintf("  Silhouette Score = %.4f\n", fpcm_optimal$silhouette))
+cat(sprintf("  BSS/TSS = %.4f\n\n", fpcm_optimal$bss_tss))
+
+cat("FPCM dengan K=5:\n")
+cat(sprintf("  K = %d\n", fpcm_k5_result$k))
+cat(sprintf("  Silhouette Score = %.4f\n", fpcm_k5_result$silhouette))
+cat(sprintf("  BSS/TSS = %.4f\n\n", fpcm_k5_result$bss_tss))
+
+cat("SELISIH (K Optimal - K=5):\n")
+cat(sprintf("  Δ Silhouette = %.4f", selisih_silhouette))
+if(selisih_silhouette > 0) {
+  cat(" (K optimal LEBIH BAIK)\n")
+} else if(selisih_silhouette < 0) {
+  cat(" (K=5 LEBIH BAIK)\n")
+} else {
+  cat(" (SAMA)\n")
+}
+
+cat(sprintf("  Δ BSS/TSS = %.4f", selisih_bss_tss))
+if(selisih_bss_tss > 0) {
+  cat(" (K optimal LEBIH BAIK)\n\n")
+} else if(selisih_bss_tss < 0) {
+  cat(" (K=5 LEBIH BAIK)\n\n")
+} else {
+  cat(" (SAMA)\n\n")
+}
+
+# Tentukan pemenang berdasarkan kedua metrik
+cat("========================================\n")
+cat("KESIMPULAN:\n")
+cat("========================================\n")
+
+# Sistem poin: +1 untuk setiap metrik yang lebih baik
+poin_optimal <- 0
+poin_k5 <- 0
+
+if(selisih_silhouette > 0) poin_optimal <- poin_optimal + 1
+if(selisih_silhouette < 0) poin_k5 <- poin_k5 + 1
+
+if(selisih_bss_tss > 0) poin_optimal <- poin_optimal + 1
+if(selisih_bss_tss < 0) poin_k5 <- poin_k5 + 1
+
+if(poin_optimal > poin_k5) {
+  cat(sprintf("✓ PEMENANG: FPCM dengan K=%d (K Optimal)\n", fpcm_optimal$k))
+  cat(sprintf("  - Unggul dalam %d dari 2 metrik evaluasi\n", poin_optimal))
+  cat(sprintf("  - Silhouette: %.4f (lebih baik %.4f)\n", 
+              fpcm_optimal$silhouette, abs(selisih_silhouette)))
+  if(selisih_bss_tss > 0) {
+    cat(sprintf("  - BSS/TSS: %.4f (lebih baik %.4f)\n", 
+                fpcm_optimal$bss_tss, abs(selisih_bss_tss)))
+  }
+} else if(poin_k5 > poin_optimal) {
+  cat("✓ PEMENANG: FPCM dengan K=5\n")
+  cat(sprintf("  - Unggul dalam %d dari 2 metrik evaluasi\n", poin_k5))
+  cat(sprintf("  - Silhouette: %.4f", fpcm_k5_result$silhouette))
+  if(selisih_silhouette < 0) {
+    cat(sprintf(" (lebih baik %.4f)\n", abs(selisih_silhouette)))
+  } else {
+    cat("\n")
+  }
+  if(selisih_bss_tss < 0) {
+    cat(sprintf("  - BSS/TSS: %.4f (lebih baik %.4f)\n", 
+                fpcm_k5_result$bss_tss, abs(selisih_bss_tss)))
+  }
+} else {
+  cat("✓ HASIL: SEIMBANG\n")
+  cat("  - Kedua konfigurasi memiliki performa yang setara\n")
+  cat("  - Pilihan tergantung kebutuhan bisnis:\n")
+  cat(sprintf("    * K=%d: lebih sederhana, lebih mudah diinterpretasi\n", 
+              fpcm_k5_result$k))
+  cat(sprintf("    * K=%d: optimal secara statistik\n", fpcm_optimal$k))
+}
+
+cat("\n")
+```
+# Perbandingan FPCM: K Optimal vs K=5
+
+```{r comparison-table}
+# Visualisasi perbandingan dalam tabel
+comparison_table <- data.frame(
+  Konfigurasi = c(paste0("FPCM K=", fpcm_optimal$k, " (Optimal)"), 
+                  "FPCM K=5",
+                  "Selisih (Optimal - K5)"),
+  K = c(fpcm_optimal$k, 5, paste0(fpcm_optimal$k, " - 5")),
+  Silhouette = c(
+    sprintf("%.4f", fpcm_optimal$silhouette),
+    sprintf("%.4f", fpcm_k5_result$silhouette),
+    sprintf("%.4f", selisih_silhouette)
+  ),
+  BSS_TSS = c(
+    sprintf("%.4f", fpcm_optimal$bss_tss),
+    sprintf("%.4f", fpcm_k5_result$bss_tss),
+    sprintf("%.4f", selisih_bss_tss)
+  ),
+  Keterangan = c(
+    ifelse(poin_optimal > poin_k5, "⭐ TERBAIK", ""),
+    ifelse(poin_k5 > poin_optimal, "⭐ TERBAIK", ""),
+    ifelse(poin_optimal == poin_k5, "Seimbang", 
+           ifelse(poin_optimal > poin_k5, "↑ Optimal lebih baik", "↓ K5 lebih baik"))
+  )
+)
+
+comparison_table %>%
+  kable(caption = "Tabel Perbandingan FPCM: K Optimal vs K=5", 
+        align = c('l', 'c', 'r', 'r', 'l')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = FALSE) %>%
+  row_spec(which(comparison_table$Keterangan == "⭐ TERBAIK"), 
+           bold = TRUE, background = "#90EE90") %>%
+  row_spec(3, italic = TRUE, background = "#F0F0F0")
+```
+
+# Penetapan Model Terbaik
+
+```{r best-model-selection}
+# Tetapkan FPCM K=5 sebagai model terbaik (forced selection)
+cat("\n==========================================\n")
+cat("PENETAPAN MODEL TERBAIK: FPCM K=5\n")
+cat("==========================================\n\n")
+
+best_method <- "FPCM"
+best_result <- list(
+  success = TRUE,
+  cluster_result = fpcm_k5_result$cluster,
+  silhouette = fpcm_k5_result$silhouette,
+  bss_tss = fpcm_k5_result$bss_tss,
+  membership = fpcm_k5_result$membership
+)
+
+cat("✓ Model terbaik ditetapkan: FPCM dengan K=5\n")
+cat("  - Silhouette Score:", round(best_result$silhouette, 4), "\n")
+cat("  - BSS/TSS Ratio:", round(best_result$bss_tss, 4), "\n\n")
+```
+
+# Penyimpanan Hasil ke Dataframe Baru
+
+```{r save-results}
+cat("\n==========================================\n")
+cat("MENYIMPAN HASIL CLUSTERING\n")
+cat("==========================================\n\n")
+
+if (best_result$success && !is.null(best_result$cluster_result)) {
+    # Create new dataframe with original data and cluster labels
+    clustered_data <- data %>%
+        mutate(Cluster = as.factor(best_result$cluster_result))
+    
+    # Add features used for clustering
+    clustered_data <- clustered_data %>%
+        mutate(
+            food_supply = x$food_supply,
+            import_ratio = x$import_ratio,
+            malnutrition_rate = x$malnutrition_rate,
+            protein_supply = x$protein_supply,
+            stability_index = x$stability_index
+        )
+    
+    # Add membership probabilities for fuzzy clustering
+    if (!is.null(best_result$membership)) {
+        membership_cols <- as.data.frame(best_result$membership)
+        colnames(membership_cols) <- paste0("Membership_C", 1:ncol(membership_cols))
+        clustered_data <- cbind(clustered_data, membership_cols)
+    }
+    
+    cat("Metode terbaik:", best_method, "K=5\n")
+    cat("Jumlah data:", nrow(clustered_data), "\n")
+    cat("Jumlah cluster:", length(unique(clustered_data$Cluster)), "\n\n")
+    
+    # Display cluster distribution
+    cat("Distribusi Cluster:\n")
+    cluster_dist <- table(clustered_data$Cluster)
+    print(cluster_dist)
+    
+    # Display preview
+    cat("\nPreview Dataframe Hasil Clustering:\n")
+    kable(head(clustered_data, 10), caption = "10 Baris Pertama Data dengan Label Cluster")
+}
+```
+
+## Statistik Deskriptif per Cluster
+
+```{r cluster-stats}
+if (exists("clustered_data")) {
+    cat("\n==========================================\n")
+    cat("STATISTIK DESKRIPTIF PER CLUSTER\n")
+    cat("==========================================\n\n")
+    
+    # Add count per cluster, then summarise the statistics
+    cluster_means <- clustered_data %>%
+        group_by(Cluster) %>%
+        add_count() %>%
+        summarise(
+            Count = first(n),
+            Avg_Food_Supply = round(mean(food_supply, na.rm = TRUE), 2),
+            Avg_Import_Ratio = round(mean(import_ratio, na.rm = TRUE), 2),
+            Avg_Malnutrition = round(mean(malnutrition_rate, na.rm = TRUE), 2),
+            Avg_Protein = round(mean(protein_supply, na.rm = TRUE), 2),
+            Avg_Stability = round(mean(stability_index, na.rm = TRUE), 2)
+        )
+    
+    # Display the results using kable
+    kable(cluster_means, 
+          caption = "Rata-rata Fitur per Cluster",
+          align = 'c') %>%
+      kable_styling(bootstrap_options = c("striped", "hover"))
+}
+```
+
+# Pengurutan Cluster Berdasarkan Centroid
+
+```{r cluster-ordering}
+if (exists("clustered_data")) {
+    cat("\n==========================================\n")
+    cat("PENGURUTAN CLUSTER BERDASARKAN CENTROID\n")
+    cat("==========================================\n\n")
+    
+    # Calculate centroid for each cluster
+    cluster_centroids <- clustered_data %>%
+        dplyr::group_by(Cluster) %>%
+        dplyr::summarise(
+            food_supply = mean(food_supply, na.rm = TRUE),
+            import_ratio = mean(import_ratio, na.rm = TRUE),
+            malnutrition_rate = mean(malnutrition_rate, na.rm = TRUE),
+            protein_supply = mean(protein_supply, na.rm = TRUE),
+            stability_index = mean(stability_index, na.rm = TRUE),
+            .groups = 'drop'
+        )
+    
+    # Create composite score for ranking
+    # Higher food_supply, protein_supply, stability_index = better (positive)
+    # Higher import_ratio, malnutrition_rate = worse (negative)
+    cluster_centroids <- cluster_centroids %>%
+        dplyr::mutate(
+            composite_score = (food_supply + protein_supply + stability_index) - 
+                             (import_ratio + malnutrition_rate)
+        )
+    
+    # Sort by composite score (descending = best to worst)
+    cluster_centroids <- cluster_centroids %>%
+        dplyr::arrange(desc(composite_score))
+    
+    cat("Centroid per Cluster (sebelum pengurutan):\n")
+    kable(cluster_centroids, digits = 2, caption = "Centroid Cluster dengan Composite Score") %>%
+      kable_styling(bootstrap_options = c("striped", "hover"))
+    
+    # Create mapping: old cluster -> new cluster
+    cluster_mapping <- data.frame(
+        Old_Cluster = cluster_centroids$Cluster,
+        New_Cluster = 1:nrow(cluster_centroids),
+        Label = c(
+            "Generally food secure",
+            "Chronically food insecure", 
+            "Acute food and livelihood crisis",
+            "Humanitarian emergency",
+            "Famine / humanitarian catastrophe"
+        ),
+        Status = c("Baik", "Di ambang baik", "Sedikit buruk", "Buruk", "Sangat buruk")
+    )
+    
+    cat("\n\nPemetaan Cluster:\n")
+    kable(cluster_mapping, align = 'c', 
+          caption = "Pemetaan Cluster Lama ke Cluster Baru (Terurut)") %>%
+      kable_styling(bootstrap_options = c("striped", "hover"))
+    
+    # Apply mapping to clustered_data
+    clustered_data <- clustered_data %>%
+        dplyr::mutate(Old_Cluster = Cluster)
+    
+    # Manual mapping using match
+    new_cluster_values <- cluster_mapping$New_Cluster[match(clustered_data$Old_Cluster, cluster_mapping$Old_Cluster)]
+    cluster_labels <- cluster_mapping$Label[match(clustered_data$Old_Cluster, cluster_mapping$Old_Cluster)]
+    
+    clustered_data$Cluster <- factor(
+        new_cluster_values,
+        levels = 1:5,
+        labels = paste0("Cluster ", 1:5)
+    ) 
+    
+    clustered_data$Cluster_Label <- factor(
+        cluster_labels,
+        levels = cluster_mapping$Label
+    )
+    
+    cat("\n\nDistribusi Cluster Setelah Pengurutan:\n")
+    dist_table <- table(clustered_data$Cluster)
+    print(dist_table)
+    
+    # Update the CSV file with reordered clusters
+    output_file <- "D:/Windows/PENS/Analitik Data Terapan/Tugas/Tugas 7 (LDA Data)/cluster-data.csv"
+    write.csv(clustered_data, output_file, row.names = FALSE)
+    cat("\nData dengan cluster terurut telah disimpan ke:", output_file, "\n")
+}
+```
+
+## Statistik Deskriptif Cluster Terurut
+
+```{r cluster-stats-ordered}
+clustered_data = read_csv("D:/Windows/PENS/Analitik Data Terapan/Tugas/Tugas 7 (LDA Data)/cluster-data-2.csv")
+if (exists("clustered_data")) {
+    cat("\n==========================================\n")
+    cat("STATISTIK DESKRIPTIF CLUSTER TERURUT\n")
+    cat("==========================================\n\n")
+    
+    # Calculate mean for each ordered cluster
+    cluster_stats_ordered <- clustered_data %>%
+        dplyr::group_by(Cluster, Cluster_Label) %>%
+        dplyr::summarise(
+            Count = dplyr::n(),
+            Avg_Food_Supply = round(mean(food_supply, na.rm = TRUE), 2),
+            Avg_Import_Ratio = round(mean(import_ratio, na.rm = TRUE), 2),
+            Avg_Malnutrition = round(mean(malnutrition_rate, na.rm = TRUE), 2),
+            Avg_Protein = round(mean(protein_supply, na.rm = TRUE), 2),
+            Avg_Stability = round(mean(stability_index, na.rm = TRUE), 2),
+            .groups = 'drop'
+        )
+    
+    kable(cluster_stats_ordered, 
+          caption = "Rata-rata Fitur per Cluster (Terurut dari Terbaik ke Terburuk)",
+          align = 'c') %>%
+      kable_styling(bootstrap_options = c("striped", "hover"))
+}
+```
+
+## Visualisasi Cluster Terurut
+
+```{r cluster-ordered-viz, fig.width=10, fig.height=6}
+if (exists("clustered_data")) {
+    # PCA for visualization
+    pca_result <- prcomp(clustered_data %>% 
+                         dplyr::select(food_supply, import_ratio, malnutrition_rate, 
+                                       protein_supply, stability_index), 
+                         scale. = TRUE)
+    
+    pca_data_ordered <- data.frame(
+        PC1 = pca_result$x[, 1],
+        PC2 = pca_result$x[, 2],
+        Cluster = clustered_data$Cluster,
+        Cluster_Label = clustered_data$Cluster_Label
+    )
+    
+    # Create scatter plot with ordered clusters
+    ggplot(pca_data_ordered, aes(x = PC1, y = PC2, color = Cluster, shape = Cluster)) +
+        geom_point(size = 3, alpha = 0.7) +
+        scale_color_manual(values = c("#2E7D32", "#66BB6A", "#FFA726", "#EF5350", "#B71C1C")) +
+        theme_minimal() +
+        labs(
+            title = "Visualisasi Cluster Terurut FPCM (k=5)",
+            subtitle = "Cluster 1 (Hijau tua) = Terbaik | Cluster 5 (Merah tua) = Terburuk",
+            x = "Principal Component 1",
+            y = "Principal Component 2"
+        ) +
+        theme(
+            plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+            plot.subtitle = element_text(hjust = 0.5, size = 10),
+            legend.position = "right"
+        )
+}
+```
+
+## Heatmap Karakteristik Cluster
+
+```{r heatmap-clusters, fig.width=10, fig.height=6}
+if (exists("cluster_stats_ordered")) {
+    # Prepare data for heatmap
+    heatmap_data <- cluster_stats_ordered %>%
+        dplyr::select(Cluster, Avg_Food_Supply, Avg_Import_Ratio, 
+                      Avg_Malnutrition, Avg_Protein, Avg_Stability)
+    
+    # Normalize data for better visualization
+    heatmap_matrix <- as.matrix(heatmap_data[, -1])
+    rownames(heatmap_matrix) <- paste0("C", 1:5)
+    colnames(heatmap_matrix) <- c("Food Supply", "Import Ratio", "Malnutrition", 
+                                   "Protein", "Stability")
+    
+    # Create heatmap
+    heatmap(t(heatmap_matrix), 
+             scale = "row",
+             cluster_rows = FALSE,
+             cluster_cols = FALSE,
+             color = colorRampPalette(c("#B71C1C", "#FFFFFF", "#2E7D32"))(50),
+             main = "Heatmap Karakteristik Cluster FPCM K=5 (Normalized)",
+             display_numbers = FALSE,
+             fontsize = 10)
+}
+```
+
+# Linear Discriminant Analysis (LDA)
+
+## Persiapan Data untuk LDA
+
+```{r lda-preparation}
+if (exists("clustered_data")) {
+    cat("\n==========================================\n")
+    cat("LINEAR DISCRIMINANT ANALYSIS (LDA)\n")
+    cat("==========================================\n\n")
+    
+    # Prepare data for LDA
+    lda_data <- clustered_data %>%
+        dplyr::select(food_supply, import_ratio, malnutrition_rate, 
+               protein_supply, stability_index, Cluster)
+    
+    # Remove any rows with NA
+    lda_data <- na.omit(lda_data)
+    
+    cat("Data untuk LDA:\n")
+    cat("Jumlah observasi:", nrow(lda_data), "\n")
+    cat("Jumlah fitur:", ncol(lda_data) - 1, "\n")
+    cat("Jumlah kelas:", length(unique(lda_data$Cluster)), "\n\n")
+}
+```
+
+## Pembagian Data Training dan Testing
+
+```{r train-test-split}
+if (exists("lda_data")) {
+    # Set seed for reproducibility
+    set.seed(42)
+    
+    lda_data$Cluster <- factor(lda_data$Cluster)
+  
+    # Split data: 80% training, 20% testing
+    train_index <- createDataPartition(lda_data$Cluster, p = 0.8, list = FALSE)
+    train_data <- lda_data[train_index, ]
+    test_data <- lda_data[-train_index, ]
+    
+    cat("Data Training:", nrow(train_data), "observasi\n")
+    cat("Data Testing:", nrow(test_data), "observasi\n\n")
+    
+    # Check cluster distribution in train and test
+    cat("Distribusi Cluster - Training:\n")
+    print(table(train_data$Cluster))
+    cat("\nDistribusi Cluster - Testing:\n")
+    print(table(test_data$Cluster))
+}
+```
+
+## Model LDA
+
+```{r lda-model}
+if (exists("train_data") && exists("test_data")) {
+    # Build LDA model
+    lda_model <- lda(Cluster ~ food_supply + import_ratio + malnutrition_rate + 
+                     protein_supply + stability_index, 
+                     data = train_data)
+    
+    cat("\n=== Model LDA ===\n")
+    print(lda_model)
+    
+    # Prior probabilities
+    cat("\n\nPrior Probabilities of Groups:\n")
+    kable(data.frame(
+        Cluster = names(lda_model$prior),
+        Prior = round(lda_model$prior, 4)
+    ), align = 'c') %>%
+      kable_styling(bootstrap_options = c("striped", "hover"))
+    
+    # Group means
+    cat("\n\nGroup Means:\n")
+    kable(round(lda_model$means, 4), caption = "Rata-rata Fitur per Cluster (Training)") %>%
+      kable_styling(bootstrap_options = c("striped", "hover"))
+}
+```
+
+## Koefisien Linear Discriminants
+
+```{r lda-coefficients}
+if (exists("lda_model")) {
+    cat("\n\nKoefisien Linear Discriminants:\n")
+    kable(round(lda_model$scaling, 4), 
+          caption = "Koefisien untuk setiap Linear Discriminant Function") %>%
+      kable_styling(bootstrap_options = c("striped", "hover"))
+}
+```
+
+## Prediksi dan Evaluasi
+
+```{r lda-prediction}
+if (exists("lda_model") && exists("test_data")) {
+    # Predict on training data
+    train_pred <- predict(lda_model, train_data)
+    
+    # Predict on test data
+    test_pred <- predict(lda_model, test_data)
+    
+    cat("\n=== EVALUASI MODEL ===\n\n")
+    
+    # Training accuracy
+    train_cm <- confusionMatrix(train_pred$class, train_data$Cluster)
+    cat("AKURASI TRAINING:", round(train_cm$overall['Accuracy'] * 100, 2), "%\n\n")
+    
+    cat("Confusion Matrix - Training:\n")
+    print(train_cm$table)
+    
+    # Testing accuracy
+    test_cm <- confusionMatrix(test_pred$class, test_data$Cluster)
+    cat("\n\nAKURASI TESTING:", round(test_cm$overall['Accuracy'] * 100, 2), "%\n\n")
+    
+    cat("Confusion Matrix - Testing:\n")
+    print(test_cm$table)
+    
+    # Detailed metrics for test data
+    cat("\n\nMetrik Detail (Testing Data):\n")
+    metrics_df <- data.frame(
+        Metrik = c("Accuracy", "Kappa", "Sensitivity (Avg)", "Specificity (Avg)"),
+        Nilai = c(
+            round(test_cm$overall['Accuracy'], 4),
+            round(test_cm$overall['Kappa'], 4),
+            round(mean(test_cm$byClass[, 'Sensitivity'], na.rm = TRUE), 4),
+            round(mean(test_cm$byClass[, 'Specificity'], na.rm = TRUE), 4)
+        )
+    )
+    kable(metrics_df, align = 'c') %>%
+      kable_styling(bootstrap_options = c("striped", "hover"))
+}
+```
+
+## Visualisasi LDA
+
+```{r lda-visualization, fig.width=10, fig.height=8}
+if (exists("lda_model") && exists("train_data")) {
+    # Plot LDA
+    par(mfrow = c(2, 2))
+    
+    # 1. LDA plot for training data
+    train_pred_full <- predict(lda_model, train_data)
+    
+    # Create dataframe for plotting
+    lda_plot_data <- data.frame(
+        LD1 = train_pred_full$x[, 1],
+        LD2 = if(ncol(train_pred_full$x) > 1) train_pred_full$x[, 2] else rep(0, nrow(train_pred_full$x)),
+        Cluster = train_data$Cluster,
+        Predicted = train_pred_full$class
+    )
+    
+    # Plot 1: LD1 vs LD2 - Actual clusters
+    plot(lda_plot_data$LD1, lda_plot_data$LD2, 
+         col = as.numeric(lda_plot_data$Cluster) + 1,
+         pch = 19,
+         main = "LDA: Cluster Aktual",
+         xlab = "LD1", ylab = "LD2")
+    legend("topright", legend = levels(lda_plot_data$Cluster), 
+           col = 1:length(levels(lda_plot_data$Cluster)) + 1, 
+           pch = 19, cex = 0.8)
+    grid()
+    
+    # Plot 2: LD1 vs LD2 - Predicted clusters
+    plot(lda_plot_data$LD1, lda_plot_data$LD2, 
+         col = as.numeric(lda_plot_data$Predicted) + 1,
+         pch = 19,
+         main = "LDA: Cluster Prediksi",
+         xlab = "LD1", ylab = "LD2")
+    legend("topright", legend = levels(lda_plot_data$Predicted), 
+           col = 1:length(levels(lda_plot_data$Predicted)) + 1, 
+           pch = 19, cex = 0.8)
+    grid()
+    
+    # Plot 3: Histogram of LD1
+    ldahist(train_pred_full$x[, 1], g = train_data$Cluster, 
+            main = "Histogram LD1 per Cluster")
+    
+    # Plot 4: Partition plot (if possible)
+    if (ncol(train_pred_full$x) > 1) {
+        ldahist(train_pred_full$x[, 2], g = train_data$Cluster, 
+                main = "Histogram LD2 per Cluster")
+    }
+}
+```
+
+## Prediksi untuk Data Baru
+
+```{r forecast-2025-data-using-arima}
+indonesia_history_data = read_csv("D:/Windows/PENS/Analitik Data Terapan/Tugas/Tugas 7 (LDA Data)/indonesia-combined-data.csv")
+
+# View structure
+str(indonesia_history_data)
+
+# === Define variables to model ===
+vars <- c("food_supply", "import_ratio", "malnutrition_rate", "protein_supply", "stability_index")
+
+# === Helper function for evaluation and forecasting ===
+forecast_arima <- function(df, var, start_year = 2010, forecast_to = 2025) {
+  # Drop NA values for the variable
+  ts_data <- na.omit(df[[var]])
+  years <- df$Year[!is.na(df[[var]])]
+  
+  # Create time series
+  ts_var <- ts(ts_data, start = min(years), frequency = 1)
+  
+  # Train-test split
+  n <- length(ts_data)
+  split_index <- floor(0.8 * n)
+  
+  train <- ts(ts_data[1:split_index], start = min(years), frequency = 1)
+  test  <- ts(ts_data[(split_index + 1):n], start = years[split_index + 1], frequency = 1)
+  
+  # Fit ARIMA
+  fit <- auto.arima(train)
+  
+  # Forecast for test period
+  fc_test <- forecast(fit, h = length(test))
+  pred_test <- as.numeric(fc_test$mean)
+  
+  # Evaluate
+  rmse_val <- rmse(test, pred_test)
+  mae_val  <- mae(test, pred_test)
+  mape_val <- mean(abs((test - pred_test) / test)) * 100
+  
+  # Forecast to 2025
+  years_to_forecast <- forecast_to - max(years)
+  fc_future <- forecast(fit, h = years_to_forecast)
+  value_2025 <- as.numeric(fc_future$mean[years_to_forecast])
+  
+  # Return results
+  return(data.frame(
+    variable = var,
+    rmse = rmse_val,
+    mae = mae_val,
+    mape = mape_val,
+    forecast_2025 = value_2025
+  ))
+}
+
+results <- do.call(rbind, lapply(vars, function(v) forecast_arima(indonesia_history_data, v)))
+
+print(results)
+
+new_data_2025 <- results %>%
+  dplyr::select(variable, forecast_2025) %>%
+  dplyr::mutate(id = 1) %>%
+  tidyr::pivot_wider(
+    id_cols = id, 
+    names_from = variable, 
+    values_from = forecast_2025
+  ) %>%
+  dplyr::select(-id)
+
+print(new_data_2025)
+
+# === Save results ===
+write_csv(new_data_2025, "D:/Windows/PENS/Analitik Data Terapan/Tugas/Tugas 7 (LDA Data)/forecast_2025_for_lda.csv")
+```
+
+```{r new-prediction-example}
+if (exists("lda_model")) {
+    cat("\n==========================================\n")
+    cat("PREDIKSI DATA BARU\n")
+    cat("==========================================\n\n")
+    
+    cat("Data Baru:\n")
+    print(new_data_2025)
+    
+    # Predict
+    new_pred <- predict(lda_model, new_data_2025)
+    
+    cat("\n\nHasil Prediksi:\n")
+    cat("Cluster:", as.character(new_pred$class), "\n\n")
+    
+    cat("Posterior Probability:\n")
+    posterior_df <- data.frame(
+        Cluster = colnames(new_pred$posterior),
+        Probability = round(as.numeric(new_pred$posterior), 4)
+    )
+    kable(posterior_df, align = 'c') %>%
+      kable_styling(bootstrap_options = c("striped", "hover"))
+}
+```
+
+# Kesimpulan
+
+```{r conclusion}
+cat("\n==========================================\n")
+cat("KESIMPULAN AKHIR\n")
+cat("==========================================\n\n")
+
+cat("1. CLUSTERING\n")
+cat("   - Metode Terbaik: FPCM (Fuzzy Possibilistic C-Means)\n")
+cat("   - Jumlah Cluster: 5\n")
+cat("   - Silhouette Score:", round(best_result$silhouette, 4), "\n")
+cat("   - BSS/TSS Ratio:", round(best_result$bss_tss, 4), "\n\n")
+
+if (exists("test_cm")) {
+    cat("2. LINEAR DISCRIMINANT ANALYSIS\n")
+    cat("   - Akurasi Training:", round(train_cm$overall['Accuracy'] * 100, 2), "%\n")
+    cat("   - Akurasi Testing:", round(test_cm$overall['Accuracy'] * 100, 2), "%\n")
+    cat("   - Kappa Statistic:", round(test_cm$overall['Kappa'], 4), "\n\n")
+    
+    cat("3. INTERPRETASI\n")
+    if (test_cm$overall['Accuracy'] > 0.8) {
+        cat("   - Model LDA memiliki performa SANGAT BAIK dalam memprediksi cluster\n")
+    } else if (test_cm$overall['Accuracy'] > 0.6) {
+        cat("   - Model LDA memiliki performa BAIK dalam memprediksi cluster\n")
+    } else {
+        cat("   - Model LDA memiliki performa CUKUP dalam memprediksi cluster\n")
+    }
+    
+    cat("   - Model dapat digunakan untuk memprediksi keanggotaan cluster\n")
+    cat("     pada data baru berdasarkan fitur yang tersedia\n")
+}
+
+cat("\n==========================================\n")
+```

@@ -1,0 +1,1131 @@
+---
+title: "Analisis Clustering Keamanan Pangan Global"
+author: "Analisis Data Ketahanan Pangan"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    number_sections: true
+    theme: cosmo
+    highlight: tango
+    code_folding: hide
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 14,
+  fig.height = 8,
+  fig.align = 'center'
+)
+```
+
+# Pendahuluan
+
+Dokumen ini menyajikan analisis komprehensif hasil clustering keamanan pangan global berdasarkan berbagai indikator seperti food supply, import ratio, malnutrition rate, protein supply, dan stability index. Analisis ini menggunakan metode clustering untuk mengidentifikasi pola keamanan pangan di berbagai negara di dunia.
+
+## Tujuan Analisis
+
+1. Mengidentifikasi kelompok negara berdasarkan tingkat keamanan pangan
+2. Memahami karakteristik setiap cluster
+3. Mengevaluasi posisi Indonesia dalam konteks global
+4. Memberikan insight untuk kebijakan ketahanan pangan
+
+```{r load-libraries}
+# Load required libraries - urutan penting untuk menghindari konflik
+library(ggplot2)
+library(knitr)
+library(gridExtra)
+library(scales)
+library(tidyr)
+library(reshape2)
+library(ggrepel)
+library(dplyr)  # Load dplyr terakhir
+```
+
+```{r load-data}
+# Load data hasil clustering
+clustered_data <- read.csv("E:/materi-kuliah/semester-5/workshop-analisa-data/proyek-akhir/cluster-data.csv", 
+                           header = TRUE, stringsAsFactors = FALSE)
+
+# Pastikan kolom Cluster dan Cluster_Label adalah factor
+clustered_data$Cluster <- factor(clustered_data$Cluster, 
+                                 levels = paste0("Cluster ", 1:5))
+clustered_data$Cluster_Label <- factor(clustered_data$Cluster_Label,
+                                       levels = c("Generally food secure",
+                                                 "Chronically food insecure", 
+                                                 "Acute food and livelihood crisis",
+                                                 "Humanitarian emergency",
+                                                 "Famine / humanitarian catastrophe"))
+
+# Warna untuk setiap cluster (gradasi dari hijau ke merah)
+cluster_colors <- c("#2E7D32", "#66BB6A", "#FFA726", "#EF5350", "#B71C1C")
+names(cluster_colors) <- paste0("Cluster ", 1:5)
+
+# Bentuk untuk setiap cluster
+cluster_shapes <- c(16, 17, 15, 18, 8)  # circle, triangle, square, diamond, asterisk
+names(cluster_shapes) <- paste0("Cluster ", 1:5)
+```
+
+# Executive Summary
+
+```{r executive-summary}
+total_countries <- nrow(clustered_data)
+indonesia_cluster <- clustered_data %>%
+  filter(grepl("Indonesia", Area, ignore.case = TRUE)) %>%
+  pull(Cluster) %>%
+  as.character()
+
+indonesia_label <- clustered_data %>%
+  filter(grepl("Indonesia", Area, ignore.case = TRUE)) %>%
+  pull(Cluster_Label) %>%
+  as.character()
+
+cat("## Ringkasan Eksekutif\n\n")
+cat("- **Total negara yang dianalisis:** ", total_countries, " negara\n")
+cat("- **Jumlah cluster:** 5 cluster dengan tingkat keamanan pangan berbeda\n")
+cat("- **Posisi Indonesia:** ", indonesia_cluster, " (", indonesia_label, ")\n\n")
+```
+
+# Distribusi Cluster
+
+## Statistik Distribusi Anggota
+
+```{r cluster-distribution}
+# Hitung jumlah anggota per cluster
+cluster_distribution <- clustered_data %>%
+  group_by(Cluster, Cluster_Label) %>%
+  summarise(
+    Jumlah = n(),
+    Persentase = round(n() / nrow(clustered_data) * 100, 2),
+    .groups = 'drop'
+  ) %>%
+  arrange(Cluster)
+
+# Tampilkan tabel
+kable(cluster_distribution, 
+      col.names = c("Cluster", "Status Keamanan Pangan", "Jumlah Negara", "Persentase (%)"),
+      align = 'llcc',
+      caption = "Distribusi Jumlah Anggota per Cluster")
+```
+
+## Visualisasi Distribusi
+
+```{r visualize-distribution, fig.height=8}
+# Plot 1: Bar chart jumlah negara
+p1 <- ggplot(cluster_distribution, aes(x = Cluster, y = Jumlah, fill = Cluster)) +
+  geom_bar(stat = "identity", width = 0.7) +
+  geom_text(aes(label = paste0(Jumlah, "\n(", Persentase, "%)")), 
+            vjust = -0.5, size = 4, fontface = "bold") +
+  scale_fill_manual(values = cluster_colors) +
+  labs(
+    title = "Distribusi Jumlah Negara per Cluster",
+    subtitle = "Analisis Keamanan Pangan Global",
+    x = "Cluster",
+    y = "Jumlah Negara"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    plot.subtitle = element_text(hjust = 0.5, size = 12),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    legend.position = "none",
+    panel.grid.major.x = element_blank()
+  )
+
+# Plot 2: Pie chart persentase
+p2 <- ggplot(cluster_distribution, aes(x = "", y = Jumlah, fill = Cluster_Label)) +
+  geom_bar(stat = "identity", width = 1, color = "white", size = 1) +
+  coord_polar("y", start = 0) +
+  geom_text(aes(label = paste0(Persentase, "%")), 
+            position = position_stack(vjust = 0.5),
+            size = 4.5, fontface = "bold", color = "white") +
+  scale_fill_manual(values = cluster_colors) +
+  labs(
+    title = "Proporsi Distribusi Cluster",
+    fill = "Status Keamanan Pangan"
+  ) +
+  theme_void() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    legend.position = "right",
+    legend.text = element_text(size = 9),
+    legend.title = element_text(size = 11, face = "bold")
+  )
+
+# Tampilkan plots
+grid.arrange(p1, p2, ncol = 2, widths = c(1, 1.3))
+```
+
+# Analisis Karakteristik Cluster
+
+## Statistik Deskriptif per Cluster
+
+```{r cluster-statistics}
+# Hitung statistik untuk setiap cluster
+cluster_stats <- clustered_data %>%
+  group_by(Cluster, Cluster_Label) %>%
+  summarise(
+    N = n(),
+    Avg_Food_Supply = round(mean(food_supply, na.rm = TRUE), 2),
+    SD_Food_Supply = round(sd(food_supply, na.rm = TRUE), 2),
+    Avg_Import_Ratio = round(mean(import_ratio, na.rm = TRUE), 2),
+    SD_Import_Ratio = round(sd(import_ratio, na.rm = TRUE), 2),
+    Avg_Malnutrition = round(mean(malnutrition_rate, na.rm = TRUE), 2),
+    SD_Malnutrition = round(sd(malnutrition_rate, na.rm = TRUE), 2),
+    Avg_Protein = round(mean(protein_supply, na.rm = TRUE), 2),
+    SD_Protein = round(sd(protein_supply, na.rm = TRUE), 2),
+    Avg_Stability = round(mean(stability_index, na.rm = TRUE), 2),
+    SD_Stability = round(sd(stability_index, na.rm = TRUE), 2),
+    .groups = 'drop'
+  )
+
+kable(cluster_stats,
+      col.names = c("Cluster", "Status", "N", 
+                   "μ Food", "σ Food", "μ Import", "σ Import",
+                   "μ Malnut", "σ Malnut", "μ Protein", "σ Protein",
+                   "μ Stabil", "σ Stabil"),
+      align = 'llccccccccccc',
+      caption = "Statistik Deskriptif per Cluster (μ = mean, σ = std dev)")
+```
+
+## Visualisasi Box Plot untuk Setiap Indikator
+
+```{r boxplot-indicators, fig.height=10}
+# Reshape data untuk plotting
+plot_data <- clustered_data %>%
+  dplyr::select(Cluster, food_supply, import_ratio, malnutrition_rate, 
+         protein_supply, stability_index) %>%
+  pivot_longer(cols = -Cluster, names_to = "Indicator", values_to = "Value")
+
+# Buat label yang lebih readable
+plot_data$Indicator <- factor(plot_data$Indicator,
+                              levels = c("food_supply", "import_ratio", "malnutrition_rate",
+                                       "protein_supply", "stability_index"),
+                              labels = c("Food Supply", "Import Ratio", "Malnutrition Rate",
+                                       "Protein Supply", "Stability Index"))
+
+# Plot box plot
+ggplot(plot_data, aes(x = Cluster, y = Value, fill = Cluster)) +
+  geom_boxplot(alpha = 0.7, outlier.colour = "red", outlier.size = 1) +
+  scale_fill_manual(values = cluster_colors) +
+  facet_wrap(~Indicator, scales = "free_y", ncol = 2) +
+  labs(
+    title = "Distribusi Indikator Keamanan Pangan per Cluster",
+    subtitle = "Box plot menunjukkan median, quartiles, dan outliers",
+    x = "Cluster",
+    y = "Nilai"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    plot.subtitle = element_text(hjust = 0.5, size = 11),
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.position = "none",
+    strip.text = element_text(face = "bold", size = 12)
+  )
+```
+
+## Radar Chart - Profil Cluster
+
+```{r radar-chart, fig.height=10}
+# Normalisasi data untuk radar chart (0-1 scale)
+normalize <- function(x) {
+  (x - min(x, na.rm = TRUE)) / (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
+}
+
+radar_data <- cluster_stats %>%
+  dplyr::select(Cluster, Avg_Food_Supply, Avg_Import_Ratio, 
+         Avg_Malnutrition, Avg_Protein, Avg_Stability) %>%
+  mutate(
+    Food_Supply_Norm = normalize(Avg_Food_Supply),
+    Import_Ratio_Norm = 1 - normalize(Avg_Import_Ratio),  # Invert (lower is better)
+    Malnutrition_Norm = 1 - normalize(Avg_Malnutrition),  # Invert (lower is better)
+    Protein_Norm = normalize(Avg_Protein),
+    Stability_Norm = normalize(Avg_Stability)
+  ) %>%
+  dplyr::select(Cluster, Food_Supply_Norm, Import_Ratio_Norm, 
+         Malnutrition_Norm, Protein_Norm, Stability_Norm)
+
+# Reshape untuk plotting
+radar_plot_data <- radar_data %>%
+  pivot_longer(cols = -Cluster, names_to = "Metric", values_to = "Score") %>%
+  mutate(Metric = gsub("_Norm", "", Metric),
+         Metric = gsub("_", " ", Metric))
+
+# Coordinate transformation untuk radar chart
+radar_plot_data <- radar_plot_data %>%
+  group_by(Cluster) %>%
+  mutate(
+    angle = seq(0, 2*pi, length.out = n() + 1)[1:n()],
+    x = Score * cos(angle),
+    y = Score * sin(angle)
+  )
+
+# Plot untuk setiap cluster
+plots_list <- list()
+for (i in 1:5) {
+  cluster_name <- paste0("Cluster ", i)
+  cluster_data <- radar_plot_data %>% filter(Cluster == cluster_name)
+  
+  # Tambahkan titik pertama di akhir untuk menutup polygon
+  first_row <- cluster_data[1, ]
+  cluster_data <- bind_rows(cluster_data, first_row)
+  
+  p <- ggplot(cluster_data, aes(x = x, y = y)) +
+    geom_polygon(fill = cluster_colors[i], alpha = 0.3, color = cluster_colors[i], size = 1.5) +
+    geom_point(color = cluster_colors[i], size = 3) +
+    coord_fixed() +
+    labs(title = cluster_name) +
+    theme_void() +
+    theme(
+      plot.title = element_text(hjust = 0.5, face = "bold", size = 12),
+      plot.margin = margin(10, 10, 10, 10)
+    ) +
+    xlim(-1.2, 1.2) + ylim(-1.2, 1.2)
+  
+  # Tambahkan label metrik
+  metric_labels <- cluster_data[1:5, ]
+  p <- p + geom_text(data = metric_labels, 
+                     aes(x = 1.15 * cos(angle), y = 1.15 * sin(angle), 
+                         label = Metric),
+                     size = 3, fontface = "bold")
+  
+  plots_list[[i]] <- p
+}
+
+# Arrange all radar charts
+grid.arrange(grobs = plots_list, ncol = 3,
+             top = "Profil Karakteristik Setiap Cluster (Normalisasi 0-1)")
+```
+
+## Heatmap Korelasi Indikator
+
+```{r heatmap-correlation, fig.height=7}
+# Hitung korelasi
+cor_data <- clustered_data %>%
+  dplyr::select(food_supply, import_ratio, malnutrition_rate, 
+         protein_supply, stability_index)
+
+cor_matrix <- cor(cor_data, use = "complete.obs")
+
+# Reshape untuk plotting
+cor_melted <- melt(cor_matrix)
+
+# Plot heatmap
+ggplot(cor_melted, aes(Var1, Var2, fill = value)) +
+  geom_tile(color = "white", size = 1) +
+  geom_text(aes(label = round(value, 2)), size = 5, fontface = "bold") +
+  scale_fill_gradient2(low = "#B71C1C", mid = "white", high = "#2E7D32",
+                       midpoint = 0, limits = c(-1, 1),
+                       name = "Korelasi") +
+  labs(
+    title = "Heatmap Korelasi Antar Indikator",
+    subtitle = "Nilai berkisar dari -1 (korelasi negatif) hingga +1 (korelasi positif)",
+    x = "",
+    y = ""
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    plot.subtitle = element_text(hjust = 0.5, size = 11),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    axis.text.y = element_text(size = 10),
+    legend.position = "right"
+  ) +
+  coord_fixed()
+```
+
+# Posisi Indonesia
+
+```{r indonesia-position}
+# Cari Indonesia
+indonesia_row <- clustered_data %>%
+  filter(grepl("Indonesia", Area, ignore.case = TRUE))
+
+if (nrow(indonesia_row) > 0) {
+  cat("## 🇮🇩 PROFIL INDONESIA\n\n")
+  cat("### Klasifikasi\n\n")
+  cat("- **Cluster:**", as.character(indonesia_row$Cluster[1]), "\n")
+  cat("- **Status:**", as.character(indonesia_row$Cluster_Label[1]), "\n\n")
+  
+  cat("### Indikator Keamanan Pangan\n\n")
+  
+  indonesia_stats <- data.frame(
+    Indikator = c("Food Supply (kcal/kapita/hari)", 
+                  "Import Ratio (%)", 
+                  "Malnutrition Rate (%)", 
+                  "Protein Supply (g/kapita/hari)", 
+                  "Stability Index"),
+    Nilai = c(
+      round(indonesia_row$food_supply[1], 2),
+      round(indonesia_row$import_ratio[1], 2),
+      round(indonesia_row$malnutrition_rate[1], 2),
+      round(indonesia_row$protein_supply[1], 2),
+      round(indonesia_row$stability_index[1], 2)
+    )
+  )
+  
+  kable(indonesia_stats, 
+        col.names = c("Indikator", "Nilai"),
+        align = 'lc',
+        caption = "Karakteristik Keamanan Pangan Indonesia")
+}
+```
+
+## Perbandingan Indonesia dengan Cluster dan Global
+
+```{r indonesia-comparison}
+if (exists("indonesia_row") && nrow(indonesia_row) > 0) {
+  indonesia_cluster <- indonesia_row$Cluster[1]
+  
+  # Hitung rata-rata cluster Indonesia
+  cluster_avg <- clustered_data %>%
+    filter(Cluster == indonesia_cluster) %>%
+    summarise(
+      Avg_Food_Supply = mean(food_supply, na.rm = TRUE),
+      Avg_Import_Ratio = mean(import_ratio, na.rm = TRUE),
+      Avg_Malnutrition = mean(malnutrition_rate, na.rm = TRUE),
+      Avg_Protein = mean(protein_supply, na.rm = TRUE),
+      Avg_Stability = mean(stability_index, na.rm = TRUE)
+    )
+  
+  # Hitung rata-rata global
+  global_avg <- clustered_data %>%
+    summarise(
+      Avg_Food_Supply = mean(food_supply, na.rm = TRUE),
+      Avg_Import_Ratio = mean(import_ratio, na.rm = TRUE),
+      Avg_Malnutrition = mean(malnutrition_rate, na.rm = TRUE),
+      Avg_Protein = mean(protein_supply, na.rm = TRUE),
+      Avg_Stability = mean(stability_index, na.rm = TRUE)
+    )
+  
+  # Buat tabel perbandingan
+  comparison_data <- data.frame(
+    Metrik = c("Food Supply", "Import Ratio", "Malnutrition Rate", 
+               "Protein Supply", "Stability Index"),
+    Indonesia = c(
+      round(indonesia_row$food_supply[1], 2),
+      round(indonesia_row$import_ratio[1], 2),
+      round(indonesia_row$malnutrition_rate[1], 2),
+      round(indonesia_row$protein_supply[1], 2),
+      round(indonesia_row$stability_index[1], 2)
+    ),
+    Rata_Cluster = c(
+      round(cluster_avg$Avg_Food_Supply, 2),
+      round(cluster_avg$Avg_Import_Ratio, 2),
+      round(cluster_avg$Avg_Malnutrition, 2),
+      round(cluster_avg$Avg_Protein, 2),
+      round(cluster_avg$Avg_Stability, 2)
+    ),
+    Rata_Global = c(
+      round(global_avg$Avg_Food_Supply, 2),
+      round(global_avg$Avg_Import_Ratio, 2),
+      round(global_avg$Avg_Malnutrition, 2),
+      round(global_avg$Avg_Protein, 2),
+      round(global_avg$Avg_Stability, 2)
+    )
+  )
+  
+  comparison_data$Vs_Cluster <- comparison_data$Indonesia - comparison_data$Rata_Cluster
+  comparison_data$Vs_Cluster <- round(comparison_data$Vs_Cluster, 2)
+  
+  comparison_data$Vs_Global <- comparison_data$Indonesia - comparison_data$Rata_Global
+  comparison_data$Vs_Global <- round(comparison_data$Vs_Global, 2)
+  
+  kable(comparison_data,
+        col.names = c("Metrik", "Indonesia", "μ Cluster", "μ Global", 
+                     "Δ Cluster", "Δ Global"),
+        align = 'lccccc',
+        caption = paste("Perbandingan Indonesia dengan", indonesia_cluster, "dan Global"))
+  
+  cat("\n\n**Interpretasi:**\n\n")
+  cat("- Δ positif (+): Indonesia di atas rata-rata\n")
+  cat("- Δ negatif (-): Indonesia di bawah rata-rata\n")
+  cat("- Untuk Import Ratio dan Malnutrition Rate, nilai negatif lebih baik\n")
+}
+```
+
+## Ranking Indonesia dalam Cluster
+
+```{r indonesia-ranking}
+if (exists("indonesia_row") && nrow(indonesia_row) > 0) {
+  indonesia_cluster <- indonesia_row$Cluster[1]
+  
+  # Filter negara dalam cluster yang sama
+  cluster_countries <- clustered_data %>%
+    filter(Cluster == indonesia_cluster)
+  
+  # Hitung ranking untuk setiap metrik
+  rankings <- cluster_countries %>%
+    mutate(
+      Rank_Food = rank(-food_supply, ties.method = "min"),
+      Rank_Import = rank(import_ratio, ties.method = "min"),  # Lower is better
+      Rank_Malnut = rank(malnutrition_rate, ties.method = "min"),  # Lower is better
+      Rank_Protein = rank(-protein_supply, ties.method = "min"),
+      Rank_Stability = rank(-stability_index, ties.method = "min")
+    ) %>%
+    filter(grepl("Indonesia", Area, ignore.case = TRUE)) %>%
+    dplyr::select(starts_with("Rank_"))
+  
+  rank_table <- data.frame(
+    Metrik = c("Food Supply", "Import Ratio", "Malnutrition Rate", 
+               "Protein Supply", "Stability Index"),
+    Ranking = c(
+      paste0(rankings$Rank_Food, " dari ", nrow(cluster_countries)),
+      paste0(rankings$Rank_Import, " dari ", nrow(cluster_countries)),
+      paste0(rankings$Rank_Malnut, " dari ", nrow(cluster_countries)),
+      paste0(rankings$Rank_Protein, " dari ", nrow(cluster_countries)),
+      paste0(rankings$Rank_Stability, " dari ", nrow(cluster_countries))
+    )
+  )
+  
+  kable(rank_table,
+        col.names = c("Metrik", "Ranking dalam Cluster"),
+        align = 'lc',
+        caption = paste("Posisi Ranking Indonesia dalam", indonesia_cluster))
+}
+```
+
+# Visualisasi Posisi Indonesia dalam Clustering
+
+## PCA Visualization dengan Cluster Boundaries
+
+```{r indonesia-pca-visualization, fig.height=10, fig.width=14}
+if (exists("indonesia_row") && nrow(indonesia_row) > 0) {
+  # PCA untuk visualisasi
+  pca_result <- prcomp(clustered_data %>% 
+                       dplyr::select(food_supply, import_ratio, malnutrition_rate, 
+                              protein_supply, stability_index), 
+                       scale. = TRUE, center = TRUE)
+  
+  # Variance explained
+  var_explained <- round(100 * pca_result$sdev^2 / sum(pca_result$sdev^2), 2)
+  
+  pca_data <- data.frame(
+    PC1 = pca_result$x[, 1],
+    PC2 = pca_result$x[, 2],
+    Cluster = clustered_data$Cluster,
+    Country = clustered_data$Area,
+    Is_Indonesia = grepl("Indonesia", clustered_data$Area, ignore.case = TRUE)
+  )
+  
+  # Hitung convex hull untuk setiap cluster (boundary)
+  hulls <- pca_data %>%
+    group_by(Cluster) %>%
+    slice(chull(PC1, PC2))
+  
+  # Plot dengan boundary dan berbagai bentuk
+  p_main <- ggplot(pca_data, aes(x = PC1, y = PC2)) +
+    # Gambar boundary terlebih dahulu
+    geom_polygon(data = hulls, aes(fill = Cluster, group = Cluster), 
+                alpha = 0.15, color = NA) +
+    # Gambar garis boundary
+    geom_path(data = hulls, aes(color = Cluster, group = Cluster), 
+             size = 1.5, linetype = "dashed") +
+    # Plot semua negara dengan bentuk berbeda per cluster
+    geom_point(aes(color = Cluster, shape = Cluster, size = Is_Indonesia, 
+                  alpha = Is_Indonesia)) +
+    # Highlight Indonesia
+    geom_point(data = pca_data[pca_data$Is_Indonesia, ], 
+              aes(color = Cluster, shape = Cluster),
+              size = 8, stroke = 2) +
+    geom_label_repel(data = pca_data[pca_data$Is_Indonesia, ], 
+                    aes(label = "🇮🇩 INDONESIA"), 
+                    box.padding = 1,
+                    point.padding = 0.5,
+                    segment.color = "red",
+                    segment.size = 1.5,
+                    fontface = "bold", 
+                    size = 5.5, 
+                    fill = "yellow",
+                    color = "red") +
+    scale_color_manual(values = cluster_colors, name = "Cluster") +
+    scale_fill_manual(values = cluster_colors, name = "Cluster") +
+    scale_shape_manual(values = cluster_shapes, name = "Cluster") +
+    scale_size_manual(values = c(2.5, 8), guide = "none") +
+    scale_alpha_manual(values = c(0.6, 1), guide = "none") +
+    labs(
+      title = "Visualisasi Posisi Indonesia dalam Clustering Keamanan Pangan Global",
+      subtitle = paste0("Analisis Principal Component (PC1: ", var_explained[1], 
+                       "% variance, PC2: ", var_explained[2], "% variance)"),
+      x = paste0("Principal Component 1 (", var_explained[1], "% variance)"),
+      y = paste0("Principal Component 2 (", var_explained[2], "% variance)"),
+      caption = "Garis putus-putus menunjukkan batas territory setiap cluster\nBentuk berbeda merepresentasikan cluster berbeda"
+    ) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+      plot.subtitle = element_text(hjust = 0.5, size = 12),
+      plot.caption = element_text(size = 10, hjust = 0.5),
+      legend.position = "right",
+      legend.title = element_text(face = "bold", size = 12),
+      legend.text = element_text(size = 10),
+      panel.grid.major = element_line(color = "gray90"),
+      panel.grid.minor = element_line(color = "gray95")
+    ) +
+    guides(
+      color = guide_legend(override.aes = list(size = 4)),
+      shape = guide_legend(override.aes = list(size = 4))
+    )
+  
+  print(p_main)
+  
+  # Biplot - Contribution of variables
+  cat("\n\n### Kontribusi Variabel terhadap Principal Components\n\n")
+  
+  # Extract loadings
+  loadings <- as.data.frame(pca_result$rotation[, 1:2])
+  loadings$Variable <- rownames(loadings)
+  
+  # Scale loadings for visualization
+  scale_factor <- 5
+  loadings$PC1_scaled <- loadings$PC1 * scale_factor
+  loadings$PC2_scaled <- loadings$PC2 * scale_factor
+  
+  # Create arrow plot
+  p_biplot <- ggplot() +
+    # Plot points (lighter)
+    geom_point(data = pca_data, aes(x = PC1, y = PC2, color = Cluster, shape = Cluster), 
+              alpha = 0.3, size = 2) +
+    # Plot variable arrows
+    geom_segment(data = loadings, 
+                aes(x = 0, y = 0, xend = PC1_scaled, yend = PC2_scaled),
+                arrow = arrow(length = unit(0.3, "cm"), type = "closed"),
+                color = "darkblue", size = 1.2) +
+    geom_label_repel(data = loadings,
+                    aes(x = PC1_scaled, y = PC2_scaled, label = Variable),
+                    fontface = "bold", size = 4, fill = "lightyellow",
+                    box.padding = 0.5) +
+    scale_color_manual(values = cluster_colors) +
+    scale_shape_manual(values = cluster_shapes) +
+    labs(
+      title = "Biplot: Kontribusi Variabel terhadap PC",
+      subtitle = "Arrow menunjukkan arah dan kekuatan kontribusi variabel",
+      x = paste0("PC1 (", var_explained[1], "%)"),
+      y = paste0("PC2 (", var_explained[2], "%)")
+    ) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+      plot.subtitle = element_text(hjust = 0.5, size = 11),
+      legend.position = "right"
+    )
+  
+  print(p_biplot)
+  
+  # Tabel kontribusi variabel
+  contribution_table <- data.frame(
+    Variabel = loadings$Variable,
+    PC1_Contribution = round(loadings$PC1, 3),
+    PC2_Contribution = round(loadings$PC2, 3),
+    PC1_Abs = round(abs(loadings$PC1), 3),
+    PC2_Abs = round(abs(loadings$PC2), 3)
+  ) %>%
+    arrange(desc(PC1_Abs))
+  
+  kable(contribution_table %>% dplyr::select(-PC1_Abs, -PC2_Abs),
+        col.names = c("Variabel", "Kontribusi PC1", "Kontribusi PC2"),
+        align = 'lcc',
+        caption = "Loading Variabel pada Principal Components")
+}
+```
+
+## Scatter Plot Matrix
+
+```{r scatter-matrix, fig.height=12, fig.width=14}
+if (exists("indonesia_row") && nrow(indonesia_row) > 0) {
+  # Prepare data for scatter plot matrix
+  scatter_data <- clustered_data %>%
+    dplyr::select(Area, Cluster, food_supply, import_ratio, 
+           malnutrition_rate, protein_supply, stability_index) %>%
+    mutate(Is_Indonesia = grepl("Indonesia", Area, ignore.case = TRUE))
+  
+  # Create individual scatter plots
+  create_scatter <- function(xvar, yvar, data) {
+    ggplot(data, aes_string(x = xvar, y = yvar)) +
+      geom_point(aes(color = Cluster, shape = Cluster, size = Is_Indonesia,
+                    alpha = Is_Indonesia)) +
+      geom_point(data = data[data$Is_Indonesia, ],
+                aes_string(x = xvar, y = yvar, color = "Cluster", shape = "Cluster"),
+                size = 5, stroke = 2) +
+      scale_color_manual(values = cluster_colors) +
+      scale_shape_manual(values = cluster_shapes) +
+      scale_size_manual(values = c(1.5, 5), guide = "none") +
+      scale_alpha_manual(values = c(0.5, 1), guide = "none") +
+      theme_minimal() +
+      theme(legend.position = "none",
+            axis.title = element_text(size = 9))
+  }
+  
+  vars <- c("food_supply", "import_ratio", "malnutrition_rate", 
+            "protein_supply", "stability_index")
+  
+  plot_list <- list()
+  idx <- 1
+  
+  for (i in 1:length(vars)) {
+    for (j in 1:length(vars)) {
+      if (i < j) {
+        plot_list[[idx]] <- create_scatter(vars[j], vars[i], scatter_data)
+        idx <- idx + 1
+      }
+    }
+  }
+  
+  # Create legend separately
+  legend_plot <- ggplot(scatter_data, aes(x = food_supply, y = import_ratio)) +
+    geom_point(aes(color = Cluster, shape = Cluster), size = 4) +
+    scale_color_manual(values = cluster_colors, name = "Cluster") +
+    scale_shape_manual(values = cluster_shapes, name = "Cluster") +
+    theme_minimal() +
+    theme(legend.position = "right",
+          legend.title = element_text(face = "bold", size = 12),
+          legend.text = element_text(size = 10))
+  
+  # Extract legend
+  g_legend <- function(p){
+    tmp <- ggplot_gtable(ggplot_build(p))
+    leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+    tmp$grobs[[leg]]
+  }
+  legend <- g_legend(legend_plot)
+  
+  # Arrange plots
+  grid.arrange(
+    grobs = plot_list,
+    ncol = 4,
+    top = "Scatter Plot Matrix: Hubungan Antar Indikator\n(Titik besar = Indonesia)"
+  )
+}
+```
+
+# Daftar Negara per Cluster
+
+```{r countries-per-cluster, results='asis'}
+for (i in 1:5) {
+  cluster_name <- paste0("Cluster ", i)
+  cluster_label <- levels(clustered_data$Cluster_Label)[i]
+  
+  cat("\n\n## ", cluster_name, ": ", cluster_label, "\n\n", sep = "")
+  
+  # Filter negara di cluster ini
+  countries_in_cluster <- clustered_data %>%
+    filter(Cluster == cluster_name) %>%
+    arrange(Area)
+  
+  total_countries <- nrow(countries_in_cluster)
+  cat("**Total negara dalam cluster:** ", total_countries, "\n\n", sep = "")
+  
+  # Cek apakah Indonesia ada di cluster ini
+  indonesia_in_this_cluster <- any(grepl("Indonesia", countries_in_cluster$Area, ignore.case = TRUE))
+  
+  if (indonesia_in_this_cluster) {
+    cat("### ⭐ INDONESIA ADA DI CLUSTER INI\n\n")
+  }
+  
+  # Karakteristik cluster
+  cat("### Karakteristik Cluster\n\n")
+  cluster_char <- cluster_stats %>% filter(Cluster == cluster_name)
+  
+  cat("- **Food Supply:** ", cluster_char$Avg_Food_Supply, " ± ", 
+      cluster_char$SD_Food_Supply, " kcal/kapita/hari\n", sep = "")
+  cat("- **Import Ratio:** ", cluster_char$Avg_Import_Ratio, " ± ", 
+      cluster_char$SD_Import_Ratio, " %\n", sep = "")
+  cat("- **Malnutrition Rate:** ", cluster_char$Avg_Malnutrition, " ± ", 
+      cluster_char$SD_Malnutrition, " %\n", sep = "")
+  cat("- **Protein Supply:** ", cluster_char$Avg_Protein, " ± ", 
+      cluster_char$SD_Protein, " g/kapita/hari\n", sep = "")
+  cat("- **Stability Index:** ", cluster_char$Avg_Stability, " ± ", 
+      cluster_char$SD_Stability, "\n\n", sep = "")
+  
+  # Ambil minimal 15 negara atau semua jika kurang dari 15
+  num_to_show <- min(15, total_countries)
+  
+  if (total_countries > 0) {
+    cat("### Daftar Negara (Top ", num_to_show, ")\n\n", sep = "")
+    
+    # Jika Indonesia ada di cluster ini, pastikan Indonesia ditampilkan
+    if (indonesia_in_this_cluster) {
+      indonesia_data <- countries_in_cluster %>%
+        filter(grepl("Indonesia", Area, ignore.case = TRUE))
+      
+      other_countries <- countries_in_cluster %>%
+        filter(!grepl("Indonesia", Area, ignore.case = TRUE)) %>%
+        head(num_to_show - 1)
+      
+      display_countries <- bind_rows(indonesia_data, other_countries) %>%
+        arrange(Area)
+    } else {
+      display_countries <- countries_in_cluster %>%
+        head(num_to_show)
+    }
+    
+    # Buat tabel dengan statistik
+    country_table <- display_countries %>%
+      dplyr::select(Area, food_supply, import_ratio, malnutrition_rate, 
+             protein_supply, stability_index) %>%
+      mutate(
+        food_supply = round(food_supply, 2),
+        import_ratio = round(import_ratio, 2),
+        malnutrition_rate = round(malnutrition_rate, 2),
+        protein_supply = round(protein_supply, 2),
+        stability_index = round(stability_index, 2)
+      )
+    
+    # Highlight Indonesia jika ada
+    if (indonesia_in_this_cluster) {
+      indonesia_index <- which(grepl("Indonesia", country_table$Area, ignore.case = TRUE))
+      if (length(indonesia_index) > 0) {
+        country_table$Area[indonesia_index] <- paste0("🇮🇩 **", country_table$Area[indonesia_index], "**")
+      }
+    }
+    
+    print(kable(country_table,
+                col.names = c("Negara", "Food Supply", "Import Ratio", 
+                             "Malnutrition", "Protein", "Stability"),
+                align = 'lccccc',
+                caption = paste("Negara-negara di", cluster_name)))
+    
+    if (total_countries > num_to_show) {
+      cat("\n*... dan ", total_countries - num_to_show, " negara lainnya*\n", sep = "")
+    }
+  } else {
+    cat("Tidak ada negara dalam cluster ini.\n")
+  }
+}
+```
+
+# Analisis Komparatif Regional
+
+```{r regional-analysis}
+# Tambahkan kolom region berdasarkan nama negara (simplified)
+classify_region <- function(country) {
+  country_lower <- tolower(country)
+  
+  # Asia
+  asia_keywords <- c("indonesia", "malaysia", "singapore", "thailand", "vietnam",
+                     "philippines", "cambodia", "laos", "myanmar", "brunei",
+                     "china", "japan", "korea", "india", "pakistan", "bangladesh",
+                     "sri lanka", "nepal", "afghanistan", "iran", "iraq", "saudi",
+                     "yemen", "oman", "qatar", "kuwait", "bahrain", "jordan",
+                     "lebanon", "syria", "turkey", "israel", "palestine")
+  
+  # Africa
+  africa_keywords <- c("africa", "egypt", "libya", "tunisia", "algeria", "morocco",
+                       "sudan", "ethiopia", "kenya", "tanzania", "uganda", "rwanda",
+                       "somalia", "nigeria", "ghana", "senegal", "mali", "niger",
+                       "chad", "cameroon", "congo", "angola", "zimbabwe", "zambia",
+                       "mozambique", "madagascar", "mauritius")
+  
+  # Europe
+  europe_keywords <- c("kingdom", "france", "germany", "italy", "spain", "portugal",
+                       "netherlands", "belgium", "switzerland", "austria", "poland",
+                       "czech", "slovakia", "hungary", "romania", "bulgaria",
+                       "greece", "sweden", "norway", "denmark", "finland", "ireland",
+                       "iceland", "estonia", "latvia", "lithuania", "ukraine", "belarus")
+  
+  # Americas
+  americas_keywords <- c("america", "canada", "mexico", "brazil", "argentina",
+                         "chile", "colombia", "venezuela", "peru", "ecuador",
+                         "bolivia", "paraguay", "uruguay", "guyana", "suriname",
+                         "costa rica", "panama", "guatemala", "honduras", "salvador",
+                         "nicaragua", "cuba", "jamaica", "haiti", "dominican")
+  
+  # Oceania
+  oceania_keywords <- c("australia", "zealand", "papua", "fiji", "samoa", "tonga",
+                        "vanuatu", "solomon")
+  
+  if (any(sapply(asia_keywords, function(x) grepl(x, country_lower)))) {
+    return("Asia")
+  } else if (any(sapply(africa_keywords, function(x) grepl(x, country_lower)))) {
+    return("Africa")
+  } else if (any(sapply(europe_keywords, function(x) grepl(x, country_lower)))) {
+    return("Europe")
+  } else if (any(sapply(americas_keywords, function(x) grepl(x, country_lower)))) {
+    return("Americas")
+  } else if (any(sapply(oceania_keywords, function(x) grepl(x, country_lower)))) {
+    return("Oceania")
+  } else {
+    return("Other")
+  }
+}
+
+# Apply regional classification
+clustered_data$Region <- sapply(clustered_data$Area, classify_region)
+
+# Regional distribution by cluster
+regional_dist <- clustered_data %>%
+  group_by(Region, Cluster) %>%
+  summarise(Count = n(), .groups = 'drop') %>%
+  pivot_wider(names_from = Cluster, values_from = Count, values_fill = 0)
+
+kable(regional_dist,
+      caption = "Distribusi Regional per Cluster",
+      align = 'lccccc')
+```
+
+## Visualisasi Distribusi Regional
+
+```{r regional-visualization, fig.height=8}
+# Stacked bar chart
+regional_plot_data <- clustered_data %>%
+  group_by(Region, Cluster) %>%
+  summarise(Count = n(), .groups = 'drop')
+
+p_regional <- ggplot(regional_plot_data, aes(x = Region, y = Count, fill = Cluster)) +
+  geom_bar(stat = "identity", position = "stack", color = "white", size = 0.5) +
+  geom_text(aes(label = Count), position = position_stack(vjust = 0.5),
+            size = 3.5, fontface = "bold", color = "white") +
+  scale_fill_manual(values = cluster_colors) +
+  labs(
+    title = "Distribusi Cluster per Region",
+    subtitle = "Komposisi tingkat keamanan pangan berdasarkan wilayah geografis",
+    x = "Region",
+    y = "Jumlah Negara",
+    fill = "Cluster"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    plot.subtitle = element_text(hjust = 0.5, size = 11),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 11),
+    legend.position = "right",
+    legend.title = element_text(face = "bold")
+  ) +
+  coord_flip()
+
+print(p_regional)
+```
+
+## Perbandingan Indonesia dengan Negara Asia Lainnya
+
+```{r indonesia-vs-asia, fig.height=8}
+if (exists("indonesia_row") && nrow(indonesia_row) > 0) {
+  # Filter negara Asia
+  asia_countries <- clustered_data %>%
+    filter(Region == "Asia") %>%
+    arrange(food_supply)
+  
+  # Highlight Indonesia
+  asia_countries$Highlight <- grepl("Indonesia", asia_countries$Area, ignore.case = TRUE)
+  
+  # Top 20 dan bottom 20 Asia countries by food supply
+  top_asia <- asia_countries %>%
+    arrange(desc(food_supply)) %>%
+    head(20)
+  
+  # Plot comparison
+  p_asia <- ggplot(top_asia, aes(x = reorder(Area, food_supply), y = food_supply)) +
+    geom_bar(aes(fill = Cluster), stat = "identity", alpha = 0.8) +
+    geom_bar(data = top_asia[top_asia$Highlight, ], 
+             aes(fill = Cluster), stat = "identity") +
+    geom_text(aes(label = round(food_supply, 0)), hjust = -0.2, size = 3) +
+    scale_fill_manual(values = cluster_colors) +
+    labs(
+      title = "Top 20 Negara Asia: Food Supply",
+      subtitle = "Indonesia dibandingkan dengan negara Asia lainnya",
+      x = "",
+      y = "Food Supply (kcal/kapita/hari)",
+      fill = "Cluster"
+    ) +
+    theme_minimal() +
+    theme(
+      plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
+      plot.subtitle = element_text(hjust = 0.5, size = 11),
+      axis.text.y = element_text(size = 9, 
+                                 face = ifelse(top_asia$Highlight, "bold", "plain"),
+                                 color = ifelse(top_asia$Highlight, "red", "black"))
+    ) +
+    coord_flip()
+  
+  print(p_asia)
+  
+  # Summary statistics for Asia
+  cat("\n\n### Statistik Regional Asia\n\n")
+  
+  asia_stats <- asia_countries %>%
+    summarise(
+      Total_Negara = n(),
+      Avg_Food_Supply = round(mean(food_supply, na.rm = TRUE), 2),
+      Avg_Malnutrition = round(mean(malnutrition_rate, na.rm = TRUE), 2),
+      Indonesia_Rank_Food = which(order(order(asia_countries$food_supply, decreasing = TRUE)) == 
+                                  which(asia_countries$Highlight))[1]
+    )
+  
+  cat("- **Total negara Asia dalam analisis:** ", asia_stats$Total_Negara, "\n", sep = "")
+  cat("- **Rata-rata Food Supply Asia:** ", asia_stats$Avg_Food_Supply, " kcal/kapita/hari\n", sep = "")
+  cat("- **Rata-rata Malnutrition Asia:** ", asia_stats$Avg_Malnutrition, " %\n", sep = "")
+  cat("- **Ranking Indonesia (Food Supply):** ", asia_stats$Indonesia_Rank_Food, 
+      " dari ", asia_stats$Total_Negara, "\n", sep = "")
+}
+```
+
+# Insights dan Rekomendasi
+
+## Key Findings
+
+```{r key-findings, results='asis'}
+cat("### 🔍 Temuan Utama\n\n")
+
+# Finding 1: Cluster distribution
+most_common_cluster <- cluster_distribution %>%
+  arrange(desc(Jumlah)) %>%
+  head(1)
+
+cat("1. **Distribusi Global:**\n")
+cat("   - Cluster terbesar adalah ", as.character(most_common_cluster$Cluster), 
+    " dengan ", most_common_cluster$Jumlah, " negara (", 
+    most_common_cluster$Persentase, "%)\n", sep = "")
+cat("   - Menunjukkan bahwa mayoritas negara berada dalam kategori: ", 
+    as.character(most_common_cluster$Cluster_Label), "\n\n", sep = "")
+
+# Finding 2: Indonesia position
+if (exists("indonesia_row") && nrow(indonesia_row) > 0) {
+  cat("2. **Posisi Indonesia:**\n")
+  cat("   - Indonesia berada di ", as.character(indonesia_row$Cluster[1]), 
+      " (", as.character(indonesia_row$Cluster_Label[1]), ")\n", sep = "")
+  cat("   - Food Supply: ", round(indonesia_row$food_supply[1], 2), 
+      " kcal/kapita/hari\n", sep = "")
+  cat("   - Malnutrition Rate: ", round(indonesia_row$malnutrition_rate[1], 2), 
+      " %\n\n", sep = "")
+}
+
+# Finding 3: Correlation insights
+cat("3. **Korelasi Antar Indikator:**\n")
+cat("   - Food Supply berkorelasi positif kuat dengan Protein Supply\n")
+cat("   - Malnutrition Rate berkorelasi negatif dengan Food Supply\n")
+cat("   - Import Ratio menunjukkan variasi tinggi antar cluster\n\n")
+
+# Finding 4: Regional patterns
+cat("4. **Pola Regional:**\n")
+regional_summary <- clustered_data %>%
+  group_by(Region) %>%
+  summarise(
+    Count = n(),
+    Avg_Cluster = as.numeric(gsub("Cluster ", "", Cluster)) %>% mean(),
+    .groups = 'drop'
+  ) %>%
+  arrange(Avg_Cluster)
+
+best_region <- regional_summary[1, ]
+worst_region <- regional_summary[nrow(regional_summary), ]
+
+cat("   - Region dengan keamanan pangan terbaik: ", best_region$Region, "\n", sep = "")
+cat("   - Region dengan tantangan terbesar: ", worst_region$Region, "\n\n", sep = "")
+```
+
+## Rekomendasi Kebijakan untuk Indonesia
+
+```{r recommendations, results='asis'}
+if (exists("indonesia_row") && nrow(indonesia_row) > 0) {
+  cat("### 📋 Rekomendasi Strategis\n\n")
+  
+  indonesia_cluster_num <- as.numeric(gsub("Cluster ", "", indonesia_row$Cluster[1]))
+  
+  cat("Berdasarkan posisi Indonesia di ", as.character(indonesia_row$Cluster[1]), 
+      ", berikut rekomendasi kebijakan:\n\n", sep = "")
+  
+  # Specific recommendations based on cluster
+  if (indonesia_cluster_num <= 2) {
+    cat("#### Area Kekuatan yang Perlu Dipertahankan:\n\n")
+    cat("1. **Stabilitas Pasokan Pangan**\n")
+    cat("   - Pertahankan sistem distribusi pangan yang ada\n")
+    cat("   - Terus tingkatkan infrastruktur logistik\n\n")
+    
+    cat("2. **Diversifikasi Protein**\n")
+    cat("   - Tingkatkan produksi protein nabati dan hewani lokal\n")
+    cat("   - Kembangkan industri perikanan dan peternakan berkelanjutan\n\n")
+  }
+  
+  cat("#### Area yang Memerlukan Perhatian:\n\n")
+  
+  if (indonesia_row$import_ratio[1] > 20) {
+    cat("1. **Ketergantungan Import**\n")
+    cat("   - Kurangi ketergantungan pada import pangan (saat ini: ", 
+        round(indonesia_row$import_ratio[1], 2), "%)\n", sep = "")
+    cat("   - Tingkatkan swasembada pangan strategis\n")
+    cat("   - Investasi pada teknologi pertanian modern\n\n")
+  }
+  
+  if (indonesia_row$malnutrition_rate[1] > 5) {
+    cat("2. **Malnutrisi**\n")
+    cat("   - Implementasi program gizi targeted (rate saat ini: ", 
+        round(indonesia_row$malnutrition_rate[1], 2), "%)\n", sep = "")
+    cat("   - Fokus pada 1000 hari pertama kehidupan\n")
+    cat("   - Edukasi nutrisi untuk masyarakat\n\n")
+  }
+  
+  cat("3. **Stabilitas dan Ketahanan**\n")
+  cat("   - Bangun sistem early warning untuk krisis pangan\n")
+  cat("   - Tingkatkan cadangan pangan nasional\n")
+  cat("   - Perkuat kemitraan regional untuk ketahanan pangan\n\n")
+  
+  cat("#### Benchmark dari Negara Sejenis:\n\n")
+  
+  # Find similar countries in same cluster with better indicators
+  similar_better <- clustered_data %>%
+    filter(Cluster == indonesia_row$Cluster[1],
+           food_supply > indonesia_row$food_supply[1],
+           malnutrition_rate < indonesia_row$malnutrition_rate[1]) %>%
+    head(3)
+  
+  if (nrow(similar_better) > 0) {
+    cat("Negara dalam cluster yang sama dengan performa lebih baik:\n\n")
+    for (i in 1:nrow(similar_better)) {
+      cat("- **", similar_better$Area[i], "**\n", sep = "")
+      cat("  - Food Supply: ", round(similar_better$food_supply[i], 2), 
+          " (Δ +", round(similar_better$food_supply[i] - indonesia_row$food_supply[1], 2), ")\n", sep = "")
+      cat("  - Malnutrition: ", round(similar_better$malnutrition_rate[i], 2), 
+          " (Δ -", round(indonesia_row$malnutrition_rate[1] - similar_better$malnutrition_rate[i], 2), ")\n\n", sep = "")
+    }
+  }
+}
+```
+
+# Kesimpulan
+
+```{r conclusion, results='asis'}
+cat("## Kesimpulan Akhir\n\n")
+
+cat("Analisis clustering keamanan pangan global ini memberikan beberapa insight penting:\n\n")
+
+cat("1. **Heterogenitas Global:** Terdapat variasi signifikan dalam tingkat keamanan pangan ")
+cat("di berbagai negara, dari yang sangat aman hingga menghadapi krisis kemanusiaan.\n\n")
+
+cat("2. **Multidimensionalitas:** Keamanan pangan bukan hanya tentang ketersediaan kalori, ")
+cat("tetapi juga melibatkan protein, stabilitas, dan tingkat malnutrisi.\n\n")
+
+if (exists("indonesia_row") && nrow(indonesia_row) > 0) {
+  cat("3. **Posisi Indonesia:** Indonesia berada di ", as.character(indonesia_row$Cluster[1]), 
+      ", menunjukkan bahwa negara memiliki fondasi yang cukup baik namun masih ada ruang ")
+  cat("untuk peningkatan, terutama dalam hal pengurangan import ratio dan malnutrisi.\n\n", sep = "")
+}
+
+cat("4. **Pentingnya Aksi Berkelanjutan:** Diperlukan komitmen jangka panjang dan ")
+cat("kebijakan terintegrasi untuk meningkatkan ketahanan pangan nasional.\n\n")
+
+cat("5. **Kolaborasi Regional:** Pembelajaran dari best practices negara-negara ")
+cat("dalam cluster yang sama atau lebih baik dapat menjadi strategi efektif.\n\n")
+
+cat("\n---\n\n")
+cat("**Catatan Metodologi:**\n")
+cat("- Analisis menggunakan metode clustering untuk mengelompokkan negara\n")
+cat("- Visualisasi PCA menjelaskan ", round(sum(var_explained[1:2]), 2), 
+    "% variance dari data\n", sep = "")
+cat("- Boundary cluster divisualisasikan menggunakan convex hull\n")
+cat("- Data mencakup ", nrow(clustered_data), " negara di seluruh dunia\n", sep = "")
+```
+
+---
+
+**Dokumen ini dihasilkan secara otomatis menggunakan R Markdown**
+
+*Terakhir diperbarui: `r Sys.Date()`*

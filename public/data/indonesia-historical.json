@@ -1,0 +1,119 @@
+[
+  {
+    "year": 2010,
+    "food_supply": 2598,
+    "import_ratio": 6,
+    "malnutrition_rate": 10.9,
+    "protein_supply": 62.5,
+    "stability_index": -0.85,
+    "is_forecast": false
+  },
+  {
+    "year": 2011,
+    "food_supply": 2655,
+    "import_ratio": 7,
+    "malnutrition_rate": 9.5,
+    "protein_supply": 63.8,
+    "stability_index": -0.77,
+    "is_forecast": false
+  },
+  {
+    "year": 2012,
+    "food_supply": 2699,
+    "import_ratio": 7,
+    "malnutrition_rate": 8.3,
+    "protein_supply": 65,
+    "stability_index": -0.59,
+    "is_forecast": false
+  },
+  {
+    "year": 2013,
+    "food_supply": 2739,
+    "import_ratio": 7,
+    "malnutrition_rate": 7.8,
+    "protein_supply": 66.3,
+    "stability_index": -0.52,
+    "is_forecast": false
+  },
+  {
+    "year": 2014,
+    "food_supply": 2815,
+    "import_ratio": 8,
+    "malnutrition_rate": 7.1,
+    "protein_supply": 67.6,
+    "stability_index": -0.42,
+    "is_forecast": false
+  },
+  {
+    "year": 2015,
+    "food_supply": 2793,
+    "import_ratio": 8,
+    "malnutrition_rate": 6.6,
+    "protein_supply": 70,
+    "stability_index": -0.62,
+    "is_forecast": false
+  },
+  {
+    "year": 2016,
+    "food_supply": 2888,
+    "import_ratio": 9,
+    "malnutrition_rate": 6,
+    "protein_supply": 71.7,
+    "stability_index": -0.38,
+    "is_forecast": false
+  },
+  {
+    "year": 2017,
+    "food_supply": 2962,
+    "import_ratio": 9,
+    "malnutrition_rate": 6,
+    "protein_supply": 73.2,
+    "stability_index": -0.5,
+    "is_forecast": false
+  },
+  {
+    "year": 2018,
+    "food_supply": 2918,
+    "import_ratio": 8,
+    "malnutrition_rate": 6.4,
+    "protein_supply": 74.5,
+    "stability_index": -0.55,
+    "is_forecast": false
+  },
+  {
+    "year": 2019,
+    "food_supply": 2907,
+    "import_ratio": 8,
+    "malnutrition_rate": 6.6,
+    "protein_supply": 76.4,
+    "stability_index": -0.5,
+    "is_forecast": false
+  },
+  {
+    "year": 2020,
+    "food_supply": 2911,
+    "import_ratio": 8,
+    "malnutrition_rate": 6.6,
+    "protein_supply": 77.5,
+    "stability_index": -0.46,
+    "is_forecast": false
+  },
+  {
+    "year": 2021,
+    "food_supply": 2900,
+    "import_ratio": 7,
+    "malnutrition_rate": 6.6,
+    "protein_supply": 74.7,
+    "stability_index": -0.53,
+    "is_forecast": false
+  },
+  {
+    "year": 2022,
+    "food_supply": 2830,
+    "import_ratio": 8,
+    "malnutrition_rate": 6.3,
+    "protein_supply": 76.3,
+    "stability_index": -0.55,
+    "is_forecast": false
+  }
+]

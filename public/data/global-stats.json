@@ -1,0 +1,96 @@
+{
+  "total_countries": 167,
+  "total_clusters": 5,
+  "avg_metrics": {
+    "food_supply": 2947.934131736527,
+    "import_ratio": 44.78443113772455,
+    "malnutrition_rate": 10.741317365269458,
+    "protein_supply": 88.28347305389217,
+    "stability_index": -0.18616766467065868
+  },
+  "best_countries": [
+    {
+      "name": "New Zealand",
+      "stability": 1.32
+    },
+    {
+      "name": "Dominica",
+      "stability": 1.31
+    },
+    {
+      "name": "Iceland",
+      "stability": 1.25
+    },
+    {
+      "name": "Switzerland",
+      "stability": 1.16
+    },
+    {
+      "name": "Barbados",
+      "stability": 1.14
+    },
+    {
+      "name": "China, Macao SAR",
+      "stability": 1.12
+    },
+    {
+      "name": "Kiribati",
+      "stability": 1.1
+    },
+    {
+      "name": "Samoa",
+      "stability": 1.1
+    },
+    {
+      "name": "Uruguay",
+      "stability": 1.09
+    },
+    {
+      "name": "Botswana",
+      "stability": 1.07
+    }
+  ],
+  "worst_countries": [
+    {
+      "name": "Syrian Arab Republic",
+      "stability": -2.78
+    },
+    {
+      "name": "Mali",
+      "stability": -2.56
+    },
+    {
+      "name": "Afghanistan",
+      "stability": -2.54
+    },
+    {
+      "name": "Yemen",
+      "stability": -2.46
+    },
+    {
+      "name": "Somalia",
+      "stability": -2.43
+    },
+    {
+      "name": "Iraq",
+      "stability": -2.41
+    },
+    {
+      "name": "South Sudan",
+      "stability": -2.21
+    },
+    {
+      "name": "Central African Republic",
+      "stability": -2.21
+    },
+    {
+      "name": "Myanmar",
+      "stability": -2.2
+    },
+    {
+      "name": "Libya",
+      "stability": -2.19
+    }
+  ],
+  "indonesia_rank": 116
+}

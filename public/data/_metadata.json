@@ -1,0 +1,11 @@
+{
+  "generation_date": "2025-10-28T10:14:39.021Z",
+  "source_files": [
+    "A-clean-data.csv",
+    "B-clustered-data.csv",
+    "C-indonesia-combined-data.csv",
+    "D-indonesia-combined-data-with-forecast.csv"
+  ],
+  "total_records": 167,
+  "data_version": "1.0.0"
+}
