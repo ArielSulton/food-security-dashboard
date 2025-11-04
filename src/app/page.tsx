@@ -42,6 +42,7 @@ function getMetricStatus(metric: string, value: number): { status: string; color
 
 export default function HomePage() {
   const { data: countries, isLoading: countriesLoading } = useCountries();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { data: clusters, isLoading: clustersLoading } = useClusters();
   const { data: globalStats, isLoading: statsLoading } = useGlobalStats();
   const { data: regionalClusters } = useRegionalClusters();

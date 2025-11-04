@@ -10,7 +10,7 @@ const navLinks = [
   { href: '/', label: 'Beranda' },
   { href: '/clusters', label: 'Klaster' },
   { href: '/indonesia', label: 'Indonesia' },
-  { href: '/forecast', label: 'Prediksi' },
+  { href: '/evaluasi', label: 'Evaluasi' },
   { href: '/methodology', label: 'Metodologi' },
 ];
 

@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CLUSTER_LABELS, CLUSTER_COLORS } from '@/lib/types';
 import {
-  LineChart,
   Line,
   XAxis,
   YAxis,
@@ -13,7 +12,6 @@ import {
   Legend,
   ResponsiveContainer,
   ReferenceLine,
-  Area,
   ComposedChart,
 } from 'recharts';
 
@@ -88,6 +86,7 @@ export function ClusterEvolutionChart({
             <YAxis
               domain={[0, 6]}
               ticks={[1, 2, 3, 4, 5]}
+              reversed={true}
               label={{ value: 'Klaster', angle: -90, position: 'insideLeft' }}
               tickFormatter={(value) => `${value}`}
             />
