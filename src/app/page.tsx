@@ -1,10 +1,11 @@
 'use client';
 
 import { KPICard } from '@/components/KPICard';
-import { useCountries, useClusters, useGlobalStats } from '@/lib/hooks';
+import { useCountries, useClusters, useGlobalStats, useRegionalClusters } from '@/lib/hooks';
 import { Globe, Layers, Award, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { getClusterLabel, getClusterColor } from '@/lib/utils';
+import { RegionalClusterChart } from '@/components/charts/RegionalClusterChart';
 
 // Function to get metric status and color
 function getMetricStatus(metric: string, value: number): { status: string; color: string; bgColor: string } {
@@ -43,6 +44,7 @@ export default function HomePage() {
   const { data: countries, isLoading: countriesLoading } = useCountries();
   const { data: clusters, isLoading: clustersLoading } = useClusters();
   const { data: globalStats, isLoading: statsLoading } = useGlobalStats();
+  const { data: regionalClusters } = useRegionalClusters();
 
   const isLoading = countriesLoading || clustersLoading || statsLoading;
 
@@ -240,28 +242,14 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Quick Stats */}
-      <div className="p-6 border rounded-lg space-y-4">
-        <h2 className="text-2xl font-bold">Distribusi Klaster</h2>
-        <div className="grid gap-3 md:grid-cols-5">
-          {clusters?.map((cluster) => (
-            <div
-              key={cluster.id}
-              className="p-4 rounded-lg text-center space-y-2"
-              style={{
-                backgroundColor: `${cluster.color}20`,
-                borderLeft: `4px solid ${cluster.color}`
-              }}
-            >
-              <div className="text-2xl font-bold">{cluster.count}</div>
-              <div className="text-sm font-medium">{cluster.label}</div>
-              <div className="text-xs text-muted-foreground">
-                {((cluster.count / (globalStats?.total_countries || 1)) * 100).toFixed(1)}%
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* Regional Cluster Distribution Chart */}
+      {regionalClusters && (
+        <RegionalClusterChart
+          data={regionalClusters}
+          title="Distribusi Klaster per Region"
+          description="Jumlah negara dalam setiap klaster ketahanan pangan berdasarkan region geografis"
+        />
+      )}
     </div>
   );
 }

@@ -1,18 +1,20 @@
 'use client';
 
-import { useCountries, useIndonesiaHistorical, useIndonesiaForecast, useClusters } from '@/lib/hooks';
+import { useCountries, useIndonesiaHistorical, useIndonesiaForecast, useClusters, useIndonesiaClusterEvolution } from '@/lib/hooks';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { getClusterLabel, getClusterColor, calculatePercentageChange, formatPercentage } from '@/lib/utils';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import { TimeSeriesChart } from '@/components/charts/TimeSeriesChart';
 import { RadarChart } from '@/components/charts/RadarChart';
+import { ClusterEvolutionChart } from '@/components/charts/ClusterEvolutionChart';
 
 export default function IndonesiaPage() {
   const { data: countries } = useCountries();
   const { data: historical } = useIndonesiaHistorical();
   const { data: forecast } = useIndonesiaForecast();
   const { data: clusters } = useClusters();
+  const { data: clusterEvolution } = useIndonesiaClusterEvolution();
 
   const indonesia = countries?.find(c => c.name && c.name.toLowerCase().includes('indonesia'));
 
@@ -188,6 +190,15 @@ export default function IndonesiaPage() {
         <TimeSeriesChart
           data={[...historical, ...forecast]}
           title="Tren Historis & Prediksi (2010-2025)"
+        />
+      )}
+
+      {/* Cluster Evolution Chart */}
+      {clusterEvolution && (
+        <ClusterEvolutionChart
+          data={clusterEvolution}
+          title="Evolusi Klaster Indonesia (2010-2025)"
+          description="Perubahan klaster ketahanan pangan Indonesia dari historis hingga prediksi"
         />
       )}
 

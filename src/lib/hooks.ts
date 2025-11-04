@@ -94,3 +94,42 @@ export function useGlobalStats() {
     },
   });
 }
+
+// Fetch Indonesia cluster evolution data
+export interface ClusterEvolutionData {
+  year: number;
+  cluster: number;
+  is_forecast: boolean;
+}
+
+export function useIndonesiaClusterEvolution() {
+  return useQuery<ClusterEvolutionData[]>({
+    queryKey: ['indonesia-cluster-evolution'],
+    queryFn: async () => {
+      const response = await fetch('/data/indonesia-cluster-evolution.json');
+      if (!response.ok) throw new Error('Failed to fetch Indonesia cluster evolution data');
+      return response.json();
+    },
+  });
+}
+
+// Fetch regional cluster distribution
+export interface RegionalClusterData {
+  region: string;
+  cluster_1: number;
+  cluster_2: number;
+  cluster_3: number;
+  cluster_4: number;
+  cluster_5: number;
+}
+
+export function useRegionalClusters() {
+  return useQuery<RegionalClusterData[]>({
+    queryKey: ['regional-clusters'],
+    queryFn: async () => {
+      const response = await fetch('/data/regional-clusters.json');
+      if (!response.ok) throw new Error('Failed to fetch regional cluster data');
+      return response.json();
+    },
+  });
+}
