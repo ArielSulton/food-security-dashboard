@@ -1,0 +1,90 @@
+{
+  "priors": {
+    "Cluster 1": [0.1018],
+    "Cluster 2": [0.2575],
+    "Cluster 3": [0.2575],
+    "Cluster 4": [0.2096],
+    "Cluster 5": [0.1737]
+  },
+  "means": [
+    {
+      "food_supply": 3709.7647,
+      "import_ratio": 14.2941,
+      "malnutrition_rate": 2.5,
+      "protein_supply": 121.3518,
+      "stability_index": 0.33,
+      "_row": "Cluster 1"
+    },
+    {
+      "food_supply": 3354.3953,
+      "import_ratio": 15.7209,
+      "malnutrition_rate": 3.1023,
+      "protein_supply": 107.5691,
+      "stability_index": 0.206,
+      "_row": "Cluster 2"
+    },
+    {
+      "food_supply": 2985.7907,
+      "import_ratio": 55.0233,
+      "malnutrition_rate": 5.5163,
+      "protein_supply": 89.8586,
+      "stability_index": 0.0647,
+      "_row": "Cluster 3"
+    },
+    {
+      "food_supply": 2654.5143,
+      "import_ratio": 52.5429,
+      "malnutrition_rate": 13.76,
+      "protein_supply": 73.1389,
+      "stability_index": -0.6377,
+      "_row": "Cluster 4"
+    },
+    {
+      "food_supply": 2196.6552,
+      "import_ratio": 81.2069,
+      "malnutrition_rate": 31.0034,
+      "protein_supply": 56.2452,
+      "stability_index": -0.8972,
+      "_row": "Cluster 5"
+    }
+  ],
+  "scaling": [
+    {
+      "LD1": -0.0091,
+      "LD2": 0.0037,
+      "LD3": -0.0022,
+      "LD4": 0.0029,
+      "_row": "food_supply"
+    },
+    {
+      "LD1": -0.0001,
+      "LD2": -0.0017,
+      "LD3": 0.0016,
+      "LD4": 0.0095,
+      "_row": "import_ratio"
+    },
+    {
+      "LD1": -0.034,
+      "LD2": 0.2298,
+      "LD3": 0.0127,
+      "LD4": 0.0124,
+      "_row": "malnutrition_rate"
+    },
+    {
+      "LD1": -0.0006,
+      "LD2": 0.0137,
+      "LD3": 0.0353,
+      "LD4": -0.0508,
+      "_row": "protein_supply"
+    },
+    {
+      "LD1": -0.0178,
+      "LD2": 0.0422,
+      "LD3": 0.9942,
+      "LD4": 0.0829,
+      "_row": "stability_index"
+    }
+  ],
+  "classes": ["Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4", "Cluster 5"],
+  "features": ["food_supply", "import_ratio", "malnutrition_rate", "protein_supply", "stability_index"]
+}

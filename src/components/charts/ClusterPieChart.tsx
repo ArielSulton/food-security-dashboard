@@ -22,6 +22,7 @@ interface PieDataPoint {
 }
 
 // Custom label component for pie chart
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const renderCustomLabel = (props: any) => {
   const { cx, cy, midAngle, innerRadius, outerRadius, percent } = props;
   const RADIAN = Math.PI / 180;

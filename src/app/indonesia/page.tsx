@@ -12,8 +12,12 @@ import { ClusterEvolutionChart } from '@/components/charts/ClusterEvolutionChart
 export default function IndonesiaPage() {
   const { data: countries } = useCountries();
   const { data: historical } = useIndonesiaHistorical();
+  const { data: forecast } = useIndonesiaForecast();
   const { data: clusters } = useClusters();
   const { data: clusterEvolution } = useIndonesiaClusterEvolution();
+
+  // Combine historical and forecast data
+  const allData = historical && forecast ? [...historical, ...forecast] : historical;
 
   const indonesia = countries?.find(c => c.name && c.name.toLowerCase().includes('indonesia'));
 
@@ -22,9 +26,9 @@ export default function IndonesiaPage() {
     ? clusters.find(c => c.id === indonesia.cluster)?.avg_metrics
     : undefined;
 
-  // Calculate changes from first to last year
-  const firstYear = historical?.[0];
-  const lastYear = historical?.[historical.length - 1];
+  // Calculate changes from first to last year (including forecast)
+  const firstYear = allData?.[0];
+  const lastYear = allData?.[allData.length - 1];
 
   const changes = firstYear && lastYear ? {
     food_supply: calculatePercentageChange(firstYear.food_supply, lastYear.food_supply),
@@ -43,7 +47,7 @@ export default function IndonesiaPage() {
             <div>
               <h1 className="text-3xl font-bold">Indonesia</h1>
               <p className="text-muted-foreground mt-1">
-                Analisis Ketahanan Pangan (2010-2022)
+                Analisis Ketahanan Pangan (2010-2025)
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -185,19 +189,19 @@ export default function IndonesiaPage() {
       )}
 
       {/* Time Series Chart */}
-      {historical && (
+      {allData && (
         <TimeSeriesChart
-          data={historical}
-          title="Tren Historis (2010-2022)"
+          data={allData}
+          title="Tren Historis (2010-2025)"
         />
       )}
 
       {/* Cluster Evolution Chart */}
       {clusterEvolution && (
         <ClusterEvolutionChart
-          data={clusterEvolution.filter(d => !d.is_forecast)}
-          title="Evolusi Klaster Indonesia (2010-2022)"
-          description="Perubahan klaster ketahanan pangan Indonesia secara historis"
+          data={clusterEvolution}
+          title="Evolusi Klaster Indonesia (2010-2025)"
+          description="Perubahan klaster ketahanan pangan Indonesia dari 2010 hingga 2025"
         />
       )}
 
@@ -212,10 +216,10 @@ export default function IndonesiaPage() {
         />
       )}
 
-      {/* Historical Data Table */}
+      {/* Data Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Tabel Data Historis</CardTitle>
+          <CardTitle>Tabel Data Lengkap (2010-2025)</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
@@ -231,7 +235,7 @@ export default function IndonesiaPage() {
                 </tr>
               </thead>
               <tbody>
-                {historical?.map((data) => (
+                {allData?.map((data) => (
                   <tr key={data.year} className="border-b hover:bg-muted/50">
                     <td className="p-2 font-medium">{data.year}</td>
                     <td className="text-right p-2">{data.food_supply.toFixed(0)}</td>

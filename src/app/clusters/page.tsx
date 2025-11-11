@@ -5,7 +5,7 @@ import { useDashboardStore } from '@/lib/store';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getClusterColor, getClusterLabel, formatNumber } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
-import { ScatterPlot } from '@/components/charts/ScatterPlot';
+import { BubbleClusterChart } from '@/components/charts/BubbleClusterChart';
 import { ClusterPieChart } from '@/components/charts/ClusterPieChart';
 import { ClusterFilter } from '@/components/filters/ClusterFilter';
 import { CountrySearch } from '@/components/filters/CountrySearch';
@@ -30,29 +30,11 @@ export default function ClustersPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="space-y-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Analisis Klaster</h1>
-          <p className="text-muted-foreground mt-2">
-            Jelajahi klaster ketahanan pangan dan distribusi negara
-          </p>
-        </div>
-
-        {/* Filters */}
-        <div className="flex flex-wrap gap-3">
-          <ClusterFilter />
-          {countries && (
-            <CountrySearch
-              countries={countries}
-              onSelect={setSelectedCountry}
-            />
-          )}
-          {(selectedCluster || selectedCountry) && (
-            <div className="flex items-center text-sm text-muted-foreground">
-              {filteredCountries?.length} {filteredCountries?.length === 1 ? 'negara' : 'negara'} ditemukan
-            </div>
-          )}
-        </div>
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">Analisis Klaster</h1>
+        <p className="text-muted-foreground mt-2">
+          Jelajahi klaster ketahanan pangan dan distribusi negara
+        </p>
       </div>
 
       {/* Cluster Cards */}
@@ -132,14 +114,12 @@ export default function ClustersPage() {
         />
       )}
 
-      {/* Scatter Plot Visualization */}
+      {/* Bubble Cluster Visualization */}
       {!isLoading && countries && countries.length > 0 && (
-        <ScatterPlot
+        <BubbleClusterChart
           countries={countries}
-          title="Distribusi Klaster: Pasokan Pangan vs Malnutrisi"
-          description="Visualisasi hubungan antara pasokan pangan dan tingkat malnutrisi antar klaster"
-          xAxisKey="food_supply"
-          yAxisKey="malnutrition_rate"
+          title="Visualisasi Bubble Klaster"
+          description="Distribusi negara berdasarkan klaster ketahanan pangan dengan ukuran bubble menunjukkan pasokan pangan"
         />
       )}
 
@@ -156,6 +136,23 @@ export default function ClustersPage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
+          {/* Filters */}
+          <div className="mb-6 flex flex-wrap gap-3">
+            <ClusterFilter />
+            {countries && (
+              <CountrySearch
+                countries={countries}
+                onSelect={setSelectedCountry}
+              />
+            )}
+            {(selectedCluster || selectedCountry) && (
+              <div className="flex items-center text-sm text-muted-foreground">
+                {filteredCountries?.length} {filteredCountries?.length === 1 ? 'negara' : 'negara'} ditemukan
+              </div>
+            )}
+          </div>
+
+          {/* Countries Grid */}
           <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
             {filteredCountries?.slice(0, 30).map((country) => (
               <div

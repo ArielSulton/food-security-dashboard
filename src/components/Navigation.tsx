@@ -12,6 +12,7 @@ const navLinks = [
   { href: '/', label: 'Beranda', requiresAuth: false },
   { href: '/clusters', label: 'Klaster', requiresAuth: false },
   { href: '/indonesia', label: 'Indonesia', requiresAuth: false },
+  { href: '/simulator', label: 'Simulator', requiresAuth: false },
   { href: '/evaluasi', label: 'Evaluasi', requiresAuth: true },
   { href: '/methodology', label: 'Metodologi', requiresAuth: true },
 ];

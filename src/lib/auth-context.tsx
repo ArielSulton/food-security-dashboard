@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -16,15 +16,12 @@ const ADMIN_PASSWORD = 'admin';
 const AUTH_STORAGE_KEY = 'food-security-auth';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // Check authentication status on mount
-  useEffect(() => {
+  // Initialize state from localStorage using lazy initialization
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    if (typeof window === 'undefined') return false;
     const authStatus = localStorage.getItem(AUTH_STORAGE_KEY);
-    if (authStatus === 'authenticated') {
-      setIsAuthenticated(true);
-    }
-  }, []);
+    return authStatus === 'authenticated';
+  });
 
   const login = (username: string, password: string): boolean => {
     if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
