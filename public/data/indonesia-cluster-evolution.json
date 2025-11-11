@@ -12,7 +12,7 @@
   { "year": 2020, "cluster": 3, "is_forecast": false },
   { "year": 2021, "cluster": 3, "is_forecast": false },
   { "year": 2022, "cluster": 3, "is_forecast": false },
-  { "year": 2023, "cluster": 4, "is_forecast": true },
-  { "year": 2024, "cluster": 4, "is_forecast": true },
-  { "year": 2025, "cluster": 4, "is_forecast": true }
+  { "year": 2023, "cluster": 4, "is_forecast": false },
+  { "year": 2024, "cluster": 4, "is_forecast": false },
+  { "year": 2025, "cluster": 4, "is_forecast": false }
 ]

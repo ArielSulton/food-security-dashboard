@@ -7,6 +7,7 @@ import { getCountryContinent, getAllContinents, type Continent } from '@/lib/cou
 import { Award, Globe } from 'lucide-react';
 import { useState } from 'react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useGlobalStats } from '@/lib/hooks';
 
 interface ContinentPositionCardProps {
   countries: Country[];
@@ -14,6 +15,7 @@ interface ContinentPositionCardProps {
 
 export function ContinentPositionCard({ countries }: ContinentPositionCardProps) {
   const [selectedRegion, setSelectedRegion] = useState<'All' | Continent>('All');
+  const { data: globalStats } = useGlobalStats();
 
   // Find Indonesia
   const indonesia = countries.find(c =>
@@ -24,6 +26,22 @@ export function ContinentPositionCard({ countries }: ContinentPositionCardProps)
 
   // Calculate rankings by region
   const calculateRanking = (region: 'All' | Continent) => {
+    // For 'All' region, use pre-calculated global rank from global-stats.json
+    if (region === 'All' && globalStats) {
+      const avgStability = countries.reduce((sum, c) => sum + c.stability_index, 0) / countries.length;
+      const avgFoodSupply = countries.reduce((sum, c) => sum + c.food_supply, 0) / countries.length;
+      const avgMalnutrition = countries.reduce((sum, c) => sum + c.malnutrition_rate, 0) / countries.length;
+
+      return {
+        rank: globalStats.indonesia_rank,
+        total: globalStats.total_countries,
+        isInRegion: true,
+        avgStability,
+        avgFoodSupply,
+        avgMalnutrition,
+        percentile: ((globalStats.total_countries - globalStats.indonesia_rank) / globalStats.total_countries * 100).toFixed(0)
+      };
+    }
     let filteredCountries = countries;
 
     if (region !== 'All') {
@@ -42,10 +60,15 @@ export function ContinentPositionCard({ countries }: ContinentPositionCardProps)
       countriesForRanking = [...filteredCountries, indonesia];
     }
 
-    // Sort by stability_index (descending - higher is better)
-    const sorted = [...countriesForRanking].sort((a, b) =>
-      b.stability_index - a.stability_index
-    );
+    // Sort by cluster first (ascending - lower cluster is better), then by stability_index (descending)
+    const sorted = [...countriesForRanking].sort((a, b) => {
+      // First compare by cluster (lower is better)
+      if (a.cluster !== b.cluster) {
+        return a.cluster - b.cluster;
+      }
+      // If same cluster, compare by stability_index (higher is better)
+      return b.stability_index - a.stability_index;
+    });
 
     const rankIndex = sorted.findIndex(c => c.name === indonesia.name);
     const rank = rankIndex + 1;

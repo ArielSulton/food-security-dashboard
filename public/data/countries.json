@@ -1089,7 +1089,7 @@
   },
   {
     "name": "Indonesia",
-    "cluster": 3,
+    "cluster": 4,
     "membership": [
       0,
       0,
@@ -1097,11 +1097,11 @@
       0,
       0
     ],
-    "food_supply": 2830,
-    "import_ratio": 7,
-    "malnutrition_rate": 5.9,
-    "protein_supply": 76.47,
-    "stability_index": -0.55
+    "food_supply": 3010,
+    "import_ratio": 8,
+    "malnutrition_rate": 7.2,
+    "protein_supply": 80.8,
+    "stability_index": -0.5
   },
   {
     "name": "Iran (Islamic Republic of)",

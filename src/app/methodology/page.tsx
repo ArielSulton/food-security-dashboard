@@ -117,41 +117,6 @@ export default function MethodologyPage() {
               </div>
             </div>
           </div>
-
-          {/* ARIMA Forecasting */}
-          <div>
-            <h3 className="font-semibold text-lg mb-2">3. ARIMA Forecasting</h3>
-            <p className="text-sm text-muted-foreground mb-3">
-              Model Auto ARIMA (AutoRegressive Integrated Moving Average) untuk peramalan time series.
-              Model terpisah dilatih untuk setiap indikator ketahanan pangan untuk memprediksi nilai 2023-2025.
-            </p>
-            <div className="grid gap-2 md:grid-cols-3">
-              <div className="p-3 bg-muted rounded-lg">
-                <div className="text-sm font-medium">Pemilihan Model</div>
-                <ul className="text-xs text-muted-foreground mt-2 space-y-1 list-disc list-inside">
-                  <li>Fungsi auto.arima()</li>
-                  <li>Minimisasi AIC</li>
-                  <li>Uji stasioneritas</li>
-                </ul>
-              </div>
-              <div className="p-3 bg-muted rounded-lg">
-                <div className="text-sm font-medium">Validasi</div>
-                <ul className="text-xs text-muted-foreground mt-2 space-y-1 list-disc list-inside">
-                  <li>Kalkulasi RMSE</li>
-                  <li>Pengukuran MAE</li>
-                  <li>Evaluasi MAPE</li>
-                </ul>
-              </div>
-              <div className="p-3 bg-muted rounded-lg">
-                <div className="text-sm font-medium">Periode Prediksi</div>
-                <ul className="text-xs text-muted-foreground mt-2 space-y-1">
-                  <li><strong>Pelatihan:</strong> 2010-2022</li>
-                  <li><strong>Prediksi:</strong> 2023-2025</li>
-                  <li><strong>Confidence:</strong> 95%</li>
-                </ul>
-              </div>
-            </div>
-          </div>
         </CardContent>
       </Card>
 
@@ -216,7 +181,6 @@ export default function MethodologyPage() {
               <ul className="list-disc list-inside mt-1 text-muted-foreground space-y-1">
                 <li>Fuzzy Possibilistic C-Means Clustering Algorithm (FPCM)</li>
                 <li>Linear Discriminant Analysis for Classification</li>
-                <li>ARIMA Models for Time Series Forecasting</li>
               </ul>
             </div>
           </div>
