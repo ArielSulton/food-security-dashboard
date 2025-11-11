@@ -3,9 +3,10 @@
 import { useCountries, useClusters } from '@/lib/hooks';
 import { useDashboardStore } from '@/lib/store';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getClusterColor, formatNumber } from '@/lib/utils';
+import { getClusterColor, getClusterLabel, formatNumber } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { ScatterPlot } from '@/components/charts/ScatterPlot';
+import { ClusterPieChart } from '@/components/charts/ClusterPieChart';
 import { ClusterFilter } from '@/components/filters/ClusterFilter';
 import { CountrySearch } from '@/components/filters/CountrySearch';
 import { useState } from 'react';
@@ -122,6 +123,15 @@ export default function ClustersPage() {
         </div>
       )}
 
+      {/* Pie Chart - Cluster Distribution */}
+      {!isLoading && countries && countries.length > 0 && (
+        <ClusterPieChart
+          countries={countries}
+          title="Distribusi Klaster per Region"
+          description="Proporsi negara dalam setiap klaster ketahanan pangan berdasarkan region"
+        />
+      )}
+
       {/* Scatter Plot Visualization */}
       {!isLoading && countries && countries.length > 0 && (
         <ScatterPlot
@@ -166,7 +176,7 @@ export default function ClustersPage() {
                     color: 'white'
                   }}
                 >
-                  {country.cluster}
+                  {getClusterLabel(country.cluster)}
                 </Badge>
               </div>
             ))}

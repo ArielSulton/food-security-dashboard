@@ -4,10 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CLUSTER_LABELS, CLUSTER_COLORS, METRIC_LABELS, METRIC_UNITS } from '@/lib/types';
 import { Book, GitBranch, Target } from 'lucide-react';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 
 export default function MethodologyPage() {
   return (
-    <div className="space-y-8">
+    <ProtectedRoute>
+      <div className="space-y-8">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Metodologi</h1>
@@ -221,5 +223,6 @@ export default function MethodologyPage() {
         </CardContent>
       </Card>
     </div>
+    </ProtectedRoute>
   );
 }

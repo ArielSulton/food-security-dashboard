@@ -1,168 +1,168 @@
-"Area","food_supply","import_ratio","malnutrition_rate","protein_supply","stability_index","Cluster","Old_Cluster","Cluster_Label","Region"
-"Afghanistan",2243,165,30.1,61.03,-2.54,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Asia"
-"Albania",3390,23,4.1,119.5,0.11,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Algeria",3468,21,2.5,95.7,-0.65,"Cluster 2","Cluster 2","Chronically food insecure","Africa"
-"Angola",2435,6,21.6,49.15,-0.63,"Cluster 4","Cluster 4","Humanitarian emergency","Africa"
-"Argentina",3347,7,3.2,120.62,-0.1,"Cluster 2","Cluster 2","Chronically food insecure","Americas"
-"Armenia",3277,17,2.5,109.64,-0.74,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Australia",3471,4,2.5,116.5,0.98,"Cluster 2","Cluster 2","Chronically food insecure","Oceania"
-"Austria",3812,7,2.5,111.85,0.65,"Cluster 1","Cluster 1","Generally food secure","Europe"
-"Azerbaijan",3328,7,2.5,97.57,-0.92,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Bangladesh",2581,22,11.2,66.55,-1.05,"Cluster 4","Cluster 4","Humanitarian emergency","Asia"
-"Barbados",3198,87,2.5,110.66,1.14,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Belarus",3330,7,2.5,112.53,-0.8,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Belgium",3909,7,2.5,116.33,0.58,"Cluster 1","Cluster 1","Generally food secure","Europe"
-"Belize",2815,41,4.9,84.88,0.56,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Benin",2786,29,9.9,72.48,-0.34,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Bolivia (Plurinational State of)",2331,6,19.4,79.1,-0.19,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Americas"
-"Bosnia and Herzegovina",3368,22,2.5,109.16,-0.48,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Botswana",2622,13,22.9,68.62,1.07,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Brazil",3305,4,4.7,101.33,-0.4,"Cluster 2","Cluster 2","Chronically food insecure","Americas"
-"Bulgaria",3055,11,2.5,90.5,0.31,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Europe"
-"Burkina Faso",2675,12,16.2,93.33,-1.82,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Cabo Verde",2642,515,18.2,77.62,0.93,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Cambodia",2724,7,4.8,61.6,-0.1,"Cluster 4","Cluster 4","Humanitarian emergency","Asia"
-"Cameroon",2840,29,6.4,71.13,-1.38,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Africa"
-"Canada",3606,7,2.5,115.81,0.78,"Cluster 1","Cluster 1","Generally food secure","Americas"
-"Central African Republic",2210,89,48.7,61.85,-2.21,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Chad",2184,7,31.4,77.34,-1.47,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Chile",3106,9,2.5,101.6,0.13,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Americas"
-"China, Hong Kong SAR",2996,3,2.5,126.78,0.57,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Asia"
-"China, Macao SAR",2937,131,8,114.58,1.12,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Asia"
-"Colombia",3112,15,6.6,81.05,-0.63,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Americas"
-"Comoros",2416,236,13.5,65.65,-0.23,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Other"
-"Congo",2191,10,33.3,56.84,0.04,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Costa Rica",2942,13,3,87.11,0.96,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Americas"
-"Croatia",3317,17,2.5,108.3,0.67,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Cuba",3270,113,2.5,87.57,0.49,"Cluster 2","Cluster 2","Chronically food insecure","Americas"
-"Cyprus",3037,31,2.5,101.44,0.42,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Czechia",3426,4,2.5,97.74,0.81,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Côte d'Ivoire",2953,12,7.7,66.66,-0.59,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Democratic Republic of the Congo",2150,6,35.3,29.86,-1.98,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Denmark",3592,8,2.5,112.79,0.87,"Cluster 1","Cluster 1","Generally food secure","Europe"
-"Djibouti",2766,43,16.8,72.24,-0.51,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Dominica",3013,313,6.7,100.07,1.31,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Dominican Republic",3228,30,6.3,83.38,0.25,"Cluster 2","Cluster 2","Chronically food insecure","Americas"
-"Ecuador",2549,7,13.9,67.81,-0.37,"Cluster 4","Cluster 4","Humanitarian emergency","Americas"
-"Egypt",3116,37,7.2,92.16,-0.98,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Africa"
-"El Salvador",2836,39,7.7,85.01,-0.35,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Americas"
-"Estonia",3298,8,2.5,110.61,0.73,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Eswatini",2553,18,11.6,59.63,-0.21,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Ethiopia",2481,90,21.9,77.94,-2.07,"Cluster 4","Cluster 4","Humanitarian emergency","Africa"
-"Fiji",2949,47,6.6,82.88,0.75,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Oceania"
-"Finland",3378,6,2.5,125.37,0.89,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"France",3595,9,2.5,119.42,0.39,"Cluster 1","Cluster 1","Generally food secure","Europe"
-"Gabon",2552,7,23,86.7,0.06,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Gambia",2452,443,19.6,58.89,0.04,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Georgia",3106,26,2.9,92.53,-0.44,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Germany",3604,6,2.5,108.32,0.63,"Cluster 1","Cluster 1","Generally food secure","Europe"
-"Ghana",3102,17,4.9,67.92,-0.2,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Africa"
-"Greece",3398,15,2.5,108.05,0.11,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Guatemala",2791,28,13.3,72.19,-0.26,"Cluster 4","Cluster 4","Humanitarian emergency","Americas"
-"Guinea",2913,13,12.9,56.69,-0.84,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Guinea-Bissau",2291,63,37.9,48.55,-0.39,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Other"
-"Guyana",3253,4,2.5,108.61,0.02,"Cluster 2","Cluster 2","Chronically food insecure","Americas"
-"Haiti",1978,159,45,44.73,-1.42,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Americas"
-"Honduras",2654,20,18.7,63.6,-0.57,"Cluster 4","Cluster 4","Humanitarian emergency","Americas"
-"Hungary",3430,5,2.5,88.42,0.68,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Iceland",3677,10,2.5,150.18,1.25,"Cluster 1","Cluster 1","Generally food secure","Europe"
-"India",2589,7,16.6,72.39,-0.62,"Cluster 4","Cluster 4","Humanitarian emergency","Asia"
-"Indonesia",2830,7,5.9,76.47,-0.55,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Asia"
-"Iran (Islamic Republic of)",2879,15,6.1,82.46,-1.63,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Asia"
-"Iraq",2685,12,16.3,73.13,-2.41,"Cluster 4","Cluster 4","Humanitarian emergency","Asia"
-"Ireland",3911,5,2.5,138.59,0.88,"Cluster 1","Cluster 1","Generally food secure","Europe"
-"Israel",3923,11,2.5,138.65,-1.23,"Cluster 1","Cluster 1","Generally food secure","Asia"
-"Italy",3703,7,2.5,115.91,0.47,"Cluster 1","Cluster 1","Generally food secure","Europe"
-"Jamaica",2928,68,8.3,93.14,0.36,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Americas"
-"Japan",2693,7,3.2,94.55,1.03,"Cluster 4","Cluster 4","Humanitarian emergency","Asia"
-"Kazakhstan",3440,7,2.5,112.76,-0.47,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Kenya",2100,44,27.8,54.79,-0.95,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Kiribati",3096,562,12.1,84.11,1.1,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Kuwait",3508,6,2.5,114.74,0.29,"Cluster 2","Cluster 2","Chronically food insecure","Asia"
-"Kyrgyzstan",2761,38,4.8,93.71,-0.47,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Lao People's Democratic Republic",3169,13,4.7,80.13,0.79,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Latvia",3313,16,2.5,108.71,0.49,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Lesotho",1806,40,46,47.79,-0.29,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Other"
-"Liberia",2103,45,38.4,46,-0.27,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Other"
-"Libya",3195,11,8.4,97.36,-2.19,"Cluster 2","Cluster 2","Chronically food insecure","Africa"
-"Lithuania",3407,10,2.5,128.12,0.65,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Luxembourg",3483,15,2.5,117.9,1.06,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Madagascar",1979,26,51,39.79,-0.48,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Malawi",2643,22,17.8,65.92,-0.16,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Malaysia",3003,6,2.7,95.42,0.16,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Asia"
-"Mali",2792,18,12.8,74.3,-2.56,"Cluster 4","Cluster 4","Humanitarian emergency","Africa"
-"Malta",3298,21,4.6,100.45,0.91,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Mauritania",3000,30,8.7,86.94,-0.52,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Mauritius",3111,42,6.8,99.86,0.83,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Africa"
-"Mexico",3326,6,2.5,101.05,-0.69,"Cluster 2","Cluster 2","Chronically food insecure","Americas"
-"Mongolia",3088,7,8,135.38,0.53,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Montenegro",3574,115,2.5,128.61,-0.14,"Cluster 1","Cluster 1","Generally food secure","Other"
-"Morocco",3328,19,6.3,97.96,-0.36,"Cluster 2","Cluster 2","Chronically food insecure","Africa"
-"Mozambique",2155,22,30.5,43.92,-1.27,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Myanmar",2807,10,3.8,78.86,-2.2,"Cluster 4","Cluster 4","Humanitarian emergency","Asia"
-"Namibia",2586,13,17.1,67.89,0.56,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Nepal",2931,164,5.4,81.76,-0.24,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Asia"
-"Netherlands (Kingdom of the)",3536,8,2.5,117.5,0.73,"Cluster 1","Cluster 1","Generally food secure","Europe"
-"New Zealand",3147,10,2.5,105.44,1.32,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Oceania"
-"Nicaragua",2694,18,17.8,73.44,-0.36,"Cluster 4","Cluster 4","Humanitarian emergency","Americas"
-"Niger",2631,60,16.1,88.46,-1.46,"Cluster 4","Cluster 4","Humanitarian emergency","Africa"
-"Nigeria",2503,12,15.9,58.73,-1.78,"Cluster 4","Cluster 4","Humanitarian emergency","Africa"
-"North Macedonia",3148,12,3.6,92.71,0.18,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Norway",3505,3,2.5,127.45,0.86,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Oman",3064,7,2.8,88.57,0.53,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Asia"
-"Pakistan",2443,30,18.5,70.11,-1.84,"Cluster 4","Cluster 4","Humanitarian emergency","Asia"
-"Panama",3061,14,5.3,94.65,0.29,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Americas"
-"Papua New Guinea",2223,7,23.4,63.25,-0.66,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Oceania"
-"Paraguay",3056,9,4.2,73.73,0.04,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Americas"
-"Peru",2805,9,7,88.03,-0.49,"Cluster 4","Cluster 4","Humanitarian emergency","Americas"
-"Philippines",2849,19,5.2,76.8,-0.66,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Asia"
-"Poland",3616,6,2.5,115.61,0.51,"Cluster 1","Cluster 1","Generally food secure","Europe"
-"Portugal",3510,14,2.5,121.66,0.8,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Republic of Korea",3442,5,2.5,109.97,0.58,"Cluster 2","Cluster 2","Chronically food insecure","Asia"
-"Republic of Moldova",2889,24,2.5,84.54,-0.66,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Romania",3623,12,2.5,108.59,0.43,"Cluster 1","Cluster 1","Generally food secure","Asia"
-"Russian Federation",3454,5,2.5,117.55,-1.01,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Rwanda",2315,38,31.6,55.56,0.08,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Saint Vincent and the Grenadines",2963,236,3.1,114.55,1.03,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Samoa",3063,255,4.6,101.71,1.1,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Oceania"
-"Sao Tome and Principe",2377,254,13.1,56.51,0.46,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Other"
-"Saudi Arabia",3276,7,3.8,93.44,-0.36,"Cluster 2","Cluster 2","Chronically food insecure","Asia"
-"Senegal",2826,46,5.7,71.01,-0.16,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Africa"
-"Serbia",3612,9,2.5,126.14,-0.17,"Cluster 1","Cluster 1","Generally food secure","Other"
-"Seychelles",3222,33,4.3,115.88,0.76,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Sierra Leone",2317,46,27.8,53.65,-0.09,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Other"
-"Slovakia",2983,6,2.8,79.16,0.45,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Europe"
-"Slovenia",3094,5,2.5,98.95,0.71,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Solomon Islands",2306,25,19,58.13,0.41,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Oceania"
-"Somalia",1833,368,48.7,40.31,-2.43,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"South Africa",2761,5,7.9,81.21,-0.68,"Cluster 4","Cluster 4","Humanitarian emergency","Africa"
-"South Sudan",2415,62,21.4,74.75,-2.21,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Spain",3375,9,2.5,117.06,0.32,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Sri Lanka",2802,18,5.3,70.78,-0.8,"Cluster 4","Cluster 4","Humanitarian emergency","Asia"
-"Sudan",2648,60,11.9,74.26,-2.08,"Cluster 4","Cluster 4","Humanitarian emergency","Africa"
-"Suriname",2652,9,9,72.95,0.4,"Cluster 4","Cluster 4","Humanitarian emergency","Americas"
-"Sweden",3328,7,2.5,113.17,0.91,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Switzerland",3453,3,2.5,104.38,1.16,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"Syrian Arab Republic",2387,38,27.8,69.93,-2.78,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Asia"
-"Tajikistan",2768,51,9.3,84.06,-0.74,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Thailand",2878,4,5.2,67.94,-0.39,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Asia"
-"Timor-Leste",2269,51,22.3,63.72,0.26,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Other"
-"Togo",2596,32,17.4,56.89,-0.79,"Cluster 4","Cluster 4","Humanitarian emergency","Other"
-"Trinidad and Tobago",2916,10,12.2,86.77,0.35,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Tunisia",3472,14,3,102.4,-0.59,"Cluster 2","Cluster 2","Chronically food insecure","Africa"
-"Turkmenistan",2835,5,5.7,100.16,-0.11,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Türkiye",3861,7,2.5,115.87,-1.03,"Cluster 1","Cluster 1","Generally food secure","Other"
-"Uganda",2166,24,31.6,52.65,-0.71,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Ukraine",2851,10,4.8,90.31,-1.95,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Europe"
-"United Arab Emirates",3321,4,2.5,115.08,0.74,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"United Kingdom of Great Britain and Northern Ireland",3355,12,2.5,109.01,0.53,"Cluster 2","Cluster 2","Chronically food insecure","Europe"
-"United Republic of Tanzania",2358,15,23.5,58.31,-0.26,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"United States of America",3912,9,2.5,122.81,0.01,"Cluster 1","Cluster 1","Generally food secure","Americas"
-"Uruguay",3307,14,2.5,102.18,1.09,"Cluster 2","Cluster 2","Chronically food insecure","Americas"
-"Uzbekistan",3272,21,2.5,105.8,-0.2,"Cluster 2","Cluster 2","Chronically food insecure","Other"
-"Vanuatu",2786,148,9.5,71.84,0.96,"Cluster 4","Cluster 4","Humanitarian emergency","Oceania"
-"Venezuela (Bolivarian Republic of)",2318,49,17.9,63.8,-1.25,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Americas"
-"Viet Nam",3072,6,5,98.39,-0.05,"Cluster 3","Cluster 3","Acute food and livelihood crisis","Other"
-"Yemen",2083,439,34.5,57.78,-2.46,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Asia"
-"Zambia",2158,5,29.8,48.58,0.16,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
-"Zimbabwe",2041,16,38.4,56.94,-0.89,"Cluster 5","Cluster 5","Famine / humanitarian catastrophe","Africa"
+Area,food_supply,import_ratio,malnutrition_rate,protein_supply,stability_index,Cluster,Old_Cluster,Cluster_Label,Region
+Afghanistan,2243,165,30.1,61.03,-2.54,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Asia
+Albania,3390,23,4.1,119.5,0.11,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Algeria,3468,21,2.5,95.7,-0.65,Cluster 2,Cluster 2,Chronically food insecure,Africa
+Angola,2435,6,21.6,49.15,-0.63,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Argentina,3347,7,3.2,120.62,-0.1,Cluster 2,Cluster 2,Chronically food insecure,Americas
+Armenia,3277,17,2.5,109.64,-0.74,Cluster 2,Cluster 2,Chronically food insecure,Asia
+Australia,3471,4,2.5,116.5,0.98,Cluster 2,Cluster 2,Chronically food insecure,Oceania
+Austria,3812,7,2.5,111.85,0.65,Cluster 1,Cluster 1,Generally food secure,Europe
+Azerbaijan,3328,7,2.5,97.57,-0.92,Cluster 2,Cluster 2,Chronically food insecure,Asia
+Bangladesh,2581,22,11.2,66.55,-1.05,Cluster 4,Cluster 4,Humanitarian emergency,Asia
+Barbados,3198,87,2.5,110.66,1.14,Cluster 2,Cluster 2,Chronically food insecure,Americas
+Belarus,3330,7,2.5,112.53,-0.8,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Belgium,3909,7,2.5,116.33,0.58,Cluster 1,Cluster 1,Generally food secure,Europe
+Belize,2815,41,4.9,84.88,0.56,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+Benin,2786,29,9.9,72.48,-0.34,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Bolivia (Plurinational State of),2331,6,19.4,79.1,-0.19,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Americas
+Bosnia and Herzegovina,3368,22,2.5,109.16,-0.48,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Botswana,2622,13,22.9,68.62,1.07,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Brazil,3305,4,4.7,101.33,-0.4,Cluster 2,Cluster 2,Chronically food insecure,Americas
+Bulgaria,3055,11,2.5,90.5,0.31,Cluster 3,Cluster 3,Acute food and livelihood crisis,Europe
+Burkina Faso,2675,12,16.2,93.33,-1.82,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Cabo Verde,2642,515,18.2,77.62,0.93,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Cambodia,2724,7,4.8,61.6,-0.1,Cluster 4,Cluster 4,Humanitarian emergency,Asia
+Cameroon,2840,29,6.4,71.13,-1.38,Cluster 3,Cluster 3,Acute food and livelihood crisis,Africa
+Canada,3606,7,2.5,115.81,0.78,Cluster 1,Cluster 1,Generally food secure,Americas
+Central African Republic,2210,89,48.7,61.85,-2.21,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Chad,2184,7,31.4,77.34,-1.47,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Chile,3106,9,2.5,101.6,0.13,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+"China, Hong Kong SAR",2996,3,2.5,126.78,0.57,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+"China, Macao SAR",2937,131,8,114.58,1.12,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Colombia,3112,15,6.6,81.05,-0.63,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+Comoros,2416,236,13.5,65.65,-0.23,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Congo,2191,10,33.3,56.84,0.04,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Costa Rica,2942,13,3,87.11,0.96,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+Croatia,3317,17,2.5,108.3,0.67,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Cuba,3270,113,2.5,87.57,0.49,Cluster 2,Cluster 2,Chronically food insecure,Americas
+Cyprus,3037,31,2.5,101.44,0.42,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Czechia,3426,4,2.5,97.74,0.81,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Côte d'Ivoire,2953,12,7.7,66.66,-0.59,Cluster 3,Cluster 3,Acute food and livelihood crisis,Africa
+Democratic Republic of the Congo,2150,6,35.3,29.86,-1.98,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Denmark,3592,8,2.5,112.79,0.87,Cluster 1,Cluster 1,Generally food secure,Europe
+Djibouti,2766,43,16.8,72.24,-0.51,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Dominica,3013,313,6.7,100.07,1.31,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+Dominican Republic,3228,30,6.3,83.38,0.25,Cluster 2,Cluster 2,Chronically food insecure,Americas
+Ecuador,2549,7,13.9,67.81,-0.37,Cluster 4,Cluster 4,Humanitarian emergency,Americas
+Egypt,3116,37,7.2,92.16,-0.98,Cluster 3,Cluster 3,Acute food and livelihood crisis,Africa
+El Salvador,2836,39,7.7,85.01,-0.35,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+Estonia,3298,8,2.5,110.61,0.73,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Eswatini,2553,18,11.6,59.63,-0.21,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Ethiopia,2481,90,21.9,77.94,-2.07,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Fiji,2949,47,6.6,82.88,0.75,Cluster 3,Cluster 3,Acute food and livelihood crisis,Oceania
+Finland,3378,6,2.5,125.37,0.89,Cluster 2,Cluster 2,Chronically food insecure,Europe
+France,3595,9,2.5,119.42,0.39,Cluster 1,Cluster 1,Generally food secure,Europe
+Gabon,2552,7,23,86.7,0.06,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Gambia,2452,443,19.6,58.89,0.04,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Georgia,3106,26,2.9,92.53,-0.44,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Germany,3604,6,2.5,108.32,0.63,Cluster 1,Cluster 1,Generally food secure,Europe
+Ghana,3102,17,4.9,67.92,-0.2,Cluster 3,Cluster 3,Acute food and livelihood crisis,Africa
+Greece,3398,15,2.5,108.05,0.11,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Guatemala,2791,28,13.3,72.19,-0.26,Cluster 4,Cluster 4,Humanitarian emergency,Americas
+Guinea,2913,13,12.9,56.69,-0.84,Cluster 3,Cluster 3,Acute food and livelihood crisis,Africa
+Guinea-Bissau,2291,63,37.9,48.55,-0.39,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Guyana,3253,4,2.5,108.61,0.02,Cluster 2,Cluster 2,Chronically food insecure,Americas
+Haiti,1978,159,45,44.73,-1.42,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Americas
+Honduras,2654,20,18.7,63.6,-0.57,Cluster 4,Cluster 4,Humanitarian emergency,Americas
+Hungary,3430,5,2.5,88.42,0.68,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Iceland,3677,10,2.5,150.18,1.25,Cluster 1,Cluster 1,Generally food secure,Europe
+India,2589,7,16.6,72.39,-0.62,Cluster 4,Cluster 4,Humanitarian emergency,Asia
+Indonesia,2830,7,5.9,76.47,-0.55,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Iran (Islamic Republic of),2879,15,6.1,82.46,-1.63,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Iraq,2685,12,16.3,73.13,-2.41,Cluster 4,Cluster 4,Humanitarian emergency,Asia
+Ireland,3911,5,2.5,138.59,0.88,Cluster 1,Cluster 1,Generally food secure,Europe
+Israel,3923,11,2.5,138.65,-1.23,Cluster 1,Cluster 1,Generally food secure,Asia
+Italy,3703,7,2.5,115.91,0.47,Cluster 1,Cluster 1,Generally food secure,Europe
+Jamaica,2928,68,8.3,93.14,0.36,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+Japan,2693,7,3.2,94.55,1.03,Cluster 4,Cluster 4,Humanitarian emergency,Asia
+Kazakhstan,3440,7,2.5,112.76,-0.47,Cluster 2,Cluster 2,Chronically food insecure,Asia
+Kenya,2100,44,27.8,54.79,-0.95,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Kiribati,3096,562,12.1,84.11,1.1,Cluster 3,Cluster 3,Acute food and livelihood crisis,Oceania
+Kuwait,3508,6,2.5,114.74,0.29,Cluster 2,Cluster 2,Chronically food insecure,Asia
+Kyrgyzstan,2761,38,4.8,93.71,-0.47,Cluster 4,Cluster 4,Humanitarian emergency,Asia
+Lao People's Democratic Republic,3169,13,4.7,80.13,0.79,Cluster 2,Cluster 2,Chronically food insecure,Asia
+Latvia,3313,16,2.5,108.71,0.49,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Lesotho,1806,40,46,47.79,-0.29,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Liberia,2103,45,38.4,46,-0.27,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Libya,3195,11,8.4,97.36,-2.19,Cluster 2,Cluster 2,Chronically food insecure,Africa
+Lithuania,3407,10,2.5,128.12,0.65,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Luxembourg,3483,15,2.5,117.9,1.06,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Madagascar,1979,26,51,39.79,-0.48,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Malawi,2643,22,17.8,65.92,-0.16,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Malaysia,3003,6,2.7,95.42,0.16,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Mali,2792,18,12.8,74.3,-2.56,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Malta,3298,21,4.6,100.45,0.91,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Mauritania,3000,30,8.7,86.94,-0.52,Cluster 3,Cluster 3,Acute food and livelihood crisis,Africa
+Mauritius,3111,42,6.8,99.86,0.83,Cluster 3,Cluster 3,Acute food and livelihood crisis,Africa
+Mexico,3326,6,2.5,101.05,-0.69,Cluster 2,Cluster 2,Chronically food insecure,Americas
+Mongolia,3088,7,8,135.38,0.53,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Montenegro,3574,115,2.5,128.61,-0.14,Cluster 1,Cluster 1,Generally food secure,Europe
+Morocco,3328,19,6.3,97.96,-0.36,Cluster 2,Cluster 2,Chronically food insecure,Africa
+Mozambique,2155,22,30.5,43.92,-1.27,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Myanmar,2807,10,3.8,78.86,-2.2,Cluster 4,Cluster 4,Humanitarian emergency,Asia
+Namibia,2586,13,17.1,67.89,0.56,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Nepal,2931,164,5.4,81.76,-0.24,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Netherlands (Kingdom of the),3536,8,2.5,117.5,0.73,Cluster 1,Cluster 1,Generally food secure,Europe
+New Zealand,3147,10,2.5,105.44,1.32,Cluster 3,Cluster 3,Acute food and livelihood crisis,Oceania
+Nicaragua,2694,18,17.8,73.44,-0.36,Cluster 4,Cluster 4,Humanitarian emergency,Americas
+Niger,2631,60,16.1,88.46,-1.46,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Nigeria,2503,12,15.9,58.73,-1.78,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+North Macedonia,3148,12,3.6,92.71,0.18,Cluster 3,Cluster 3,Acute food and livelihood crisis,Europe
+Norway,3505,3,2.5,127.45,0.86,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Oman,3064,7,2.8,88.57,0.53,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Pakistan,2443,30,18.5,70.11,-1.84,Cluster 4,Cluster 4,Humanitarian emergency,Asia
+Panama,3061,14,5.3,94.65,0.29,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+Papua New Guinea,2223,7,23.4,63.25,-0.66,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Oceania
+Paraguay,3056,9,4.2,73.73,0.04,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+Peru,2805,9,7,88.03,-0.49,Cluster 4,Cluster 4,Humanitarian emergency,Americas
+Philippines,2849,19,5.2,76.8,-0.66,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Poland,3616,6,2.5,115.61,0.51,Cluster 1,Cluster 1,Generally food secure,Europe
+Portugal,3510,14,2.5,121.66,0.8,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Republic of Korea,3442,5,2.5,109.97,0.58,Cluster 2,Cluster 2,Chronically food insecure,Asia
+Republic of Moldova,2889,24,2.5,84.54,-0.66,Cluster 3,Cluster 3,Acute food and livelihood crisis,Europe
+Romania,3623,12,2.5,108.59,0.43,Cluster 1,Cluster 1,Generally food secure,Europe
+Russian Federation,3454,5,2.5,117.55,-1.01,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Rwanda,2315,38,31.6,55.56,0.08,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Saint Vincent and the Grenadines,2963,236,3.1,114.55,1.03,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+Samoa,3063,255,4.6,101.71,1.1,Cluster 3,Cluster 3,Acute food and livelihood crisis,Oceania
+Sao Tome and Principe,2377,254,13.1,56.51,0.46,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Other
+Saudi Arabia,3276,7,3.8,93.44,-0.36,Cluster 2,Cluster 2,Chronically food insecure,Asia
+Senegal,2826,46,5.7,71.01,-0.16,Cluster 3,Cluster 3,Acute food and livelihood crisis,Africa
+Serbia,3612,9,2.5,126.14,-0.17,Cluster 1,Cluster 1,Generally food secure,Europe
+Seychelles,3222,33,4.3,115.88,0.76,Cluster 2,Cluster 2,Chronically food insecure,Other
+Sierra Leone,2317,46,27.8,53.65,-0.09,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Slovakia,2983,6,2.8,79.16,0.45,Cluster 3,Cluster 3,Acute food and livelihood crisis,Europe
+Slovenia,3094,5,2.5,98.95,0.71,Cluster 3,Cluster 3,Acute food and livelihood crisis,Europe
+Solomon Islands,2306,25,19,58.13,0.41,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Oceania
+Somalia,1833,368,48.7,40.31,-2.43,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+South Africa,2761,5,7.9,81.21,-0.68,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+South Sudan,2415,62,21.4,74.75,-2.21,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Spain,3375,9,2.5,117.06,0.32,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Sri Lanka,2802,18,5.3,70.78,-0.8,Cluster 4,Cluster 4,Humanitarian emergency,Asia
+Sudan,2648,60,11.9,74.26,-2.08,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Suriname,2652,9,9,72.95,0.4,Cluster 4,Cluster 4,Humanitarian emergency,Americas
+Sweden,3328,7,2.5,113.17,0.91,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Switzerland,3453,3,2.5,104.38,1.16,Cluster 2,Cluster 2,Chronically food insecure,Europe
+Syrian Arab Republic,2387,38,27.8,69.93,-2.78,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Asia
+Tajikistan,2768,51,9.3,84.06,-0.74,Cluster 4,Cluster 4,Humanitarian emergency,Asia
+Thailand,2878,4,5.2,67.94,-0.39,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Timor-Leste,2269,51,22.3,63.72,0.26,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Asia
+Togo,2596,32,17.4,56.89,-0.79,Cluster 4,Cluster 4,Humanitarian emergency,Africa
+Trinidad and Tobago,2916,10,12.2,86.77,0.35,Cluster 3,Cluster 3,Acute food and livelihood crisis,Americas
+Tunisia,3472,14,3,102.4,-0.59,Cluster 2,Cluster 2,Chronically food insecure,Africa
+Turkmenistan,2835,5,5.7,100.16,-0.11,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Türkiye,3861,7,2.5,115.87,-1.03,Cluster 1,Cluster 1,Generally food secure,Other
+Uganda,2166,24,31.6,52.65,-0.71,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Ukraine,2851,10,4.8,90.31,-1.95,Cluster 3,Cluster 3,Acute food and livelihood crisis,Europe
+United Arab Emirates,3321,4,2.5,115.08,0.74,Cluster 2,Cluster 2,Chronically food insecure,Asia
+United Kingdom of Great Britain and Northern Ireland,3355,12,2.5,109.01,0.53,Cluster 2,Cluster 2,Chronically food insecure,Europe
+United Republic of Tanzania,2358,15,23.5,58.31,-0.26,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+United States of America,3912,9,2.5,122.81,0.01,Cluster 1,Cluster 1,Generally food secure,Americas
+Uruguay,3307,14,2.5,102.18,1.09,Cluster 2,Cluster 2,Chronically food insecure,Americas
+Uzbekistan,3272,21,2.5,105.8,-0.2,Cluster 2,Cluster 2,Chronically food insecure,Asia
+Vanuatu,2786,148,9.5,71.84,0.96,Cluster 4,Cluster 4,Humanitarian emergency,Oceania
+Venezuela (Bolivarian Republic of),2318,49,17.9,63.8,-1.25,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Americas
+Viet Nam,3072,6,5,98.39,-0.05,Cluster 3,Cluster 3,Acute food and livelihood crisis,Asia
+Yemen,2083,439,34.5,57.78,-2.46,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Asia
+Zambia,2158,5,29.8,48.58,0.16,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa
+Zimbabwe,2041,16,38.4,56.94,-0.89,Cluster 5,Cluster 5,Famine / humanitarian catastrophe,Africa

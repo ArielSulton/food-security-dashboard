@@ -115,33 +115,6 @@ export function RegionalClusterChart({
             <Bar dataKey="cluster_5" stackId="a" fill={CLUSTER_COLORS[5]} name="cluster_5" />
           </BarChart>
         </ResponsiveContainer>
-
-        {/* Cluster Legend */}
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-          {[1, 2, 3, 4, 5].map((clusterNum) => (
-            <Badge
-              key={clusterNum}
-              variant="outline"
-              className="justify-start"
-              style={{
-                borderColor: CLUSTER_COLORS[clusterNum],
-                color: CLUSTER_COLORS[clusterNum],
-              }}
-            >
-              <div
-                className="w-3 h-3 rounded-sm mr-2"
-                style={{ backgroundColor: CLUSTER_COLORS[clusterNum] }}
-              />
-              <span className="text-xs">
-                {clusterNum}: {CLUSTER_LABELS[clusterNum]}
-              </span>
-            </Badge>
-          ))}
-        </div>
-
-        <div className="mt-4 text-sm text-muted-foreground text-center">
-          Bar horizontal menunjukkan distribusi klaster ketahanan pangan di setiap region.
-        </div>
       </CardContent>
     </Card>
   );

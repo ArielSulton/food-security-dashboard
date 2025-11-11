@@ -1,22 +1,36 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, LogIn, LogOut } from 'lucide-react';
 import { useState } from 'react';
+import { useAuth } from '@/lib/auth-context';
+import { Button } from '@/components/ui/button';
 
 const navLinks = [
-  { href: '/', label: 'Beranda' },
-  { href: '/clusters', label: 'Klaster' },
-  { href: '/indonesia', label: 'Indonesia' },
-  { href: '/evaluasi', label: 'Evaluasi' },
-  { href: '/methodology', label: 'Metodologi' },
+  { href: '/', label: 'Beranda', requiresAuth: false },
+  { href: '/clusters', label: 'Klaster', requiresAuth: false },
+  { href: '/indonesia', label: 'Indonesia', requiresAuth: false },
+  { href: '/evaluasi', label: 'Evaluasi', requiresAuth: true },
+  { href: '/methodology', label: 'Metodologi', requiresAuth: true },
 ];
 
 export function Navigation() {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+
+  // Filter nav links based on authentication
+  const visibleNavLinks = navLinks.filter(link =>
+    !link.requiresAuth || isAuthenticated
+  );
+
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
@@ -32,7 +46,7 @@ export function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-1">
-            {navLinks.map((link) => (
+            {visibleNavLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -46,6 +60,29 @@ export function Navigation() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Login/Logout Button */}
+            {isAuthenticated ? (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleLogout}
+                className="ml-2"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => router.push('/evaluasi')}
+                className="ml-2"
+              >
+                <LogIn className="h-4 w-4 mr-2" />
+                Login Admin
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -65,7 +102,7 @@ export function Navigation() {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 space-y-2">
-            {navLinks.map((link) => (
+            {visibleNavLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -80,6 +117,37 @@ export function Navigation() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Mobile Login/Logout Button */}
+            <div className="px-4 pt-2">
+              {isAuthenticated ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    handleLogout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full"
+                >
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    router.push('/evaluasi');
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full"
+                >
+                  <LogIn className="h-4 w-4 mr-2" />
+                  Login Admin
+                </Button>
+              )}
+            </div>
           </div>
         )}
       </div>

@@ -6,6 +6,7 @@ import { Globe, Layers, Award, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { getClusterLabel, getClusterColor } from '@/lib/utils';
 import { RegionalClusterChart } from '@/components/charts/RegionalClusterChart';
+import { ContinentPositionCard } from '@/components/ContinentPositionCard';
 
 // Function to get metric status and color
 function getMetricStatus(metric: string, value: number): { status: string; color: string; bgColor: string } {
@@ -115,6 +116,11 @@ export default function HomePage() {
             colorScheme="green"
           />
         </div>
+      )}
+
+      {/* Continent Position Card */}
+      {countries && countries.length > 0 && (
+        <ContinentPositionCard countries={countries} />
       )}
 
       {/* Key Insights Section */}

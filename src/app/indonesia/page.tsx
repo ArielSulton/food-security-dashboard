@@ -12,7 +12,6 @@ import { ClusterEvolutionChart } from '@/components/charts/ClusterEvolutionChart
 export default function IndonesiaPage() {
   const { data: countries } = useCountries();
   const { data: historical } = useIndonesiaHistorical();
-  const { data: forecast } = useIndonesiaForecast();
   const { data: clusters } = useClusters();
   const { data: clusterEvolution } = useIndonesiaClusterEvolution();
 
@@ -44,7 +43,7 @@ export default function IndonesiaPage() {
             <div>
               <h1 className="text-3xl font-bold">Indonesia</h1>
               <p className="text-muted-foreground mt-1">
-                Analisis Ketahanan Pangan (2010-2025)
+                Analisis Ketahanan Pangan (2010-2022)
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -186,19 +185,19 @@ export default function IndonesiaPage() {
       )}
 
       {/* Time Series Chart */}
-      {historical && forecast && (
+      {historical && (
         <TimeSeriesChart
-          data={[...historical, ...forecast]}
-          title="Tren Historis & Prediksi (2010-2025)"
+          data={historical}
+          title="Tren Historis (2010-2022)"
         />
       )}
 
       {/* Cluster Evolution Chart */}
       {clusterEvolution && (
         <ClusterEvolutionChart
-          data={clusterEvolution}
-          title="Evolusi Klaster Indonesia (2010-2025)"
-          description="Perubahan klaster ketahanan pangan Indonesia dari historis hingga prediksi"
+          data={clusterEvolution.filter(d => !d.is_forecast)}
+          title="Evolusi Klaster Indonesia (2010-2022)"
+          description="Perubahan klaster ketahanan pangan Indonesia secara historis"
         />
       )}
 
@@ -206,9 +205,10 @@ export default function IndonesiaPage() {
       {indonesia && (
         <RadarChart
           country={indonesia}
+          countries={countries}
           clusterAverage={clusterAverage}
-          title="Indonesia vs Rata-rata Klaster"
-          description={`Membandingkan performa Indonesia dengan rata-rata klaster ${getClusterLabel(indonesia.cluster)}`}
+          title="Indonesia vs Rata-rata Wilayah"
+          description="Membandingkan performa Indonesia dengan rata-rata klaster, benua, atau global"
         />
       )}
 
@@ -234,16 +234,6 @@ export default function IndonesiaPage() {
                 {historical?.map((data) => (
                   <tr key={data.year} className="border-b hover:bg-muted/50">
                     <td className="p-2 font-medium">{data.year}</td>
-                    <td className="text-right p-2">{data.food_supply.toFixed(0)}</td>
-                    <td className="text-right p-2">{data.malnutrition_rate.toFixed(1)}%</td>
-                    <td className="text-right p-2">{data.stability_index.toFixed(2)}</td>
-                    <td className="text-right p-2">{data.import_ratio.toFixed(1)}%</td>
-                    <td className="text-right p-2">{data.protein_supply.toFixed(0)}</td>
-                  </tr>
-                ))}
-                {forecast?.map((data) => (
-                  <tr key={data.year} className="border-b bg-blue-50 hover:bg-blue-100">
-                    <td className="p-2 font-medium">{data.year} (Prediksi)</td>
                     <td className="text-right p-2">{data.food_supply.toFixed(0)}</td>
                     <td className="text-right p-2">{data.malnutrition_rate.toFixed(1)}%</td>
                     <td className="text-right p-2">{data.stability_index.toFixed(2)}</td>

@@ -29,7 +29,7 @@ function CustomTooltip(props: { active?: boolean; payload?: Array<{ payload?: Sc
       <div className="bg-background border border-border rounded-lg shadow-lg p-3">
         <p className="font-semibold text-sm mb-1">{data.name}</p>
         <p className="text-xs text-muted-foreground mb-2">
-          {CLUSTER_LABELS[data.cluster - 1]}
+          {CLUSTER_LABELS[data.cluster]}
         </p>
         <div className="space-y-1 text-xs">
           <div className="flex justify-between gap-4">
@@ -77,7 +77,7 @@ export function ScatterPlot({
     cluster: country.cluster,
     x: country[xAxisKey] as number,
     y: country[yAxisKey] as number,
-    color: CLUSTER_COLORS[country.cluster - 1] || CLUSTER_COLORS[2]
+    color: CLUSTER_COLORS[country.cluster] || CLUSTER_COLORS[2]
   }));
 
   // Group data by cluster for legend
@@ -86,9 +86,9 @@ export function ScatterPlot({
     const clusterData = scatterData.filter(d => d.cluster === clusterNum);
     return {
       cluster: clusterNum,
-      name: CLUSTER_LABELS[clusterNum - 1] || `Cluster ${clusterNum}`,
+      name: CLUSTER_LABELS[clusterNum] || `Cluster ${clusterNum}`,
       data: clusterData,
-      color: CLUSTER_COLORS[i]
+      color: CLUSTER_COLORS[clusterNum]
     };
   }).filter(group => group.data.length > 0);
 

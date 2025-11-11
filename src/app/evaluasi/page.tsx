@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { getClusterColor, getClusterLabel } from '@/lib/utils';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 
 export default function EvaluasiPage() {
   // Data rata-rata atribut per cluster
@@ -34,7 +35,8 @@ export default function EvaluasiPage() {
   ];
 
   return (
-    <div className="space-y-8">
+    <ProtectedRoute>
+      <div className="space-y-8">
       {/* Header */}
       <div className="space-y-4">
         <h1 className="text-3xl font-bold">Evaluasi Model</h1>
@@ -188,5 +190,6 @@ export default function EvaluasiPage() {
         </CardContent>
       </Card>
     </div>
+    </ProtectedRoute>
   );
 }
