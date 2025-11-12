@@ -79,9 +79,6 @@ export function LoginForm() {
             <Button type="submit" className="w-full">
               Login
             </Button>
-            <p className="text-xs text-center text-muted-foreground">
-              Hint: Username dan password adalah <code className="bg-muted px-1 py-0.5 rounded">admin</code>
-            </p>
           </form>
         </CardContent>
       </Card>

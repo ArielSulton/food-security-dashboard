@@ -84,9 +84,9 @@ export default function SimulatorPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">Simulator Klaster</h1>
-        <p className="text-muted-foreground">
+      <div className="space-y-2 px-4 sm:px-0">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Simulator Klaster</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Prediksi klaster ketahanan pangan berdasarkan indikator yang Anda masukkan menggunakan Linear Discriminant Analysis (LDA)
         </p>
       </div>

@@ -108,48 +108,82 @@ export function ClusterPieChart({
       <CardContent className="space-y-4">
         {/* Region Filter */}
         <Tabs value={selectedRegion} onValueChange={(val) => setSelectedRegion(val as 'All' | Continent)}>
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6">
-            <TabsTrigger value="All">Semua</TabsTrigger>
-            {getAllContinents().map(continent => (
-              <TabsTrigger key={continent} value={continent}>
-                {continent}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="overflow-x-auto pb-2">
+            <TabsList className="inline-flex w-auto min-w-full lg:grid lg:w-full lg:grid-cols-6 gap-1">
+              <TabsTrigger value="All" className="text-xs sm:text-sm whitespace-nowrap">Semua</TabsTrigger>
+              {getAllContinents().map(continent => (
+                <TabsTrigger key={continent} value={continent} className="text-xs sm:text-sm whitespace-nowrap">
+                  {continent}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
         </Tabs>
 
         {/* Pie Chart */}
-        <ResponsiveContainer width="100%" height={400}>
-          <PieChart>
-            <Pie
-              data={clusterCounts}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              label={renderCustomLabel}
-              outerRadius={120}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {clusterCounts.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={entry.color}
-                  className="cursor-pointer hover:opacity-80 transition-opacity"
-                />
-              ))}
-            </Pie>
-            <Tooltip content={<CustomTooltip />} />
-            <Legend
-              verticalAlign="bottom"
-              height={36}
-              wrapperStyle={{ paddingTop: '20px' }}
-            />
-          </PieChart>
-        </ResponsiveContainer>
+        <div className="w-full">
+          <ResponsiveContainer width="100%" height={350} className="sm:hidden">
+            <PieChart>
+              <Pie
+                data={clusterCounts}
+                cx="50%"
+                cy="45%"
+                labelLine={false}
+                label={renderCustomLabel}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {clusterCounts.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={entry.color}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                ))}
+              </Pie>
+              <Tooltip content={<CustomTooltip />} />
+              <Legend
+                verticalAlign="bottom"
+                height={50}
+                wrapperStyle={{ paddingTop: '15px', fontSize: '11px' }}
+                iconType="circle"
+              />
+            </PieChart>
+          </ResponsiveContainer>
+
+          <ResponsiveContainer width="100%" height={400} className="hidden sm:block">
+            <PieChart>
+              <Pie
+                data={clusterCounts}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={renderCustomLabel}
+                outerRadius={120}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {clusterCounts.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={entry.color}
+                    className="cursor-pointer hover:opacity-80 transition-opacity"
+                  />
+                ))}
+              </Pie>
+              <Tooltip content={<CustomTooltip />} />
+              <Legend
+                verticalAlign="bottom"
+                height={40}
+                wrapperStyle={{ paddingTop: '20px' }}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
 
         {/* Summary Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 pt-2 border-t">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 pt-4 border-t">
           {clusterCounts.map((item) => (
             <div
               key={item.cluster}

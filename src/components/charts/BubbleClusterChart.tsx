@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Country, CLUSTER_COLORS, CLUSTER_LABELS } from '@/lib/types';
 import { getCountryContinent, getAllContinents, type Continent } from '@/lib/country-continent-map';
@@ -45,6 +45,7 @@ export function BubbleClusterChart({
   const [hoveredBubble, setHoveredBubble] = useState<BubbleNode | null>(null);
   const [dimensions, setDimensions] = useState({ width: 1000, height: 600 });
   const [clusterGroups, setClusterGroups] = useState<ClusterGroup[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Filter countries by selected region
   const filteredCountries = useMemo(() => {
@@ -53,80 +54,24 @@ export function BubbleClusterChart({
       : countries.filter(c => getCountryContinent(c.name) === selectedRegion);
   }, [countries, selectedRegion]);
 
-  // Calculate bubble positions
+  // Detect mobile screen size
   useEffect(() => {
-    if (!svgRef.current || filteredCountries.length === 0) return;
-
-    const containerWidth = svgRef.current.clientWidth || 1000;
-    const containerHeight = 600;
-    setDimensions({ width: containerWidth, height: containerHeight });
-
-    // Prepare hierarchical data: group by cluster
-    const groups: ClusterGroup[] = [];
-
-    for (let clusterNum = 1; clusterNum <= 5; clusterNum++) {
-      const clusterCountries = filteredCountries.filter(c => c.cluster === clusterNum);
-
-      if (clusterCountries.length > 0) {
-        const nodes: BubbleNode[] = clusterCountries.map(country => ({
-          id: country.name,
-          name: country.name,
-          cluster: country.cluster,
-          // Better clusters (lower number) get higher values
-          value: country.food_supply * (6 - country.cluster) * 0.8 + country.stability_index * 500,
-          food_supply: country.food_supply,
-          malnutrition: country.malnutrition_rate,
-          stability: country.stability_index,
-          x: 0,
-          y: 0,
-          radius: 0
-        }));
-
-        groups.push({
-          cluster: clusterNum,
-          label: CLUSTER_LABELS[clusterNum],
-          color: CLUSTER_COLORS[clusterNum],
-          nodes,
-          x: 0,
-          y: 0,
-          radius: 0
-        });
-      }
-    }
-
-    // Calculate positions for cluster groups
-    const padding = 40;
-    const clusterCount = groups.length;
-    const cols = Math.min(clusterCount, Math.ceil(Math.sqrt(clusterCount)));
-    const rows = Math.ceil(clusterCount / cols);
-
-    const cellWidth = (containerWidth - padding * 2) / cols;
-    const cellHeight = (containerHeight - padding * 2) / rows;
-
-    groups.forEach((group, idx) => {
-      const col = idx % cols;
-      const row = Math.floor(idx / cols);
-
-      // Center of this cluster's cell
-      group.x = padding + col * cellWidth + cellWidth / 2;
-      group.y = padding + row * cellHeight + cellHeight / 2;
-      group.radius = Math.min(cellWidth, cellHeight) * 0.42;
-
-      // Pack circles within this cluster
-      packCirclesInCluster(group, group.radius);
-    });
-
-    setClusterGroups(groups);
-  }, [filteredCountries]);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Simple circle packing within a cluster
-  function packCirclesInCluster(group: ClusterGroup, maxRadius: number) {
+  const packCirclesInCluster = useCallback((group: ClusterGroup, maxRadius: number) => {
     const nodes = group.nodes;
     if (nodes.length === 0) return;
 
     // Calculate radii based on value
     const maxValue = Math.max(...nodes.map(n => n.value));
-    const minRadius = 12;
+    const minRadius = isMobile ? 8 : 12;
     const maxBubbleRadius = maxRadius * 0.35;
 
     nodes.forEach(node => {
@@ -200,7 +145,73 @@ export function BubbleClusterChart({
 
       if (!moved) break;
     }
-  }
+  }, [isMobile]);
+
+  // Calculate bubble positions
+  useEffect(() => {
+    if (!svgRef.current || filteredCountries.length === 0) return;
+
+    const containerWidth = svgRef.current.clientWidth || 1000;
+    const containerHeight = isMobile ? 400 : 600;
+    setDimensions({ width: containerWidth, height: containerHeight });
+
+    // Prepare hierarchical data: group by cluster
+    const groups: ClusterGroup[] = [];
+
+    for (let clusterNum = 1; clusterNum <= 5; clusterNum++) {
+      const clusterCountries = filteredCountries.filter(c => c.cluster === clusterNum);
+
+      if (clusterCountries.length > 0) {
+        const nodes: BubbleNode[] = clusterCountries.map(country => ({
+          id: country.name,
+          name: country.name,
+          cluster: country.cluster,
+          // Better clusters (lower number) get higher values
+          value: country.food_supply * (6 - country.cluster) * 0.8 + country.stability_index * 500,
+          food_supply: country.food_supply,
+          malnutrition: country.malnutrition_rate,
+          stability: country.stability_index,
+          x: 0,
+          y: 0,
+          radius: 0
+        }));
+
+        groups.push({
+          cluster: clusterNum,
+          label: CLUSTER_LABELS[clusterNum],
+          color: CLUSTER_COLORS[clusterNum],
+          nodes,
+          x: 0,
+          y: 0,
+          radius: 0
+        });
+      }
+    }
+
+    // Calculate positions for cluster groups
+    const padding = 40;
+    const clusterCount = groups.length;
+    const cols = Math.min(clusterCount, Math.ceil(Math.sqrt(clusterCount)));
+    const rows = Math.ceil(clusterCount / cols);
+
+    const cellWidth = (containerWidth - padding * 2) / cols;
+    const cellHeight = (containerHeight - padding * 2) / rows;
+
+    groups.forEach((group, idx) => {
+      const col = idx % cols;
+      const row = Math.floor(idx / cols);
+
+      // Center of this cluster's cell
+      group.x = padding + col * cellWidth + cellWidth / 2;
+      group.y = padding + row * cellHeight + cellHeight / 2;
+      group.radius = Math.min(cellWidth, cellHeight) * 0.42;
+
+      // Pack circles within this cluster
+      packCirclesInCluster(group, group.radius);
+    });
+
+    setClusterGroups(groups);
+  }, [filteredCountries, isMobile, packCirclesInCluster]);
 
   return (
     <Card>
@@ -214,14 +225,16 @@ export function BubbleClusterChart({
       <CardContent className="space-y-4">
         {/* Region Filter */}
         <Tabs value={selectedRegion} onValueChange={(val) => setSelectedRegion(val as 'All' | Continent)}>
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6">
-            <TabsTrigger value="All">Semua</TabsTrigger>
-            {getAllContinents().map(continent => (
-              <TabsTrigger key={continent} value={continent}>
-                {continent}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="overflow-x-auto pb-2">
+            <TabsList className="inline-flex w-auto min-w-full lg:grid lg:w-full lg:grid-cols-6 gap-1">
+              <TabsTrigger value="All" className="text-xs sm:text-sm whitespace-nowrap">Semua</TabsTrigger>
+              {getAllContinents().map(continent => (
+                <TabsTrigger key={continent} value={continent} className="text-xs sm:text-sm whitespace-nowrap">
+                  {continent}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
         </Tabs>
 
         {/* Hierarchical Bubble Chart */}
@@ -252,7 +265,7 @@ export function BubbleClusterChart({
                   x={group.x}
                   y={group.y - group.radius - 15}
                   textAnchor="middle"
-                  fontSize="16"
+                  fontSize={isMobile ? "12" : "16"}
                   fontWeight="700"
                   fill={group.color}
                 >
@@ -303,29 +316,30 @@ export function BubbleClusterChart({
           {/* Tooltip */}
           {hoveredBubble && (
             <div
-              className="absolute bg-background border-2 border-primary rounded-lg shadow-xl p-3 pointer-events-none z-50"
+              className="absolute bg-background border-2 border-primary rounded-lg shadow-xl p-2 sm:p-3 pointer-events-none z-50"
               style={{
                 left: `${(hoveredBubble.x / dimensions.width) * 100}%`,
                 top: `${(hoveredBubble.y / dimensions.height) * 100}%`,
                 transform: 'translate(-50%, -120%)',
-                minWidth: '180px'
+                minWidth: isMobile ? '150px' : '180px',
+                maxWidth: isMobile ? '200px' : 'none'
               }}
             >
-              <p className="font-semibold text-sm mb-2 border-b pb-1">{hoveredBubble.name}</p>
-              <div className="space-y-1 text-xs">
-                <div className="flex justify-between gap-4">
+              <p className="font-semibold text-xs sm:text-sm mb-1 sm:mb-2 border-b pb-1">{hoveredBubble.name}</p>
+              <div className="space-y-0.5 sm:space-y-1 text-xs">
+                <div className="flex justify-between gap-2 sm:gap-4">
                   <span className="text-muted-foreground">Klaster:</span>
                   <span className="font-medium">{CLUSTER_LABELS[hoveredBubble.cluster]}</span>
                 </div>
-                <div className="flex justify-between gap-4">
+                <div className="flex justify-between gap-2 sm:gap-4">
                   <span className="text-muted-foreground">Food Supply:</span>
                   <span className="font-medium">{hoveredBubble.food_supply.toFixed(0)}</span>
                 </div>
-                <div className="flex justify-between gap-4">
+                <div className="flex justify-between gap-2 sm:gap-4">
                   <span className="text-muted-foreground">Malnutrition:</span>
                   <span className="font-medium">{hoveredBubble.malnutrition.toFixed(1)}%</span>
                 </div>
-                <div className="flex justify-between gap-4">
+                <div className="flex justify-between gap-2 sm:gap-4">
                   <span className="text-muted-foreground">Stability:</span>
                   <span className="font-medium">{hoveredBubble.stability.toFixed(2)}</span>
                 </div>
@@ -335,19 +349,19 @@ export function BubbleClusterChart({
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-3 justify-center pt-4">
+        <div className="flex flex-wrap gap-2 sm:gap-3 justify-center pt-4">
           {Object.entries(CLUSTER_LABELS).map(([id, label]) => (
-            <div key={id} className="flex items-center gap-2">
+            <div key={id} className="flex items-center gap-1.5 sm:gap-2">
               <div
-                className="w-4 h-4 rounded-full border-2 border-white"
+                className="w-3 h-3 sm:w-4 sm:h-4 rounded-full border-2 border-white flex-shrink-0"
                 style={{ backgroundColor: CLUSTER_COLORS[parseInt(id)] }}
               />
-              <span className="text-sm font-medium">{label}</span>
+              <span className="text-xs sm:text-sm font-medium">{label}</span>
             </div>
           ))}
         </div>
 
-        <p className="text-xs text-center text-muted-foreground mt-4">
+        <p className="text-xs sm:text-sm text-center text-muted-foreground mt-4 px-2">
           Ukuran bubble menunjukkan kualitas ketahanan pangan. Cluster dengan predikat lebih baik memiliki bubble lebih besar. Hover untuk detail.
         </p>
       </CardContent>

@@ -40,13 +40,16 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-2xl">🌾</span>
-            <span className="text-lg font-semibold">
+            <span className="text-base sm:text-lg font-semibold hidden xs:block">
               Dashboard Ketahanan Pangan
+            </span>
+            <span className="text-base font-semibold xs:hidden">
+              DKP
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-1">
+          <div className="hidden lg:flex lg:items-center lg:space-x-1">
             {visibleNavLinks.map((link) => (
               <Link
                 key={link.href}
@@ -86,9 +89,9 @@ export function Navigation() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile & Tablet Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="lg:hidden p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -100,9 +103,9 @@ export function Navigation() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile & Tablet Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-2">
+          <div className="lg:hidden py-4 space-y-2">
             {visibleNavLinks.map((link) => (
               <Link
                 key={link.href}

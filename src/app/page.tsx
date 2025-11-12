@@ -58,18 +58,18 @@ export default function HomePage() {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">
+      <div className="text-center space-y-4 px-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
           Dashboard Ketahanan Pangan
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
           Analisis interaktif indikator ketahanan pangan di 195 negara
         </p>
         {indonesia && (
-          <div className="flex items-center justify-center gap-3">
-            <span className="text-lg">Klaster Saat Ini:</span>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
+            <span className="text-sm sm:text-base md:text-lg">Klaster Saat Ini:</span>
             <Badge
-              className="text-lg px-4 py-1"
+              className="text-sm sm:text-base md:text-lg px-3 sm:px-4 py-1"
               style={{
                 backgroundColor: getClusterColor(indonesia.cluster),
                 color: 'white'
@@ -124,9 +124,9 @@ export default function HomePage() {
       )}
 
       {/* Key Insights Section */}
-      <div className="grid gap-6 md:grid-cols-3">
-        <div className="p-6 border rounded-lg space-y-3">
-          <h3 className="text-lg font-semibold">Performa Terbaik</h3>
+      <div className="grid gap-4 sm:gap-6 md:grid-cols-3">
+        <div className="p-4 sm:p-6 border rounded-lg space-y-3">
+          <h3 className="text-base sm:text-lg font-semibold">Performa Terbaik</h3>
           {globalStats?.best_countries.slice(0, 5).map((country, index) => (
             <div key={country.name} className="flex justify-between items-center">
               <span className="text-sm">{index + 1}. {country.name}</span>
@@ -137,14 +137,14 @@ export default function HomePage() {
           ))}
         </div>
 
-        <div className="p-6 border rounded-lg space-y-3">
-          <h3 className="text-lg font-semibold">Posisi Indonesia</h3>
+        <div className="p-4 sm:p-6 border rounded-lg space-y-4">
+          <h3 className="text-base sm:text-lg font-semibold">Posisi Indonesia</h3>
           {indonesia && (
-            <div className="space-y-3">
-              <div className="flex justify-between items-center gap-3">
+            <div className="space-y-3 sm:space-y-2.5">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-3">
                 <span className="text-sm text-muted-foreground">Food Supply</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{indonesia.food_supply.toFixed(0)} kcal/day</span>
+                  <span className="text-sm font-medium whitespace-nowrap">{indonesia.food_supply.toFixed(0)} kcal/day</span>
                   <Badge
                     style={{
                       backgroundColor: getMetricStatus('food_supply', indonesia.food_supply).bgColor,
@@ -158,10 +158,10 @@ export default function HomePage() {
                   </Badge>
                 </div>
               </div>
-              <div className="flex justify-between items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-3">
                 <span className="text-sm text-muted-foreground">Malnutrition</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{indonesia.malnutrition_rate.toFixed(1)}%</span>
+                  <span className="text-sm font-medium whitespace-nowrap">{indonesia.malnutrition_rate.toFixed(1)}%</span>
                   <Badge
                     style={{
                       backgroundColor: getMetricStatus('malnutrition_rate', indonesia.malnutrition_rate).bgColor,
@@ -175,10 +175,10 @@ export default function HomePage() {
                   </Badge>
                 </div>
               </div>
-              <div className="flex justify-between items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-3">
                 <span className="text-sm text-muted-foreground">Stability Index</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{indonesia.stability_index.toFixed(2)}</span>
+                  <span className="text-sm font-medium whitespace-nowrap">{indonesia.stability_index.toFixed(2)}</span>
                   <Badge
                     style={{
                       backgroundColor: getMetricStatus('stability_index', indonesia.stability_index).bgColor,
@@ -192,10 +192,10 @@ export default function HomePage() {
                   </Badge>
                 </div>
               </div>
-              <div className="flex justify-between items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-3">
                 <span className="text-sm text-muted-foreground">Import Ratio</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{indonesia.import_ratio.toFixed(1)}%</span>
+                  <span className="text-sm font-medium whitespace-nowrap">{indonesia.import_ratio.toFixed(1)}%</span>
                   <Badge
                     style={{
                       backgroundColor: getMetricStatus('import_ratio', indonesia.import_ratio).bgColor,
@@ -209,10 +209,10 @@ export default function HomePage() {
                   </Badge>
                 </div>
               </div>
-              <div className="flex justify-between items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-3">
                 <span className="text-sm text-muted-foreground">Protein Supply</span>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{indonesia.protein_supply.toFixed(0)} g/day</span>
+                  <span className="text-sm font-medium whitespace-nowrap">{indonesia.protein_supply.toFixed(0)} g/day</span>
                   <Badge
                     style={{
                       backgroundColor: getMetricStatus('protein_supply', indonesia.protein_supply).bgColor,
@@ -230,20 +230,20 @@ export default function HomePage() {
           )}
         </div>
 
-        <div className="p-6 border rounded-lg space-y-3">
-          <h3 className="text-lg font-semibold">Area Perbaikan</h3>
-          <div className="space-y-2">
+        <div className="p-4 sm:p-6 border rounded-lg space-y-3">
+          <h3 className="text-base sm:text-lg font-semibold">Area Perbaikan</h3>
+          <div className="space-y-3">
             <div className="text-sm">
               <p className="font-medium">Diversifikasi Pangan</p>
-              <p className="text-muted-foreground">Tingkatkan pasokan protein dan variasi nutrisi</p>
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">Tingkatkan pasokan protein dan variasi nutrisi</p>
             </div>
             <div className="text-sm">
               <p className="font-medium">Kemandirian Pangan</p>
-              <p className="text-muted-foreground">Kurangi ketergantungan impor</p>
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">Kurangi ketergantungan impor</p>
             </div>
             <div className="text-sm">
               <p className="font-medium">Malnutrisi</p>
-              <p className="text-muted-foreground">Lanjutkan upaya pengurangan tingkat malnutrisi</p>
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">Lanjutkan upaya pengurangan tingkat malnutrisi</p>
             </div>
           </div>
         </div>

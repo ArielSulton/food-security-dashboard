@@ -92,14 +92,27 @@ export function RegionalClusterChart({
           <BarChart
             data={data}
             layout="vertical"
-            margin={{ top: 5, right: 30, left: 80, bottom: 20 }}
+            margin={{ top: 5, right: 10, left: 60, bottom: 20 }}
           >
             <CartesianGrid strokeDasharray="3 3" horizontal={false} />
-            <XAxis type="number" label={{ value: 'Jumlah Negara', position: 'insideBottom', offset: -10 }} />
-            <YAxis type="category" dataKey="region" width={70} />
+            <XAxis
+              type="number"
+              label={{ value: 'Jumlah Negara', position: 'insideBottom', offset: -10, style: { fontSize: '12px' } }}
+              style={{ fontSize: '11px' }}
+            />
+            <YAxis
+              type="category"
+              dataKey="region"
+              width={60}
+              style={{ fontSize: '11px' }}
+            />
             <Tooltip content={<CustomTooltip />} />
             <Legend
-              wrapperStyle={{ paddingTop: '20px' }}
+              wrapperStyle={{
+                paddingTop: '20px',
+                fontSize: '11px'
+              }}
+              iconType="circle"
               formatter={(value: string) => {
                 const clusterNum = parseInt(value.split('_')[1]);
                 return CLUSTER_LABELS[clusterNum];
@@ -114,6 +127,21 @@ export function RegionalClusterChart({
             <Bar dataKey="cluster_5" stackId="a" fill={CLUSTER_COLORS[5]} name="cluster_5" />
           </BarChart>
         </ResponsiveContainer>
+
+        {/* Mobile Legend Alternative */}
+        <div className="block sm:hidden mt-4 px-2">
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            {[1, 2, 3, 4, 5].map(num => (
+              <div key={num} className="flex items-center gap-2">
+                <div
+                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: CLUSTER_COLORS[num] }}
+                />
+                <span className="truncate">{CLUSTER_LABELS[num]}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

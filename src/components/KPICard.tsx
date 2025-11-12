@@ -87,22 +87,22 @@ export function KPICard({
       )}
     >
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
+        <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground line-clamp-2 pr-2">
           {title}
         </CardTitle>
         {Icon && (
-          <div className={cn('p-2 rounded-lg', colors.bg)}>
+          <div className={cn('p-2 rounded-lg flex-shrink-0', colors.bg)}>
             <Icon className={cn('h-4 w-4', colors.icon)} />
           </div>
         )}
       </CardHeader>
       <CardContent>
-        <div className="flex items-baseline space-x-2">
-          <div className="text-2xl font-bold">
+        <div className="flex items-baseline space-x-1 sm:space-x-2 flex-wrap">
+          <div className="text-xl sm:text-2xl font-bold break-words">
             {typeof value === 'number' ? formatNumber(value, 0) : value}
           </div>
           {unit && (
-            <div className="text-sm text-muted-foreground">{unit}</div>
+            <div className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">{unit}</div>
           )}
         </div>
         {change !== undefined && (

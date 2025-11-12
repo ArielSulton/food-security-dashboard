@@ -116,20 +116,22 @@ export function ContinentPositionCard({ countries }: ContinentPositionCardProps)
       <CardContent className="space-y-4">
         {/* Region Filter */}
         <Tabs value={selectedRegion} onValueChange={(val) => setSelectedRegion(val as 'All' | Continent)}>
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6">
-            <TabsTrigger value="All">Semua</TabsTrigger>
-            {getAllContinents().map(continent => (
-              <TabsTrigger key={continent} value={continent}>
-                {continent}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="overflow-x-auto pb-2">
+            <TabsList className="inline-flex w-auto min-w-full lg:grid lg:w-full lg:grid-cols-6 gap-1">
+              <TabsTrigger value="All" className="text-xs sm:text-sm whitespace-nowrap">Semua</TabsTrigger>
+              {getAllContinents().map(continent => (
+                <TabsTrigger key={continent} value={continent} className="text-xs sm:text-sm whitespace-nowrap">
+                  {continent}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
         </Tabs>
 
         {/* Hypothetical Notice */}
         {!currentStats.isInRegion && (
-          <div className="p-4 border-2 border-dashed border-blue-300 rounded-lg bg-blue-50/50">
-            <p className="text-sm text-blue-700 text-center">
+          <div className="p-3 sm:p-4 border-2 border-dashed border-blue-300 rounded-lg bg-blue-50/50 mt-2">
+            <p className="text-xs sm:text-sm text-blue-700 text-center leading-relaxed">
               <strong>Perhitungan Hipotetis:</strong> Indonesia sebenarnya berada di benua <strong>Asia</strong>.
               Ranking di bawah ini menunjukkan posisi Indonesia <em>jika</em> Indonesia berada di benua <strong>{selectedRegion}</strong>.
             </p>
